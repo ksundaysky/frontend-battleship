@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -7,22 +7,31 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<form class="navbar-dark" action="/" method="post">
-    <div class = "row">
-        <div class = "col">
-            <div class="form-group">
-                <label for="email">email</label>
-                <input type="email" class="form-control" id="email" name="email"  placeholder="email">
+<h1 align="center" class="display-1">Statki</h1>
+<a href="/login">Elo</a>
+<td>
+    <span th:if="${session.user == null}">
+         <form class="navbar-dark" action="/" method="post">
+        <div class="row-3">
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="email">
+                </div>
             </div>
-        </div>
-        <div class = "col">
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                </div>
             </div>
+        <button type="submit" class="btn btn-secondary">Sing in</button>
         </div>
-    </div>
-    <button type="submit" class="btn btn-secondary">Sing in</button>
-</form>
+    </form>
+    </span>
+    <span th:unless="${session.user == null}">
+        <span th:text="${session.user}"></span>
+    </span>
+</td>
 </body>
 </html>
