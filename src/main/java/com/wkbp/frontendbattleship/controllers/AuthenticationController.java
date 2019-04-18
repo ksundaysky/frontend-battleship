@@ -54,11 +54,11 @@ public class AuthenticationController {
                        Model model) {
 
         HttpStatus response = getResponseFromServerUserAuthentication(email, password);
-        if (response.equals(HttpStatus.ACCEPTED)) {
+        if (!response.equals(HttpStatus.ACCEPTED)) {
             model.addAttribute("wrongPasswordOrEmail", "email or password is incorrect");
-            return "redirect:/";
+            return "login";
         }
-        return "login";
+        return "redirect:/";
     }
 
     private HttpStatus getResponseFromServerUserAuthentication(String email, String password) {

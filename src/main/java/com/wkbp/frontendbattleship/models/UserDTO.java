@@ -1,7 +1,7 @@
 package com.wkbp.frontendbattleship.models;
 
 /**
- *
+ * User Data Transfer Object for User entity
  *
  * @author Patryk Kucharski
  */
@@ -23,11 +23,4 @@ public class UserDTO {
         return password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }
