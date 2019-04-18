@@ -5,17 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * @author Patryk Kucharski
- * <p>
- * Controller that maps
  */
-
 @Controller
-public class AuthenticationController {
+public class HomeController {
 
     @GetMapping("/")
-    public String login(){
-        return "login";
+    public String home(){
+        return "home";
     }
-
-
 }
