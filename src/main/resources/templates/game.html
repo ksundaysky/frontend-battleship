@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href=“https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css” rel=“stylesheet”/>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Strona Głowna</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mx-auto order-0">
+        <span class="navbar-brand mx-auto" href="#">Gra</span>
+    </div>
+
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-secondary">PL<span class="flag-icon flag-icon-pl"></span></button>
+                    <button type="button" class="btn btn-secondary">ENG<span class="flag-icon flag-icon-us"></span></button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row outer-div">
+    <div class="col-6 inner-div border border-secondary">
+        Twoja plansza
+        <hr>
+        <img src="/board.jpeg">
+        <div class="row outer-div">
+            <div class="col inner-div">
+                <button class="btn btn-secondary">Poddaj się</button>
+            </div>
+        </div>
+        <div class="row outer-div form-group">
+            <div class="col inner-div">
+                <label for="gameHistory">Historia Gry</label>
+                <textarea class="form-control" id="gameHistory" rows="5"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 inner-div border border-secondary">
+        Plansza przeciwnika
+        <hr>
+        <img src="/board.jpeg">
+        <div class="row outer-div">
+            <div class="col inner-div">
+                <button class="btn btn-secondary">Zaznacz losowe pole</button>
+                <button class="btn btn-secondary">Strzał</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

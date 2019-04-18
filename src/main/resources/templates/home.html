@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href=“https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css” rel=“stylesheet”/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Strona Główna</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href=/login>Logowanie</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register">Rejestracja</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="mx-auto order-0">
+        <span class="navbar-brand mx-auto" href="#">STATKI</span>
+    </div>
+
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-secondary">PL<span class="flag-icon flag-icon-pl"></span></button>
+                    <button type="button" class="btn btn-secondary">ENG<span class="flag-icon flag-icon-us"></span></button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="row outer-div">
+    <div class="col inner-div">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Data</th>
+                <th scope="col">Gracz</th>
+                <th scope="col">Hostujący</th>
+                <th scope="col">Config</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row outer-div">
+    <div class="col inner-div">
+        <button onclick="location.href='/gameConfig'" class="btn btn-secondary" type="button">
+            Stwórz gre</button>
+    </div>
+</div>
+</body>
+</html>
