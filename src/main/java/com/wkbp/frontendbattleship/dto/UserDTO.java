@@ -1,4 +1,4 @@
-package com.wkbp.frontendbattleship.models;
+package com.wkbp.frontendbattleship.dto;
 
 /**
  * User Data Transfer Object for User entity

@@ -12,6 +12,6 @@ public class GameConfigControllerTest {
     @Test
     public void testGameConfig() {
         GameConfigController gameConfigController = new GameConfigController();
-        assertEquals(gameConfigController.gameConfig(), "gameConfig");
+        assert gameConfigController.gameConfig().equals("gameConfig") : "gameConfig String should be retured";
     }
 }

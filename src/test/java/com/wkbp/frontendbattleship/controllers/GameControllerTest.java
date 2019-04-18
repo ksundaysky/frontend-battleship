@@ -12,6 +12,6 @@ public class GameControllerTest {
     @Test
     public void testGame() {
         GameController gameController = new GameController();
-        assertEquals(gameController.game(), "game");
+        assert gameController.game().equals("game") : "game String should be returned";
     }
 }

@@ -12,6 +12,6 @@ public class RegisterControllerTest {
     @Test
     public void testRegister() {
         RegisterController registerController = new RegisterController();
-        assertEquals(registerController.register(), "register");
+        assert registerController.register().equals("register") : "register String should be returned";
     }
 }
