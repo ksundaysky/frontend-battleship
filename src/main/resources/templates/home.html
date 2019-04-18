@@ -1,10 +1,143 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href=“https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css” rel=“stylesheet”/>
 </head>
 <body>
-<h1>home</h1>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href=/login>Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="mx-auto order-0">
+                    <span class="navbar-brand mx-auto" href="#">STATKI</span>
+            </div>
+        
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <span class="nav-link" href="#">Zalogowany jako: </span>
+                        </li>
+                        <li class="nav-item">
+                                <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-secondary">PL<span class="flag-icon flag-icon-pl"></span></button>
+                                        <button type="button" class="btn btn-secondary">ENG<span class="flag-icon flag-icon-us"></span></button>
+                                </div>
+                        </li>
+                    </ul>
+        </div>
+ </nav>
+
+<!--     
+
+<div class="containter" >
+    <div style="float:right">
+            <div class="row justify-content-md-center" >
+                    <div class="col-lg-7">
+                      <span th:unless="${session.user == null}">
+                            Zalogowany jako: 
+                            <span th:text="${session.user}"></span>
+                      </span>  
+                    </div>
+                    <div class="col-lg-5">
+                            
+                    </div>
+                
+            </div>
+    
+            <div class="row justify-content-md-center" >
+                            <span th:if="${session.user == null}">
+                                 <form class="navbar-dark" action="/" method="post">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="email">E-mail</label>
+                                                <input type="email" class="form-control" id="email" name="email" placeholder="email">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="password">Password</label>
+                                                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-md-center" >
+                                            <div class="col">
+                                                <button type="submit" class="btn btn-secondary">Sing in</button>
+                                            </div>
+                                            <div class="col">
+                                                <button class="btn btn-secondary">Register</button>
+                                            </div>
+                                    </div>
+                                </form>
+                            </span>
+            </div>
+    </div> -->
+<div class="row outer-div">
+        <div class="col inner-div">
+                <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Gracz</th>
+                            <th scope="col">Hostujący</th>
+                            <th scope="col">Config</th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                                <th scope="row">2</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                          </tr>
+                          <tr>
+                                <th scope="row">3</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                          </tr>
+                        </tbody>
+                </table>
+        </div>
+</div>
+<div class="row outer-div">
+        <div class="col inner-div">
+                <button onclick="location.href='/gameConfig'" class="btn btn-secondary" type="button">
+                    Stwórz gre</button>
+        </div>
+</div>
 </body>
 </html>

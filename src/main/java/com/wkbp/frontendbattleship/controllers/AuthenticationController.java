@@ -1,6 +1,7 @@
 package com.wkbp.frontendbattleship.controllers;
 
 import com.wkbp.frontendbattleship.models.UserDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,10 @@ import org.springframework.web.client.RestTemplate;
 
 @Controller
 public class AuthenticationController {
+
+
+    @Value("${backend.url}")
+    private String url;
 
     /**
      * Maps /login to html template
@@ -44,7 +49,7 @@ public class AuthenticationController {
      * is indeed successful otherwise returns login template
      */
 
-    @PostMapping("/")
+    @PostMapping("/login")
     public String home(@RequestParam("email") String email,
                        @RequestParam("password") String password,
                        Model model) {
@@ -60,6 +65,6 @@ public class AuthenticationController {
     private HttpStatus getResponseEntityFromServerUserAuthentication(@RequestParam("email") String email, @RequestParam("password") String password) {
         UserDto user = new UserDto(email, password);
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject("http://localhost:8080/getUser", user, HttpStatus.class);
+        return restTemplate.postForObject(url + "getUser", user, HttpStatus.class);
     }
 }
