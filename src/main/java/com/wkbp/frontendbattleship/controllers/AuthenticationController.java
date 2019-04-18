@@ -1,6 +1,6 @@
 package com.wkbp.frontendbattleship.controllers;
 
-import com.wkbp.frontendbattleship.models.UserDTO;
+import com.wkbp.frontendbattleship.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;

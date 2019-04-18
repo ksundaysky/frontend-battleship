@@ -12,6 +12,6 @@ public class HomeControllerTest {
     @Test
     public void testHome() {
         HomeController homeController = new HomeController();
-        assertEquals(homeController.home(), "home");
+        assert homeController.home().equals("home") : "home String should be returned";
     }
 }

@@ -2,8 +2,6 @@ package com.wkbp.frontendbattleship.controllers;
 
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
-
 /**
  * @author Wiktor Rup
  */
@@ -13,6 +11,6 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testLogin() {
-        assertEquals(authenticationController.login(), "login");
+        assert authenticationController.login().equals("login") : "login string should be returned";
     }
 }
