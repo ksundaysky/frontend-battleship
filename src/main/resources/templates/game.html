@@ -9,7 +9,6 @@
     <link href=“https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css” rel=“stylesheet”/>
 
 </head>
-
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -18,18 +17,10 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/">Strona Głowna</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href=/login>Logowanie</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/register">Rejestrajca</a>
-            </li>
         </ul>
     </div>
-
-
     <div class="mx-auto order-0">
-        <span class="navbar-brand mx-auto" href="#">WYBIERZ TRYB GRY</span>
+        <span class="navbar-brand mx-auto" href="#">Gra</span>
     </div>
 
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
@@ -45,22 +36,33 @@
 </nav>
 
 <div class="row outer-div">
-    <div class="col-6 col-md-4 inner-div border border-secondary id1">
-        <span>Tryb 1</span>
+    <div class="col-6 inner-div border border-secondary">
+        Twoja plansza
+        <hr>
+        <img src="/board.jpeg">
+        <div class="row outer-div">
+            <div class="col inner-div">
+                <button class="btn btn-secondary">Poddaj się</button>
+            </div>
+        </div>
+        <div class="row outer-div form-group">
+            <div class="col inner-div">
+                <label for="gameHistory">Historia Gry</label>
+                <textarea class="form-control" id="gameHistory" rows="5"></textarea>
+            </div>
+        </div>
     </div>
-    <div class="col-6 col-md-4 inner-div border border-secondary id1">
-        <span>Tryb 2</span>
-    </div>
-    <div class="col-6 col-md-4 inner-div border border-secondary id1">
-        <span>Tryb 3</span>
+    <div class="col-6 inner-div border border-secondary">
+        Plansza przeciwnika
+        <hr>
+        <img src="/board.jpeg">
+        <div class="row outer-div">
+            <div class="col inner-div">
+                <button class="btn btn-secondary">Zaznacz losowe pole</button>
+                <button class="btn btn-secondary">Strzał</button>
+            </div>
+        </div>
     </div>
 </div>
-
-<div class="row outer-div">
-    <div class="col inner-div">
-        <button onclick="location.href='/game'" class="btn btn-secondary" type="button">Rozpocznij grę</button>
-    </div>
-</div>
-
 </body>
 </html>
