@@ -1,19 +1,26 @@
 package com.wkbp.frontendbattleship.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
+ * Controller that maps https://battleship-wkbp-server.herokuapp.com/gameConfig
+ *
  * @author Patryk Kucharski
  */
 
 @Controller
 public class GameConfigController {
 
+    /**
+     * maps https://battleship-wkbp-server.herokuapp.com/gameConfig to template
+     *
+     * @return resources/templates/gameConfig.html
+     */
+
     @GetMapping("/gameConfig")
-    public String gameConfig(Model model) {
-        // TODO: 18.04.19 sprawdzic czy jest zalogowany
+    public String gameConfig() {
+
         return "gameConfig";
     }
 }

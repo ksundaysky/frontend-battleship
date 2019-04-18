@@ -1,16 +1,16 @@
 package com.wkbp.frontendbattleship.models;
 
 /**
+ *
+ *
  * @author Patryk Kucharski
  */
-public class UserDto {
+public class UserDTO {
 
     private String email;
     private String password;
 
-    public UserDto(){}
-
-    public UserDto(String email, String password) {
+    public UserDTO(String email, String password) {
         this.email = email;
         this.password = password;
     }

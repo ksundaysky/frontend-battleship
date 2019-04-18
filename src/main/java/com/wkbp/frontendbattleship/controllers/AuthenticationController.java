@@ -1,6 +1,6 @@
 package com.wkbp.frontendbattleship.controllers;
 
-import com.wkbp.frontendbattleship.models.UserDto;
+import com.wkbp.frontendbattleship.models.UserDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -11,16 +11,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * RestController to communicate with server in terms of user authentication
+ * Controller to communicate with server in terms of user authentication
+ * and map login
  *
  * @author Patryk Kucharski
  * <p>
- *
  */
 
 @Controller
 public class AuthenticationController {
-
 
     @Value("${backend.url}")
     private String url;
@@ -54,7 +53,7 @@ public class AuthenticationController {
                        @RequestParam("password") String password,
                        Model model) {
 
-        HttpStatus response = getResponseEntityFromServerUserAuthentication(email, password);
+        HttpStatus response = getResponseFromServerUserAuthentication(email, password);
         if (response.equals(HttpStatus.ACCEPTED)) {
             model.addAttribute("wrongPasswordOrEmail", "email or password is incorrect");
             return "redirect:/";
@@ -62,9 +61,9 @@ public class AuthenticationController {
         return "login";
     }
 
-    private HttpStatus getResponseEntityFromServerUserAuthentication(@RequestParam("email") String email, @RequestParam("password") String password) {
-        UserDto user = new UserDto(email, password);
+    private HttpStatus getResponseFromServerUserAuthentication(String email, String password) {
+        UserDTO user = new UserDTO(email, password);
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject(url + "getUser", user, HttpStatus.class);
+        return restTemplate.postForObject(url + "verifyUser", user, HttpStatus.class);
     }
 }
