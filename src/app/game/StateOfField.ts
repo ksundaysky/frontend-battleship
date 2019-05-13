@@ -1,0 +1,4 @@
+enum StateOfField{
+    EMPTY,
+    OCCUPIED
+}
