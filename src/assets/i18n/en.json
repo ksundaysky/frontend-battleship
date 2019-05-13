@@ -1,0 +1,16 @@
+{
+    "HOME": "Home",
+    "LOGIN": "Login",
+    "USER BOARD": "User board",
+    "CONFIG": "Configuration",
+    "GAME": "Game",
+    "USERNAME": "Username",
+    "USERNAME IS REQUIRED": "Username is required",
+    "PASSWORD": "Password",
+    "PASSWORD IS REQUIRED": "Password is required",
+    "PASSWORD 6 CHAR": "Password must be at least 6 characters",
+    "LOGIN FAILED": "Login failed",
+    "NO ACCOUNT": "Don't have an account?",
+    "SIGN UP": "Sign up" ,
+    "RANDOM": "Randomize ships"
+}
