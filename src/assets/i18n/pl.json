@@ -1,0 +1,16 @@
+{
+    "HOME": "Strona Domowa",
+    "LOGIN": "Logowanie",
+    "USER BOARD": "Panel użytkownika",
+    "GAME": "Gra",
+    "CONFIG": "Konfiguracja",
+    "USERNAME": "Użytkownik",
+    "USERNAME IS REQUIRED": "Użytkownik jest wymagany",
+    "PASSWORD": "Hasło",
+    "PASSWORD IS REQUIRED": "Hasło jest wymagane",
+    "PASSWORD 6 CHAR": "Hasło musi mieć 6 znaków",
+    "LOGIN FAILED": "Logowanie nieudane",
+    "NO ACCOUNT": "Nie masz konta?",
+    "SIGN UP": "Zarejestruj się",
+    "RANDOM": "Losowe rozstawienie"
+}
