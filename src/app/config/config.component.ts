@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { resolveDefinition } from '@angular/core/src/view/util';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-config',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigComponent implements OnInit {
 
-  constructor() { }
+  form:any = {};
+  constructor(private router:Router) { }
 
   ngOnInit() {
   }
+
+  onSubmit(){
+    console.log(this.form);
+
+    console.log(location.host)
+    document.location.href = location.host+'/home';
+    document.location.replace(location.host+'/home');
+
+
+  }
+
 
 }
