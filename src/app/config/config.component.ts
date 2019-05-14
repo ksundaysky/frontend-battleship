@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { resolveDefinition } from '@angular/core/src/view/util';
 import { Router } from '@angular/router'
+import { Config } from './config';
+import { ConfigService } from './config.service';
 
 @Component({
   selector: 'app-config',
@@ -10,7 +12,9 @@ import { Router } from '@angular/router'
 export class ConfigComponent implements OnInit {
 
   form:any = {};
-  constructor(private router:Router) { }
+  errorMessage: string;
+  constructor(private router:Router, private configService: ConfigService) { }
+
 
   ngOnInit() {
   }
@@ -22,7 +26,16 @@ export class ConfigComponent implements OnInit {
     document.location.href = location.host+'/home';
     document.location.replace(location.host+'/home');
 
+    let config = new Config(this.form.dimension,this.form.whoStarts,this.form.gameType);
 
+    this.configService.postConfig(config).subscribe(
+      data => {
+        console.log(data);
+     },
+     error => {
+       this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+     }
+    )
   }
 
 
