@@ -23,19 +23,21 @@ export class ConfigComponent implements OnInit {
     console.log(this.form);
 
     console.log(location.host)
-    document.location.href = location.host+'/home';
-    document.location.replace(location.host+'/home');
+    // document.location.href = location.host+'/game';
+    // document.location.replace(location.host+'/game');
 
     let config = new Config(this.form.dimension,this.form.whoStarts,this.form.gameType);
 
-    this.configService.postConfig(config).subscribe(
-      data => {
-        console.log(data);
-     },
-     error => {
-       this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-     }
-    )
+    // this.configService.postConfig(config).subscribe(
+    //   data => {
+    //     console.log(data);
+    //  },
+    //  error => {
+    //    this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+    //  }
+    // )
+  
+    this.router.navigateByUrl("/game");
   }
 
 

@@ -7,11 +7,11 @@
                   <div class="form-group">
                     <label for="dimension">{{ 'DIMENSION' | translate }}</label>
                     <input  id="range_weight" oninput="range_weight_disp.value = range_weight.value" type="range" min="10" max ="15" value="10" class="slider" default="10" name="dimension" [(ngModel)]="form.dimension" #dimensions="ngModel" required />
-                    <output  id="range_weight_disp"></output>
+                    <output id="range_weight_disp"></output><div *ngIf="range_weight > 0"><span>...Soon</span></div>
                   </div>
                   <div class="form-group">
                     <label for="whoStarts">{{ 'WHO_STARTS' | translate }}</label>
-                    Me?<input id="whoStarts" type="checkbox" class="form-control" name="whoStarts" [(ngModel)]="form.whoStarts" #whoStarts="ngModel" />
+                    Me?<input id="whoStarts" type="checkbox" class="form-control" name="whoStarts" [(ngModel)]="form.whoStarts" value="false" #whoStarts="ngModel" />
                     <label for="whoStarts">{{ 'AM_I_STARTING' | translate }}</label>
                   </div> 
                   <div class="form-group">
@@ -21,8 +21,8 @@
                  
                     </select>
                   </div> 
-                  <div class="form-group">
-                      <button >{{ 'GAME' | translate }}</button>
+                  <div *ngIf="form.dimension==10 && (form.whoStarts==true || form.whoStarts==false) && form.gameType!=null" class="form-group">
+                      <button  >{{ 'GAME' | translate }}</button>
                   </div>
                 </form>
               </div>

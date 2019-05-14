@@ -12,9 +12,9 @@ const httpOptions = {
 })
 export class GameService {
 
-  private gameUrl = 'https://battleship-wkbp-server.herokuapp.com/api/test/game';
-  private shotUrl = 'https://battleship-wkbp-server.herokuapp.com/api/test/game/shot';
-  private shipUrl = 'https://battleship-wkbp-server.herokuapp.com/api/test/game/ships';
+  private gameUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/game_config';
+  private shotUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/post/game/shoot';
+  private shipUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/ships_placement';
 
   constructor(private http: HttpClient) { }
 

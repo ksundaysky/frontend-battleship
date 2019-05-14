@@ -15,8 +15,8 @@ const httpOptions = {
 })
 export class AuthService {
 
-  private loginUrl = 'https://battleship-wkbp-server.herokuapp.com/api/auth/signin';
-  private signupUrl = 'https://battleship-wkbp-server.herokuapp.com/api/auth/signup';
+  private loginUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/auth/sign_in';
+  private signupUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/auth/sign_up';
 
   constructor(private http: HttpClient) {
   }
