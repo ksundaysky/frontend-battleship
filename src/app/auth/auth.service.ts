@@ -21,7 +21,7 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
+  login(credentials: AuthLoginInfo): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(this.loginUrl, credentials, httpOptions);
   }
 

@@ -1,6 +1,5 @@
 div img{
     height: 80px;
-    /* width: 80px; */
 }
 
 li{
@@ -11,15 +10,14 @@ li{
 
 .nav-item-logout{
     text-align: right;
-    
 }
 
 li.flag{
-    /* margin: 0px; */
     margin-left: 0;
     margin-right: 0;
     padding: 0;
 }
+
 .flag.icon{
     padding: 0;
     margin: 0;

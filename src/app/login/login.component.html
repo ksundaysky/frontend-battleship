@@ -3,7 +3,7 @@
   </div>
   
   <ng-template #loggedOut>
-    <div class="container center-div" style="max-width:400px;">
+    <div class="container center-div">
       <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
         <div class="form-group">
           <label for="username">{{ 'USERNAME' | translate }}</label>
