@@ -12,5 +12,13 @@
     "LOGIN FAILED": "Logowanie nieudane",
     "NO ACCOUNT": "Nie masz konta?",
     "SIGN UP": "Zarejestruj się",
-    "RANDOM": "Losowe rozstawienie"
+    "RANDOM": "Losowe rozstawienie",
+    "NAME": "Twoje imie",
+    "EMAIL": "E-mail",
+    "NAME IS REQUIRED": "Imie jest wymagane",
+    "EMAIL IS REQUIRED": "E-mail jest wymagany",
+    "EMAIL MUST BE VALID": "E-mail jest niewłaściwy",
+    "REGISTER": "Zarejestruj",
+    "SIGNUP FAILED": "Rejestracja nie powiodła się :",
+    "REGISTRATION SUCCESS": "Rejestracja przebiegła pomyślnie. Zaloguj się!"
 }

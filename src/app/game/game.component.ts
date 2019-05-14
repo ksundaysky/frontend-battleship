@@ -21,10 +21,10 @@ export class GameComponent implements OnInit {
   
   ngOnInit() {
     this.boardLength = [0,1,2,3,4,5,6,7,8,9];
-
+    
     this.gameService.getGame().subscribe(
-      data => { this.info =data;
-      
+      data => { 
+        this.info =data;
       },
       error => {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
@@ -34,8 +34,6 @@ export class GameComponent implements OnInit {
 
   onClick(event){
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue; 
-
-    // this.gameService.postShot(new Field(event.toString()) );
     
     this.postShot(value.substring(0, value.length-1));
     console.log(value);

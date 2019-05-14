@@ -12,5 +12,13 @@
     "LOGIN FAILED": "Login failed",
     "NO ACCOUNT": "Don't have an account?",
     "SIGN UP": "Sign up" ,
-    "RANDOM": "Randomize ships"
+    "RANDOM": "Randomize ships",
+    "NAME": "Your name",
+    "EMAIL": "E-mail",
+    "NAME IS REQUIRED": "Name is required",
+    "EMAIL IS REQUIRED": "E-mail is required",
+    "EMAIL MUST BE VALID": "E-mail must be valid",
+    "REGISTER": "Register",
+    "SIGNUP FAILED": "Sign up is failed :",
+    "REGISTRATION SUCCESS": "Your registration is successful. Please login!"
 }

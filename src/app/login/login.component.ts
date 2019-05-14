@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       this.form.username,
       this.form.password);
 
-    this.authService.attemptAuth(this.loginInfo).subscribe(
+    this.authService.login(this.loginInfo).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUsername(data.username);
