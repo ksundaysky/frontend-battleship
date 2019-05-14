@@ -10,7 +10,7 @@ import * as $ from 'jquery';
 })
 
 export class GameComponent implements OnInit {
-  boardLength: number[];
+  levelsInBoard: number[];
   clickedCells = [''];
   shipCells = [];
   currentMessage: string;
@@ -20,8 +20,8 @@ export class GameComponent implements OnInit {
 
   
   ngOnInit() {
-    this.boardLength = [0,1,2,3,4,5,6,7,8,9];
-    
+    this.levelsInBoard = [0,1,2,3,4,5,6,7,8,9];
+
     this.gameService.getGame().subscribe(
       data => { 
         this.info =data;
