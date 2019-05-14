@@ -30,23 +30,15 @@ table.battleshipBoard {
     border-collapse: collapse;
 }
 
-
 td.battleCell {
     border: 4px solid rgb(199, 201, 204); 
-  }
-
-/* .outer-div {
-     padding: 30px;
-     text-align: center;
 }
-.inner-div {
-     display: inline-block;
-     padding: 50px;
-} */
 
 table {
   display: inline-block;
 }
+
 .attacked {
   border-collapse: collapse;
-  background: repeating-linear-gradient(45deg, #000000, #000000 10px, #FF0000 10px, #FF0000 20px); }
+  background: repeating-linear-gradient(45deg, #000000, #000000 10px, #FF0000 10px, #FF0000 20px); 
+}
