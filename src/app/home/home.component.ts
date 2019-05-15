@@ -7,8 +7,30 @@ import { TokenStorageService } from '../auth/token-storage.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
+  
 export class HomeComponent implements OnInit {
   info: any;
+  allGames = [
+    {
+    "name": "Gra",
+    "dimension": 1,
+  },
+  {
+    "name": "Gra2",
+    "dimension": 2,
+    
+  },
+  {
+    "name": "Gra3",
+    "dimension": 3,
+  },
+  {
+    "name": "Gra2",
+    "dimension": 4,
+    
+  }
+  ]
 
   constructor(private token: TokenStorageService) { }
 
