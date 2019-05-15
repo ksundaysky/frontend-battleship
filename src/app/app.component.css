@@ -1,0 +1,28 @@
+div img{
+    height: 80px;
+}
+
+li{
+    margin: 20px;
+    font-size: 150%;
+    font-family: sans-serif;
+}
+
+.nav-item-logout{
+    text-align: right;
+}
+
+li.flag{
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+}
+
+.flag.icon{
+    padding: 0;
+    margin: 0;
+}
+
+.navbar{
+    background-color: rgb(199, 201, 204);
+}

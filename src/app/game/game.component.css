@@ -1,0 +1,44 @@
+td.battleshipBoard {
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgb(199, 201, 204);
+    background-color:#00b1fa;
+}
+td.battleshipBoard.right:hover{
+  border-collapse: collapse;
+  background-color:#006994;
+}
+
+td.battleshipBoard.right.fired{
+  border-collapse: collapse;
+  background-color:#e03c31;
+}
+
+td.battleshipBoard.ships{
+  border-collapse: collapse;
+  background-color: #848482;
+}
+
+td.battleshipBoard.fired:hover{
+  border-collapse: collapse;
+  background-color: #990000;
+}
+table.battleshipBoard {
+    margin: auto;
+    background: lightgrey;
+    border: 5px solid rgb(199, 201, 204);
+    border-collapse: collapse;
+}
+
+td.battleCell {
+    border: 4px solid rgb(199, 201, 204); 
+}
+
+table {
+  display: inline-block;
+}
+
+.attacked {
+  border-collapse: collapse;
+  background: repeating-linear-gradient(45deg, #000000, #000000 10px, #FF0000 10px, #FF0000 20px); 
+}

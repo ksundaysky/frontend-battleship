@@ -1,0 +1,37 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <img class="navbar-brand" routerLink="/" src="/assets/img/logo.png">
+      </div>
+      <ul class="nav navbar-nav" routerLinkActive="active">
+        <li class="nav-item"><a class="nav-link" routerLink="home">{{ 'HOME' | translate }}</a></li>
+        <li *ngIf="authority === 'user'" class="nav-item">
+          <a class="nav-link" routerLink="user">{{ 'USER BOARD' | translate }}</a>
+        </li>
+        <li *ngIf="authority === 'user'" class="nav-item">
+          <a class="nav-link" routerLink="config">{{ 'CONFIG' | translate }}</a>
+        </li>
+        <li *ngIf="!authority" class="nav-item">
+          <a class="nav-link" routerLink="auth/login">{{ 'LOGIN' | translate }}</a>
+        </li>
+      </ul>
+  
+      <ul class="nav navbar-nav navbar-right flag">
+          <li *ngIf="authority" class="nav-item-logout">
+            <a class="nav-link" (click)="logout()"><i class="glyphicon glyphicon-off"></i></a>
+          </li>
+          <li class="flag">
+            <a class="nav-link flag" (click)="setLang('ola language')"><span class="flag-icon flag-icon-pl"></span></a>
+          </li>
+          <li class="flag">
+            <a class="nav-link flag" (click)="setLang('en')"><span class="flag-icon flag-icon-gb"></span></a>
+          </li>  
+      </ul>
+
+    </div>
+  </nav>
+  
+  
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>

@@ -1,0 +1,8 @@
+.center_div{
+    margin: 0 auto;
+    width:80%;
+}
+
+.container.center-div{
+    max-width:400px;
+}

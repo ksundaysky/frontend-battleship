@@ -8,17 +8,33 @@ and the objective of the game is to destroy the opposing player's fleet.
 
 ### PREREQUISITES
 
-* Java 11
-* Maven 3.3.6
-* Internet connection to download pom dependencies. 
+* node v11.14.0
+* npm 6.9.0
+* Angular: 6.1.9 
  
 ### RUNNING
 
-Client server url: https://battleship-wkbp.herokuapp.com/
+Client server url: https://wkbp-battleships.herokuapp.com/
 
-mvn clean install
-mvn spring-boot:run 
+Local run: 
+* npm install
+* ng serve -o
+
+Apllication runs on port 4200
+
+Production run:
+* ng build --aot --prod
+* node server.js
+
+ Apllication runs on port 4200
+
+ ### Backend
+
+ Backend server url: https://battleship-wkbp-server.herokuapp.com/
  
+ Backend repository url: https://github.com/ksundaysky/battleship
+
+
 ### BONUSES
  
 Patryk Kucharski 15.04 odpowiedzi - scrum

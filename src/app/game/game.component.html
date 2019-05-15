@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-5">
+        <table class="battleshipBoard">
+            <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard" id="myBoard">
+                <td *ngFor="let c of levelsInBoard ;" class="battleshipBoard battleCell" 
+                    [attr.id]="i*10+c+'L'" ></td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm-2">
+      <button (click)="randomShips()">{{ 'RANDOM' | translate }}</button>
+      {{shipCells}}
+    </div>
+    <div class="col-sm-5">
+      <table class="battleshipBoard">
+          <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard">
+              <td *ngFor="let c of levelsInBoard ;" class="battleshipBoard battleCell right" (click)="onClick($event)"
+                  [attr.id]="i*10+c+'R'"> </td>
+          </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<h2>{{currentMessage}}</h2>
+{{errorMessage}}
