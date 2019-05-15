@@ -11,8 +11,9 @@ td.battleshipBoard.right:hover{
 
 td.battleshipBoard.right.fired{
   border-collapse: collapse;
-  background-color:#e03c31; 
-  background-image: url("/src/assets/img/X.png");
+  background-color:#e03c31;
+  /* background: url("/src/assets/img/X.png");  */
+  /* background-image: url("/src/assets/img/X.png"); */
 }
 td.battleshipBoard.ships{
   border-collapse: collapse;
