@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RandomShipsService } from './random-ships.service';
 import { Field } from '../game/field';
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 import * as $ from 'jquery';
 
 
@@ -18,10 +18,12 @@ export class RandomshipsComponent implements OnInit {
   canIStart: boolean;
   
   
-  constructor(private router:Router, private randomShipsService: RandomShipsService) { }
+  constructor(private router:Router, private randomShipsService: RandomShipsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.boardLength = [0,1,2,3,4,5,6,7,8,9];
+    let id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    console.log(id);
   }
 
   getRandomShips(){
@@ -30,10 +32,9 @@ export class RandomshipsComponent implements OnInit {
       console.log(document.getElementById(filed+'L').classList.remove("ships"))
     }
 
-    console.log("siemka");
-
     this.shipCells = [];
-    this.randomShipsService.getShips().subscribe(
+    let id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    this.randomShipsService.getShips(id).subscribe(
       data =>{
         console.log(data);
         var shipLocations: Array<Field> = JSON.parse(data);
@@ -61,7 +62,11 @@ export class RandomshipsComponent implements OnInit {
   }
 
   goToTheGameRoom(){
-    this.router.navigateByUrl("/game");
+    let id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    var str1 = new String( "game/" ); 
+    var str2 = id.toString();
+    var str3 = str1.concat( str2 );
+    this.router.navigateByUrl(str3);
   }
 
 }

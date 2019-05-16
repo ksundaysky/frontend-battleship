@@ -21,20 +21,29 @@ export class ConfigComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
-    console.log(f.value.whoStarts);
+
     var boolValue = JSON.parse(f.value.whoStarts);
     let config = new Config(f.value.name, f.value.dimension, boolValue, f.value.gameType);
     console.log(config);
 
     this.configService.postConfig(config).subscribe(
       data => {
-        console.log(data);
+        console.log(data + ":  data")
+        let id = data;
+        // console.log(id);
+        var str1 = new String( "ships_placement/" ); 
+        var str2 = id;
+        var str3 = str1.concat( str2 );
+        // console.log(str3 + ": str3");
+        // //this.router.navigate(['/ship_placement/', this.id])
+        this.router.navigateByUrl(str3);
      },
       error => {
        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       }
     )
-    this.router.navigateByUrl("/randomships");
+    
+
   }
   // onSubmit(){
   //   console.log(this.form);

@@ -13,9 +13,7 @@ export class AppComponent implements OnInit {
   public authority: string;
   languages = ['pl','en'];
 
-  constructor(private tokenStorage: TokenStorageService,private translate: TranslateService) {
-      console.log(translate.data);
-   }
+  constructor(private tokenStorage: TokenStorageService,private translate: TranslateService) {   }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {

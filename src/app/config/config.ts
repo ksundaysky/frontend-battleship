@@ -1,20 +1,20 @@
-enum GameType{
-    DEFAULT
+enum GameMode{
+    STANDARD
 }
 
 export class Config{
 
-    name: String;
-    dimensions:number;
-    whoStarts:boolean;
-    gameType:GameType;
+    gameName: String;
+    dimension:number;
+    doesOwnerStart:boolean;
+    gameMode:GameMode;
 
 
-    constructor(name:String, dimensions:String, whoStarts:boolean, gameType:GameType ){
-        this.name = name;
-        this.dimensions=+dimensions;
-        this.whoStarts=whoStarts;
-        this.gameType=gameType;
+    constructor(gameName:String, dimension:String, doesOwnerStart:boolean, gameMode:GameMode ){
+        this.gameName = gameName;
+        this.dimension =+dimension;
+        this.doesOwnerStart = doesOwnerStart;
+        this.gameMode >= gameMode;
     }
 
 }

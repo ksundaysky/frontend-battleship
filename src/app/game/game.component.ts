@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { GameService } from './game.service';
 import { Field } from './field';
 import * as $ from 'jquery';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-game',
@@ -18,14 +19,17 @@ export class GameComponent implements OnInit, AfterViewInit {
   currentMessage: string;
   info:  string;
   errorMessage: string;
-  constructor( private gameService: GameService) { }
+  shotUnabled: boolean = false;
+
+  constructor( private gameService: GameService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.levelsInBoard = [0,1,2,3,4,5,6,7,8,9];
   }
 
   ngAfterViewInit(): void {
-    this.randomShipsColor(this.colorShips);
+    this.getShips();
+    //this.randomShipsColor(this.colorShips);
   }
 
   
@@ -34,7 +38,10 @@ export class GameComponent implements OnInit, AfterViewInit {
 
     // this.gameService.postShot(new Field(event.toString()) );
     
-    this.postShot(value.substring(0, value.length-1));
+    if(this.shotUnabled==false){
+      this.currentMessage='Nie strzelaj, nie Twoja kolej!';
+    }else{
+      this.postShot(value.substring(0, value.length-1));
     console.log(value);
 
     if(!this.clickedCells.includes(value)){
@@ -46,6 +53,8 @@ export class GameComponent implements OnInit, AfterViewInit {
       this.currentMessage='nie tutaj galganie';
       }
     }
+  
+    }
 
   static highlightFields(values){
         const id = '#'+values.toString();
@@ -53,18 +62,17 @@ export class GameComponent implements OnInit, AfterViewInit {
         $(id).addClass('fired');
   }
 
-  shot(value){
-    let field = new Field(value);
-
-    this.gameService.getShips().subscribe(
-      data => {
-         this.info = JSON.stringify(data);
-      },
-      error => {
-        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-      }
-  );
-  }
+  // shot(value){
+  //   let field = new Field(value);
+  //   this.gameService.getShips().subscribe(
+  //     data => {
+  //        this.info = JSON.stringify(data);
+  //     },
+  //     error => {
+  //       this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+  //     }
+  // );
+  // }
 
   postShot(value){
 
@@ -85,37 +93,52 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   randomShipsColor(randomShips){
     for(let ships of randomShips){
-      console.log(ships);
           const id = '#'+ships.id+'L';
-          console.log(id);
           $(id).addClass('ships');
     }
   }
 
-  randomShips(){
+  getShips(){
 
-    for(const filed of this.shipCells){
-      console.log(document.getElementById(filed+'L').classList.remove("ships"))
-    }
-
-    this.shipCells = [];
-    this.gameService.getShips().subscribe(
+    let id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    this.gameService.getShips(id).subscribe(
       data =>{
         console.log(data);
-        var shipLocations: Array<Field> = JSON.parse(data);
-        for(const ship of shipLocations){
-        
-          if(ship.stateOfField.toString()=="OCCUPIED"){
-            this.shipCells.push(ship.id);
-          }
-        }
-        this.randomShipsColor(this.shipCells);
+        var shipLocations: Array<String> = JSON.parse(data);
+        console.log(shipLocations);
+        this.randomShipsColor(shipLocations);
       },
       error => {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       }
     );
+  }
+
+
+  // randomShips(){
+
+  //   for(const filed of this.shipCells){
+  //     console.log(document.getElementById(filed+'L').classList.remove("ships"))
+  //   }
+
+  //   this.shipCells = [];
+  //   this.gameService.getShips().subscribe(
+  //     data =>{
+  //       console.log(data);
+  //       var shipLocations: Array<Field> = JSON.parse(data);
+  //       for(const ship of shipLocations){
+        
+  //         if(ship.stateOfField.toString()=="OCCUPIED"){
+  //           this.shipCells.push(ship.id);
+  //         }
+  //       }
+  //       this.randomShipsColor(this.shipCells);
+  //     },
+  //     error => {
+  //       this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+  //     }
+  //   );
   
-}
+  // }
 
 }

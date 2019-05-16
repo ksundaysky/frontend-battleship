@@ -14,7 +14,7 @@ export class GameService {
 
   private gameUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/game_config';
   private shotUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/post/game/shoot';
-  private shipUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/ships_placement';
+  private shipUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/game/';
 
   constructor(private http: HttpClient) { }
 
@@ -22,8 +22,8 @@ export class GameService {
     return this.http.get(this.gameUrl, { responseType: 'text' });
   }
 
-  getShips(): Observable<string> {
-    return this.http.get(this.shipUrl, { responseType: 'text' });
+  getShips(id): Observable<string> {
+    return this.http.get(this.shipUrl+id, { responseType: 'text' });
   }
 
   postShot(field:Field): Observable<string> {

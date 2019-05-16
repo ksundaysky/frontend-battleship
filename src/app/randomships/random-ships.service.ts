@@ -11,12 +11,12 @@ const httpOptions = {
 })
 export class RandomShipsService {
 
-  private shipUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/ships_placement';
+  private shipUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/ship_randomize/';
 
   constructor(private http: HttpClient) { }
 
-  getShips(): Observable<string> {
-    return this.http.get(this.shipUrl, { responseType: 'text' });
+  getShips(id): Observable<string> {
+    return this.http.get(this.shipUrl+id, { responseType: 'text' });
   }
 
   
