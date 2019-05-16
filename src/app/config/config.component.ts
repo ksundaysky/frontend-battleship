@@ -35,7 +35,7 @@ export class ConfigComponent implements OnInit {
        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       }
     )
-    this.router.navigateByUrl("/game");
+    this.router.navigateByUrl("/randomships");
   }
   // onSubmit(){
   //   console.log(this.form);

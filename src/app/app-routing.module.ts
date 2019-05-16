@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { GameComponent } from './game/game.component';
 import { ConfigComponent } from './config/config.component';
+import { RandomshipsComponent } from './randomships/randomships.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,10 @@ const routes: Routes = [
     {
         path: 'signup',
         component: RegisterComponent
+    },
+    {
+        path: 'randomships',
+        component: RandomshipsComponent
     },
     {
         path: '',

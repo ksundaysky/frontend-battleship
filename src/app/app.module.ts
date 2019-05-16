@@ -54,6 +54,7 @@ import {
   MatTooltipModule,
   MatTreeModule,
 } from '@angular/material';
+import { RandomshipsComponent } from './randomships/randomships.component';
 
 
 export function setupTranslateFactory(
@@ -71,7 +72,8 @@ export function setupTranslateFactory(
     HomeComponent,
     GameComponent,
     TranslatePipe,
-    ConfigComponent
+    ConfigComponent,
+    RandomshipsComponent
   ],
   imports: [
     BrowserAnimationsModule,

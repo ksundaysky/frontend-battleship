@@ -31,10 +31,9 @@ table.battleshipBoard {
     border-collapse: collapse;
 }
 
-
 td.battleCell {
     border: 4px solid rgb(199, 201, 204); 
-  }
+}
 
 /* .outer-div {
      padding: 30px;

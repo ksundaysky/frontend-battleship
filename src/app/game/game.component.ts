@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { GameService } from './game.service';
 import { Field } from './field';
 import * as $ from 'jquery';
@@ -9,10 +9,12 @@ import * as $ from 'jquery';
   styleUrls: ['./game.component.css']
 })
 
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, AfterViewInit {
+ 
   boardLength: number[];
   clickedCells = [''];
   shipCells = [];
+  colorShips = [{"id":67,"stateOfField":"OCCUPIED"},{"id":77,"stateOfField":"OCCUPIED"},{"id":87,"stateOfField":"OCCUPIED"},{"id":97,"stateOfField":"OCCUPIED"},{"id":17,"stateOfField":"OCCUPIED"},{"id":18,"stateOfField":"OCCUPIED"},{"id":19,"stateOfField":"OCCUPIED"},{"id":54,"stateOfField":"OCCUPIED"},{"id":64,"stateOfField":"OCCUPIED"},{"id":74,"stateOfField":"OCCUPIED"},{"id":42,"stateOfField":"OCCUPIED"},{"id":52,"stateOfField":"OCCUPIED"},{"id":36,"stateOfField":"OCCUPIED"},{"id":46,"stateOfField":"OCCUPIED"},{"id":93,"stateOfField":"OCCUPIED"},{"id":94,"stateOfField":"OCCUPIED"},{"id":4,"stateOfField":"OCCUPIED"},{"id":72,"stateOfField":"OCCUPIED"},{"id":60,"stateOfField":"OCCUPIED"},{"id":1,"stateOfField":"OCCUPIED"}]
   currentMessage: string;
   info:  string;
   errorMessage: string;
@@ -21,17 +23,13 @@ export class GameComponent implements OnInit {
   
   ngOnInit() {
     this.boardLength = [0,1,2,3,4,5,6,7,8,9];
-
-    this.gameService.getGame().subscribe(
-      data => { this.info =data;
-      
-      },
-      error => {
-        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-      }
-  );
   }
 
+  ngAfterViewInit(): void {
+    this.randomShipsColor(this.colorShips);
+  }
+
+  
   onClick(event){
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue; 
 
@@ -86,9 +84,11 @@ export class GameComponent implements OnInit {
   );
   }
 
-  static randomShipsColor(randomShips){
+  randomShipsColor(randomShips){
     for(let ships of randomShips){
-          const id = '#'+ships+'L';
+      console.log(ships);
+          const id = '#'+ships.id+'L';
+          console.log(id);
           $(id).addClass('ships');
     }
   }
@@ -110,7 +110,7 @@ export class GameComponent implements OnInit {
             this.shipCells.push(ship.id);
           }
         }
-        GameComponent.randomShipsColor(this.shipCells);
+        this.randomShipsColor(this.shipCells);
       },
       error => {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
