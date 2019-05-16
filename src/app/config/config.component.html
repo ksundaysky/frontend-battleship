@@ -1,1 +1,59 @@
-<button routerLink="/game">{{ 'GAME' | translate }}</button>
+<!-- 
+<form >
+
+
+        <div class="container center-div" style="max-width:400px;">
+                <form name="form" (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+                  <div class="form-group">
+                    <label for="dimension">{{ 'DIMENSION' | translate }}</label>
+                    <input  id="range_weight" oninput="range_weight_disp.value = range_weight.value" type="range" min="10" max ="15" value="10" class="slider" default="10" name="dimension" [(ngModel)]="form.dimension" #dimensions="ngModel" required />
+                    <output id="range_weight_disp"></output><div *ngIf="range_weight > 0"><span>...Soon</span></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="whoStarts">{{ 'WHO_STARTS' | translate }}</label>
+                    Me?<input id="whoStarts" type="checkbox" class="form-control" name="whoStarts" [(ngModel)]="form.whoStarts" value="false" #whoStarts="ngModel" />
+                    <label for="whoStarts">{{ 'AM_I_STARTING' | translate }}</label>
+                  </div> 
+                  <div class="form-group">
+                    <label for="gameType">{{ 'GAME_TYPE' | translate }}</label>
+                    <select id="gameType" type="" class="form-control" name="gameType" [(ngModel)]="form.gameType" #gameType="ngModel">
+                        <option value="default">{{'DEFAULT' | translate}}</option>
+                 
+                    </select>
+                  </div> 
+                  <div *ngIf="form.dimension==10 && (form.whoStarts==true || form.whoStarts==false) && form.gameType!=null" class="form-group">
+                      <button  >{{ 'GAME' | translate }}</button>
+                  </div>
+                </form>
+              </div>
+
+
+
+
+</form> -->
+
+<div class="container center-div" style="max-width:400px;">
+  <form class="config-form" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <mat-form-field class="config-form-width">
+      <input matInput name="name" ngModel required #name="ngModel" placeholder="{{ 'GAME NAME' | translate }}">
+    </mat-form-field>
+    <mat-slider class="config-form-width" min="10" max="15" step="1" [value]="10" name="dimension" ngModel required #dimension="ngModel"></mat-slider>
+    <mat-form-field class="config-form-width">
+        <mat-label>{{ 'AM I STARTING' | translate }}</mat-label>
+        <select matNativeControl required name="whoStarts" ngModel  #whoStarts="ngModel">
+            <option value="true">{{ 'YES' | translate }}</option>
+            <option value="false">{{ 'NO' | translate }}</option>
+        </select>
+    </mat-form-field>
+    <mat-form-field class="config-form-width">
+        <mat-label>{{ 'GAME TYPE' | translate }}</mat-label>
+        <select matNativeControl required name="gameType" ngModel  #gameType="ngModel">
+            <option value="DEFAULT">{{ 'DEFAULT' | translate }}</option>
+        </select>
+    </mat-form-field>
+    <button *ngIf='dimension.value==10 && name.valid && whoStarts.valid && gameType.valid' >{{ 'GAME' | translate }}</button>
+  </form>
+</div>
+
+<!-- <button routerLink="/game">{{ 'GAME' | translate }}</button> -->
+

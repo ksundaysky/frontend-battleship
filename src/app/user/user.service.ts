@@ -7,13 +7,12 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  private userUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/user_board';
-
+  private playerGames = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/playerGames';
 
   constructor(private http: HttpClient) { }
 
-  getUserBoard(): Observable<string> {
-    return this.http.get(this.userUrl, { responseType: 'text' });
+  getGames(): Observable<string> {
+    return this.http.get(this.playerGames, { responseType: 'text' });
   }
-
+  
 }
