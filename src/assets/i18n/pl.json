@@ -12,5 +12,11 @@
     "LOGIN FAILED": "Logowanie nieudane",
     "NO ACCOUNT": "Nie masz konta?",
     "SIGN UP": "Zarejestruj się",
-    "RANDOM": "Losowe rozstawienie"
+    "RANDOM": "Losowe rozstawienie",
+    "GAME NAME": "Nazwa gry",
+    "AM I STARTING": "Czy zaczynam?",
+    "YES": "Tak",
+    "NO": "Nie",
+    "GAME TYPE": "Tryb gry",
+    "DEFAULT": "Domyślny"
 }

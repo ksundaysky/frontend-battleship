@@ -12,5 +12,11 @@
     "LOGIN FAILED": "Login failed",
     "NO ACCOUNT": "Don't have an account?",
     "SIGN UP": "Sign up" ,
-    "RANDOM": "Randomize ships"
+    "RANDOM": "Randomize ships",
+    "GAME NAME": "Game name",
+    "AM I STARTING": "Am I Starting?",
+    "YES": "Yes",
+    "NO": "No",
+    "GAME TYPE": "Game Type",
+    "DEFAULT": "Default"
 }

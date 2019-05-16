@@ -35,20 +35,20 @@
 <div class="container center-div" style="max-width:400px;">
   <form class="config-form" #f="ngForm" (ngSubmit)="onSubmit(f)">
     <mat-form-field class="config-form-width">
-      <input matInput name="name" ngModel required #name="ngModel" placeholder="Game name">
+      <input matInput name="name" ngModel required #name="ngModel" placeholder="{{ 'GAME NAME' | translate }}">
     </mat-form-field>
     <mat-slider class="config-form-width" min="10" max="15" step="1" [value]="10" name="dimension" ngModel required #dimension="ngModel"></mat-slider>
     <mat-form-field class="config-form-width">
-        <mat-label>Am I Starting?</mat-label>
+        <mat-label>{{ 'AM I STARTING' | translate }}</mat-label>
         <select matNativeControl required name="whoStarts" ngModel  #whoStarts="ngModel">
-            <option value="true">Yes</option>
-            <option value="false">No</option>
+            <option value="true">{{ 'YES' | translate }}</option>
+            <option value="false">{{ 'NO' | translate }}</option>
         </select>
     </mat-form-field>
     <mat-form-field class="config-form-width">
-        <mat-label>Game Type</mat-label>
+        <mat-label>{{ 'GAME TYPE' | translate }}</mat-label>
         <select matNativeControl required name="gameType" ngModel  #gameType="ngModel">
-            <option value="DEFAULT">Default</option>
+            <option value="DEFAULT">{{ 'DEFAULT' | translate }}</option>
         </select>
     </mat-form-field>
     <button *ngIf='dimension.value==10 && name.valid && whoStarts.valid && gameType.valid' >{{ 'GAME' | translate }}</button>
