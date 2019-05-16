@@ -1,12 +1,13 @@
 <ng-template #loggedOut>
   Please login.
 </ng-template>
-
 <table>
-  <tr *ngFor="let game of allGames">
-      <td>{{game.name}}</td>
-      <td>{{game.dimension}}</td>
-      <td><button>JOIN GAME</button></td>
+  <tr *ngFor="let game of listOfAllGames | keyvalue">
+      <td>{{game.value.gameState}}</td>
+      <td>{{game.value.config.gameName}}</td>
+      <td>{{game.value.config.dimension}}</td>
+      <td>{{game.value.config.gameMode}}</td>
+      <td><button id="{{game.key}}" (click)="joinGame($event)">JOIN GAME</button></td>
   </tr>
 </table>
 

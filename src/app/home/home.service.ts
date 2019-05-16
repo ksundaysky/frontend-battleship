@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeService {
 
-  private allGames = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/allGames';
+  private allGames = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/gameslist';
 
 
   constructor(private http: HttpClient) { }

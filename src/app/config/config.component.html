@@ -47,11 +47,11 @@
     </mat-form-field>
     <mat-form-field class="config-form-width">
         <mat-label>{{ 'GAME TYPE' | translate }}</mat-label>
-        <select matNativeControl required name="gameType" ngModel  #gameType="ngModel">
+        <select matNativeControl required name="gameMode" ngModel  #gameMode="ngModel">
             <option value="STANDARD">{{ 'STANDARD' | translate }}</option>
         </select>
     </mat-form-field>
-    <button *ngIf='dimension.value==10 && name.valid && whoStarts.valid && gameType.valid' >{{ 'GAME' | translate }}</button>
+    <button *ngIf='dimension.value==10 && name.valid && whoStarts.valid && gameMode.valid' >{{ 'GAME' | translate }}</button>
   </form>
 </div>
 

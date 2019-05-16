@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TokenStorageService } from '../auth/token-storage.service';
+import { HomeService } from './home.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -31,8 +33,10 @@ export class HomeComponent implements OnInit {
     
   }
   ]
+  errorMessage: string;
+  listOfAllGames: String[];
 
-  constructor(private token: TokenStorageService) { }
+  constructor(private token: TokenStorageService, private homeService: HomeService, private router: Router) { }
 
   ngOnInit() {
     this.info = {
@@ -40,10 +44,33 @@ export class HomeComponent implements OnInit {
       username: this.token.getUsername(),
       authorities: this.token.getAuthorities()
     };
+    this.getListOfGames();
   }
 
   logout() {
     this.token.signOut();
     window.location.reload();
+  }
+
+  getListOfGames(){
+    this.homeService.getAllGames().subscribe(
+      data=>{
+        console.log(data);
+        var listOfGames: Array<String> = JSON.parse(data);
+        console.log(listOfGames);
+        this.listOfAllGames=listOfGames;
+      },
+      error=>{
+        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+      }
+    )
+  }
+
+  joinGame(event){
+    const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue;
+    var str1 = new String( "ships_placement/" ); 
+    var str2 = value;
+    var str3 = str1.concat( str2 );
+    this.router.navigateByUrl(str3);
   }
 }

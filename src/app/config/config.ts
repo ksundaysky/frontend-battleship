@@ -1,5 +1,5 @@
 enum GameMode{
-    STANDARD
+    STANDARD,
 }
 
 export class Config{
@@ -14,7 +14,7 @@ export class Config{
         this.gameName = gameName;
         this.dimension =+dimension;
         this.doesOwnerStart = doesOwnerStart;
-        this.gameMode >= gameMode;
+        this.gameMode = gameMode;
     }
 
 }
