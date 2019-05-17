@@ -1,13 +1,44 @@
 <ng-template #loggedOut>
   Please login.
 </ng-template>
-<table>
-  <tr *ngFor="let game of listOfAllGames | keyvalue">
-      <td>{{game.value.gameState}}</td>
-      <td>{{game.value.config.gameName}}</td>
-      <td>{{game.value.config.dimension}}</td>
-      <td>{{game.value.config.gameMode}}</td>
-      <td><button id="{{game.key}}" (click)="joinGame($event)">JOIN GAME</button></td>
-  </tr>
-</table>
 
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+        <table>
+          <tr>
+            <td class="top">{{ 'GAME STATE' | translate }}</td>
+            <td class="top">{{ 'GAME NAME' | translate }}</td>
+            <td class="top">{{ 'DIMENSION' | translate }}</td>
+            <td class="top">{{ 'GAME MODE' | translate }}</td>
+            <td class="top"></td>
+          </tr>
+          <tr *ngFor="let game of listOfAllGames | keyvalue">
+              <td>{{game.value.gameState | translate}}</td>
+              <td>{{game.value.config.gameName}}</td>
+              <td>{{game.value.config.dimension}}x{{game.value.config.dimension}}</td>
+              <td>{{game.value.config.gameMode | translate}}</td>
+              <td><button id="{{game.key}}" (click)="joinGame($event)">{{ 'JOIN GAME' | translate }}</button></td>
+          </tr>
+        </table>
+    </div>
+    <div class="col-sm-6">
+      <table>
+        <tr>
+          <td class="top">{{ 'GAME STATE' | translate }}</td>
+          <td class="top">{{ 'GAME NAME' | translate }}</td>
+          <td class="top">{{ 'DIMENSION' | translate }}</td>
+          <td class="top">{{ 'GAME MODE' | translate }}</td>
+          <td class="top"></td>
+        </tr>
+        <tr *ngFor="let game of listOfAllGames | keyvalue">
+            <td>{{game.value.gameState | translate}}</td>
+            <td>{{game.value.config.gameName}}</td>
+            <td>{{game.value.config.dimension}}x{{game.value.config.dimension}}</td>
+            <td>{{game.value.config.gameMode | translate}}</td>
+            <td><button id="{{game.key}}" (click)="joinGame($event)">{{ 'JOIN GAME' | translate }}</button></td>
+        </tr>
+      </table>
+  </div>
+  </div>
+</div>

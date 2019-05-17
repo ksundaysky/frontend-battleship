@@ -12,53 +12,36 @@ import { Router } from '@angular/router';
 
   
 export class HomeComponent implements OnInit {
+
   info: any;
-  allGames = [
-    {
-    "name": "Gra",
-    "dimension": 1,
-  },
-  {
-    "name": "Gra2",
-    "dimension": 2,
-    
-  },
-  {
-    "name": "Gra3",
-    "dimension": 3,
-  },
-  {
-    "name": "Gra2",
-    "dimension": 4,
-    
-  }
-  ]
-  errorMessage: string;
+  errorMessage: String;
   listOfAllGames: String[];
 
-  constructor(private token: TokenStorageService, private homeService: HomeService, private router: Router) { }
+  constructor(private token: TokenStorageService, private homeService: HomeService, private router: Router){}
 
   ngOnInit() {
+
     this.info = {
       token: this.token.getToken(),
       username: this.token.getUsername(),
       authorities: this.token.getAuthorities()
     };
-    this.getListOfGames();
-  }
 
-  logout() {
-    this.token.signOut();
-    window.location.reload();
+    this.getListOfGames();
+
+    
+      setTimeout (() => {
+        console.log("Siemanko mordy!");
+      }, 5000);
+   
   }
 
   getListOfGames(){
+
+    // -> get/gameslist
     this.homeService.getAllGames().subscribe(
       data=>{
-        console.log(data);
-        var listOfGames: Array<String> = JSON.parse(data);
-        console.log(listOfGames);
-        this.listOfAllGames=listOfGames;
+        this.listOfAllGames = JSON.parse(data);
       },
       error=>{
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
@@ -69,8 +52,7 @@ export class HomeComponent implements OnInit {
   joinGame(event){
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue;
     var str1 = new String( "ships_placement/" ); 
-    var str2 = value;
-    var str3 = str1.concat( str2 );
-    this.router.navigateByUrl(str3);
+    var str2 = str1.concat( value );
+    this.router.navigateByUrl(str2);
   }
 }

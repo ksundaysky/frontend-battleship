@@ -29,6 +29,11 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.getShips();
+    while(this.shotUnabled){
+      setTimeout (() => {
+        this.shotUnabled=true;
+      }, 5000);
+    }
     //this.randomShipsColor(this.colorShips);
   }
 

@@ -27,5 +27,13 @@
     "NO": "No",
     "GAME TYPE": "Game Type",
     "STANDARD": "Standard",
-    "START GAME": "Start Game"
+    "START GAME": "Start Game",
+    "DIMENSION": "Dimension",
+    "GAME MODE": "Game mode",
+    "GAME STATE": "Game state",
+    "IN_PROGRESS": "In progress",
+    "IN_PREPARATION": "In preparation",
+    "WAITING": "Waiting",
+    "FINISHED": "Finished",
+    "JOIN GAME": "Join game"
 }
