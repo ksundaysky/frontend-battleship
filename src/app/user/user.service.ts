@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  private playerGames = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/playerGames';
+  private playerGames = 'http://localhost:8080/api/wkbp/playerGames';
 
   constructor(private http: HttpClient) { }
 

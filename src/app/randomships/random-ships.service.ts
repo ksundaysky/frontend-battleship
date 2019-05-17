@@ -11,7 +11,8 @@ const httpOptions = {
 })
 export class RandomShipsService {
 
-  private shipUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/ship_randomize/';
+  private shipUrl = 'http://localhost:8080/api/wkbp/get/ship_randomize/';
+  private createUrl = 'http://localhost:8080/api/wkbp/get/ships_placement/';
 
   constructor(private http: HttpClient) { }
 
@@ -19,5 +20,8 @@ export class RandomShipsService {
     return this.http.get(this.shipUrl+id, { responseType: 'text' });
   }
 
+  getCreateGame(id):Observable<string>{
+    return this.http.get(this.createUrl+id,{responseType: 'text'})
+  }
   
 }

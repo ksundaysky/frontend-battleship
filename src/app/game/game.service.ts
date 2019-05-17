@@ -12,10 +12,12 @@ const httpOptions = {
 })
 export class GameService {
 
-  private gameUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/game_config';
-  private shotUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/post/game/shoot';
-  private shipUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/game/';
-  private turnUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/turn/';
+  private gameUrl = 'http://localhost:8080/api/wkbp/get/game_config';
+  private shotUrl = 'http://localhost:8080/api/wkbp/post/game/shoot/';
+  private shipUrl = 'http://localhost:8080/api/wkbp/get/game/';
+  private turnUrl = 'http://localhost:8080/api/wkbp/get/game/is_my_turn/';
+
+
 
   constructor(private http: HttpClient) { }
 
@@ -24,14 +26,14 @@ export class GameService {
   }
 
   getTurn(id): Observable<string> {
-    return this.http.get(this.gameUrl+id, { responseType: 'text' });
+    return this.http.get(this.turnUrl+id, { responseType: 'text' });
   }
 
   getShips(id): Observable<string> {
     return this.http.get(this.shipUrl+id, { responseType: 'text' });
   }
 
-  postShot(field:Field): Observable<string> {
-    return this.http.post<string>(this.shotUrl,field, httpOptions);
+  postShot(field:Field,gameId): Observable<string> {
+    return this.http.post<string>(this.shotUrl+gameId,field, httpOptions);
   }
 }

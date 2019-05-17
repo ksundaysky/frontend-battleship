@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  private userUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/user_board';
+  private userUrl = 'http://localhost:8080/api/wkbp/get/user_board';
 
 
   constructor(private http: HttpClient) { }

@@ -12,11 +12,13 @@ const httpOptions = {
 })
 export class ConfigService {
 
-  private configUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/post/game_config';
+  private configUrl = 'http://localhost:8080/api/wkbp/post/game_config';
+  private createUrl = 'http://localhost:8080/api/wkbp/get/ships_placement/';
 
   constructor(private http: HttpClient) { }
 
   postConfig(config:Config): Observable<string> {
     return this.http.post<string>(this.configUrl, config, httpOptions);
   }
+
 }

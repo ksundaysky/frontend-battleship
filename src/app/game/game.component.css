@@ -16,6 +16,12 @@ td.battleshipBoard.right.fired{
 td.battleshipBoard.ships{
   border-collapse: collapse;
   background-color: #848482;
+  /* background-image: linear-gradient(to bottom right ,  transparent calc(50% - 1px), red, transparent calc(50% + 1px));
+  background-image: linear-gradient(to bottom left ,  transparent calc(50% - 1px), red, transparent calc(50% + 1px)); */
+
+  background-image: url('../../assets/img/X.png');
+  background-size: contain;
+  
 }
 
 td.battleshipBoard.fired:hover{
