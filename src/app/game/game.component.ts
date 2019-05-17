@@ -12,17 +12,17 @@ import { interval } from 'rxjs';
   styleUrls: ['./game.component.css']
 })
 
-export class GameComponent implements OnInit, AfterViewInit,DoCheck {
+export class GameComponent implements OnInit, AfterViewInit {
   
 
   levelsInBoard: number[];
   clickedCells = [''];
   shipCells = [];
-  colorShips = [{"id":67,"stateOfField":"OCCUPIED"},{"id":77,"stateOfField":"OCCUPIED"},{"id":87,"stateOfField":"OCCUPIED"},{"id":97,"stateOfField":"OCCUPIED"},{"id":17,"stateOfField":"OCCUPIED"},{"id":18,"stateOfField":"OCCUPIED"},{"id":19,"stateOfField":"OCCUPIED"},{"id":54,"stateOfField":"OCCUPIED"},{"id":64,"stateOfField":"OCCUPIED"},{"id":74,"stateOfField":"OCCUPIED"},{"id":42,"stateOfField":"OCCUPIED"},{"id":52,"stateOfField":"OCCUPIED"},{"id":36,"stateOfField":"OCCUPIED"},{"id":46,"stateOfField":"OCCUPIED"},{"id":93,"stateOfField":"OCCUPIED"},{"id":94,"stateOfField":"OCCUPIED"},{"id":4,"stateOfField":"OCCUPIED"},{"id":72,"stateOfField":"OCCUPIED"},{"id":60,"stateOfField":"OCCUPIED"},{"id":1,"stateOfField":"OCCUPIED"}]
   currentMessage: string;
   info:  string;
   errorMessage: string;
   shotUnabled: boolean = false;
+  
 
   constructor( private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) { }
 
@@ -31,21 +31,22 @@ export class GameComponent implements OnInit, AfterViewInit,DoCheck {
   }
 
   ngAfterViewInit(): void {
+    let id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
     this.getShips();
   
     interval(3000).subscribe( i=>{
-      console.log("SIEMA MR GINO2");
-      this.shotUnabled=true;
+      console.log("SIEMA MR GINO 3");
+      this.gameService.getTurn(id).subscribe(
+        data => {
+          this.shotUnabled = JSON.parse(data);
+       },
+       error => {
+         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+       }
+      );
     })
   
   }
-
-  ngDoCheck(): void {
-  
-  }
-
-  
-
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000,
@@ -69,7 +70,8 @@ export class GameComponent implements OnInit, AfterViewInit,DoCheck {
       this.currentMessage='';
     }
     else{
-      this.currentMessage='nie tutaj galganie';
+      this.openSnackBar('Nie tutaj GAŁGANIE','CZEKEJ')
+     
       }
     }
   }
@@ -82,7 +84,6 @@ export class GameComponent implements OnInit, AfterViewInit,DoCheck {
 
   postShot(value){
     let field = new Field(value);
-    console.log(field);
 
     console.log(JSON.parse(JSON.stringify(field)));
     this.gameService.postShot(field).subscribe(
