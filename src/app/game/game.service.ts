@@ -12,10 +12,10 @@ const httpOptions = {
 })
 export class GameService {
 
-  private gameUrl = 'http://localhost:8080/api/wkbp/get/game_config';
-  private shotUrl = 'http://localhost:8080/api/wkbp/post/game/shoot/';
-  private shipUrl = 'http://localhost:8080/api/wkbp/get/game/';
-  private turnUrl = 'http://localhost:8080/api/wkbp/get/game/is_my_turn/';
+  private gameUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/game_config';
+  private shotUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/post/game/shoot/';
+  private shipUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/game/';
+  private turnUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/game/is_my_turn/';
 
 
 

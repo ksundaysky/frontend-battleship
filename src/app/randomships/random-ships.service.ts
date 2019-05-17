@@ -11,8 +11,8 @@ const httpOptions = {
 })
 export class RandomShipsService {
 
-  private shipUrl = 'http://localhost:8080/api/wkbp/get/ship_randomize/';
-  private createUrl = 'http://localhost:8080/api/wkbp/get/ships_placement/';
+  private shipUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/ship_randomize/';
+  private createUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/ships_placement/';
 
   constructor(private http: HttpClient) { }
 

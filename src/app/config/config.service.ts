@@ -12,8 +12,8 @@ const httpOptions = {
 })
 export class ConfigService {
 
-  private configUrl = 'http://localhost:8080/api/wkbp/post/game_config';
-  private createUrl = 'http://localhost:8080/api/wkbp/get/ships_placement/';
+  private configUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/post/game_config';
+  private createUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/ships_placement/';
 
   constructor(private http: HttpClient) { }
 

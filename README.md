@@ -30,7 +30,7 @@ Production run:
 
  ### Backend
 
- Backend server url: http://localhost:8080/
+ Backend server url: https://battleship-wkbp-server.herokuapp.com/
  
  Backend repository url: https://github.com/ksundaysky/battleship
 
