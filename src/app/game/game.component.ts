@@ -3,6 +3,7 @@ import { GameService } from './game.service';
 import { Field } from './field';
 import * as $ from 'jquery';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-game',
@@ -21,7 +22,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   errorMessage: string;
   shotUnabled: boolean = false;
 
-  constructor( private gameService: GameService, private activatedRoute: ActivatedRoute) { }
+  constructor( private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.levelsInBoard = [0,1,2,3,4,5,6,7,8,9];
@@ -37,6 +38,11 @@ export class GameComponent implements OnInit, AfterViewInit {
     //this.randomShipsColor(this.colorShips);
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
   
   onClick(event){
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue; 
@@ -44,7 +50,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     // this.gameService.postShot(new Field(event.toString()) );
     
     if(this.shotUnabled==false){
-      this.currentMessage='Nie strzelaj, nie Twoja kolej!';
+      this.openSnackBar('Nie Twoja kolej!','CZEKEJ')
     }else{
       this.postShot(value.substring(0, value.length-1));
     console.log(value);
@@ -58,8 +64,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       this.currentMessage='nie tutaj galganie';
       }
     }
-  
-    }
+  }
 
   static highlightFields(values){
         const id = '#'+values.toString();
