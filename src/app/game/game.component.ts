@@ -1,9 +1,10 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, DoCheck } from '@angular/core';
 import { GameService } from './game.service';
 import { Field } from './field';
 import * as $ from 'jquery';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-game',
@@ -11,7 +12,8 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./game.component.css']
 })
 
-export class GameComponent implements OnInit, AfterViewInit {
+export class GameComponent implements OnInit, AfterViewInit,DoCheck {
+  
 
   levelsInBoard: number[];
   clickedCells = [''];
@@ -30,13 +32,19 @@ export class GameComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.getShips();
-    while(this.shotUnabled){
-      setTimeout (() => {
-        this.shotUnabled=true;
-      }, 5000);
-    }
-    //this.randomShipsColor(this.colorShips);
+  
+    interval(3000).subscribe( i=>{
+      console.log("SIEMA MR GINO2");
+      this.shotUnabled=true;
+    })
+  
   }
+
+  ngDoCheck(): void {
+  
+  }
+
+  
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
@@ -44,10 +52,10 @@ export class GameComponent implements OnInit, AfterViewInit {
     });
   }
   
+ 
+  
   onClick(event){
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue; 
-
-    // this.gameService.postShot(new Field(event.toString()) );
     
     if(this.shotUnabled==false){
       this.openSnackBar('Nie Twoja kolej!','CZEKEJ')
@@ -72,20 +80,7 @@ export class GameComponent implements OnInit, AfterViewInit {
         $(id).addClass('fired');
   }
 
-  // shot(value){
-  //   let field = new Field(value);
-  //   this.gameService.getShips().subscribe(
-  //     data => {
-  //        this.info = JSON.stringify(data);
-  //     },
-  //     error => {
-  //       this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-  //     }
-  // );
-  // }
-
   postShot(value){
-
     let field = new Field(value);
     console.log(field);
 
@@ -113,9 +108,7 @@ export class GameComponent implements OnInit, AfterViewInit {
     let id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
     this.gameService.getShips(id).subscribe(
       data =>{
-        console.log(data);
         var shipLocations: Array<String> = JSON.parse(data);
-        console.log(shipLocations);
         this.randomShipsColor(shipLocations);
       },
       error => {
@@ -123,32 +116,4 @@ export class GameComponent implements OnInit, AfterViewInit {
       }
     );
   }
-
-
-  // randomShips(){
-
-  //   for(const filed of this.shipCells){
-  //     console.log(document.getElementById(filed+'L').classList.remove("ships"))
-  //   }
-
-  //   this.shipCells = [];
-  //   this.gameService.getShips().subscribe(
-  //     data =>{
-  //       console.log(data);
-  //       var shipLocations: Array<Field> = JSON.parse(data);
-  //       for(const ship of shipLocations){
-        
-  //         if(ship.stateOfField.toString()=="OCCUPIED"){
-  //           this.shipCells.push(ship.id);
-  //         }
-  //       }
-  //       this.randomShipsColor(this.shipCells);
-  //     },
-  //     error => {
-  //       this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-  //     }
-  //   );
-  
-  // }
-
 }
