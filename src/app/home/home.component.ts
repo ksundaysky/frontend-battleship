@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { CommonModule} from '@angular/common';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { HomeService } from './home.service';
 import { Router } from '@angular/router';
