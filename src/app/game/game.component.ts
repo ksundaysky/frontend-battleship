@@ -31,15 +31,15 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    let id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    const id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
     this.getShips();
   
-    this.loop = interval(500).subscribe( i=>{
-      console.log("SIEMA MR GINO 4");
+    this.loop = interval(1000).subscribe( i=>{
+      console.log('SENDING getTurn request to server');
       this.gameService.getTurn(id).subscribe(
         data => {
           this.shotUnabled = JSON.parse(data);
-          console.log(data)  
+          console.log(data);
        },
        error => {
          this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
@@ -64,9 +64,8 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   
   onClick(event){
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue; 
-    
     if(this.shotUnabled==false){
-      this.openSnackBar('Nie Twoja kolej!','CZEKEJ')
+      this.openSnackBar('Wait! its not your turn!','WAIT')
     }else{
       this.postShot(value.substring(0, value.length-1));
     console.log(value);
@@ -77,7 +76,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
       this.currentMessage='';
     }
     else{
-      this.openSnackBar('Nie tutaj GAŁGANIE','CZEKEJ')
+      this.openSnackBar('You cannot shoot here!','OK')
      
       }
     }
@@ -91,15 +90,16 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
 
   postShot(value){
     let field = new Field(value);
-    let id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    let id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
 
     console.log(JSON.parse(JSON.stringify(field)));
     this.gameService.postShot(field,id).subscribe(
       data => {
-         this.info = JSON.parse(JSON.stringify(data));
-         console.log(this.info);
+        console.log(data);
+        this.info = JSON.parse(JSON.stringify(data));
       },
       error => {
+        console.log('szot error '+ error);
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       }
   );
@@ -113,8 +113,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getShips(){
-
-    let id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    let id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
     this.gameService.getShips(id).subscribe(
       data =>{
         var shipLocations: Array<String> = JSON.parse(data);
