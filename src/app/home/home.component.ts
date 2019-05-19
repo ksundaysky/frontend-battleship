@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { HomeService } from './home.service';
 import { Router } from '@angular/router';
@@ -10,14 +10,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 
-  
+
 export class HomeComponent implements OnInit {
 
   info: any;
   errorMessage: String;
   listOfAllGames: String[];
 
-  constructor(private token: TokenStorageService, private homeService: HomeService, private router: Router){}
+  constructor(private token: TokenStorageService, private homeService: HomeService, private router: Router) { }
 
   ngOnInit() {
 
@@ -29,30 +29,24 @@ export class HomeComponent implements OnInit {
 
     this.getListOfGames();
 
-    
-      setTimeout (() => {
-        console.log("Siemanko mordy!");
-      }, 5000);
-   
   }
 
-  getListOfGames(){
+  getListOfGames() {
 
     // -> get/gameslist
     this.homeService.getAllGames().subscribe(
-      data=>{
+      data => {
         this.listOfAllGames = JSON.parse(data);
       },
-      error=>{
+      error => {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       }
     )
   }
 
-  joinGame(event){
+  joinGame(event) {
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue;
-    var str1 = new String( "ships_placement/" ); 
-    var str2 = str1.concat( value );
-    this.router.navigateByUrl(str2);
+    const endpointPath = 'ships_placement/' + value;
+    this.router.navigateByUrl(endpointPath);
   }
 }

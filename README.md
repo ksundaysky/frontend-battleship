@@ -26,7 +26,7 @@ Production run:
 * ng build --aot --prod
 * node server.js
 
- Apllication runs on port 4200
+ Apllication runs on port 8080
 
  ### Backend
 

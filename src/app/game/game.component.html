@@ -15,7 +15,7 @@
       <table class="battleshipBoard">
           <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard">
               <td *ngFor="let c of levelsInBoard ;" class="battleshipBoard battleCell right" (click)="onClick($event)"
-                  [attr.id]="i*10+c+'R'" [attr.disabled]="buttonDisabled"> </td>
+                  [attr.id]="i*multiply+c+'R'" [attr.disabled]="buttonDisabled"> </td>
           </tr>
       </table>
     </div>

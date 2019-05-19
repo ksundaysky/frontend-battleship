@@ -24,14 +24,11 @@ export class ConfigComponent implements OnInit {
     var boolValue = JSON.parse(f.value.whoStarts);
     let config = new Config(f.value.name, f.value.dimension, boolValue, f.value.gameMode);
 
-    console.log(config)
-    
     this.configService.postConfig(config).subscribe(
       data => {
         const id = data;
-        var str1 = new String( "ships_placement/" ); 
-        var str2 = str1.concat( id );
-        this.router.navigateByUrl(str2);
+        const endpointPath = 'ships_placement/' + id;
+        this.router.navigateByUrl(endpointPath);
      },
       error => {
        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;

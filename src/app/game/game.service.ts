@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Field } from './field';
+import {serverUrl} from '../app.component';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,12 +13,10 @@ const httpOptions = {
 })
 export class GameService {
 
-  private gameUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/game_config';
-  private shotUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/post/game/shoot/';
-  private shipUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/game/';
-  private turnUrl = 'https://battleship-wkbp-server.herokuapp.com/api/wkbp/get/game/is_my_turn/';
-
-
+  private gameUrl = serverUrl + '/api/wkbp/get/game_config';
+  private shotUrl = serverUrl + '/api/wkbp/post/game/shoot/';
+  private shipUrl = serverUrl + '/api/wkbp/get/game/';
+  private turnUrl = serverUrl + '/api/wkbp/get/game/is_my_turn/';
 
   constructor(private http: HttpClient) { }
 
