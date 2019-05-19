@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { JwtResponse } from './jwt-response';
 import { AuthLoginInfo } from './login-info';
 import { SignUpInfo } from './signup-info';
+import {serverUrl} from '../app.component';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,8 +16,8 @@ const httpOptions = {
 })
 export class AuthService {
 
-  private loginUrl = 'https://battleship-wkbp-server.herokuapp.com/api/auth/signin';
-  private signupUrl = 'https://battleship-wkbp-server.herokuapp.com/api/auth/signup';
+  private loginUrl =  serverUrl + '/api/wkbp/auth/sign_in';
+  private signupUrl = serverUrl + '/api/wkbp/auth/sign_up';
 
   constructor(private http: HttpClient) {
   }

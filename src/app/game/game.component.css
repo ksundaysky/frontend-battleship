@@ -13,10 +13,12 @@ td.battleshipBoard.right.fired{
   border-collapse: collapse;
   background-color:#e03c31;
 }
-
 td.battleshipBoard.ships{
   border-collapse: collapse;
   background-color: #848482;
+  background-image: url('../../assets/img/X.png');
+  background-size: contain;
+  
 }
 
 td.battleshipBoard.fired:hover{

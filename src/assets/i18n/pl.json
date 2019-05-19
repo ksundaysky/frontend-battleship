@@ -20,5 +20,20 @@
     "EMAIL MUST BE VALID": "E-mail jest niewłaściwy",
     "REGISTER": "Zarejestruj",
     "SIGNUP FAILED": "Rejestracja nie powiodła się :",
-    "REGISTRATION SUCCESS": "Rejestracja przebiegła pomyślnie. Zaloguj się!"
+    "REGISTRATION SUCCESS": "Rejestracja przebiegła pomyślnie. Zaloguj się!",
+    "GAME NAME": "Nazwa gry",
+    "AM I STARTING": "Czy zaczynam?",
+    "YES": "Tak",
+    "NO": "Nie",
+    "GAME TYPE": "Tryb gry",
+    "STANDARD": "Standard",
+    "START GAME": "Wejdź do gry",
+    "DIMENSION": "Wymiary",
+    "GAME MODE": "Tryb gry",
+    "GAME STATE": "Stan gry",
+    "IN_PROGRESS": "W budowie",
+    "IN_PREPARATION": "Podczas konfiguracji",
+    "WAITING": "Oczekująca",
+    "FINISHED": "Zakończona",
+    "JOIN GAME": "Dołącz"
 }

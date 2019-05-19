@@ -20,5 +20,20 @@
     "EMAIL MUST BE VALID": "E-mail must be valid",
     "REGISTER": "Register",
     "SIGNUP FAILED": "Sign up is failed :",
-    "REGISTRATION SUCCESS": "Your registration is successful. Please login!"
+    "REGISTRATION SUCCESS": "Your registration is successful. Please login!",
+    "GAME NAME": "Game name",
+    "AM I STARTING": "Am I Starting?",
+    "YES": "Yes",
+    "NO": "No",
+    "GAME TYPE": "Game Type",
+    "STANDARD": "Standard",
+    "START GAME": "Start Game",
+    "DIMENSION": "Dimension",
+    "GAME MODE": "Game mode",
+    "GAME STATE": "Game state",
+    "IN_PROGRESS": "In progress",
+    "IN_PREPARATION": "In preparation",
+    "WAITING": "Waiting",
+    "FINISHED": "Finished",
+    "JOIN GAME": "Join game"
 }

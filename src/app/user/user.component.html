@@ -1,3 +1,15 @@
 <h4>Content from Server</h4>
 {{board}}
 {{errorMessage}}
+<div class="container center-div" style="max-width:400px;">
+    <span>GIERKI GRACZA</span>
+    <table>
+        <tr *ngFor="let game of games">
+            <td>{{game.name}}</td>
+            <td>{{game.dimension}}</td>
+            <td><button [attr.id]="game.dimension" (click)="joinGame($event)">JOIN GAME</button></td>
+        </tr>
+    </table>
+    
+</div>
+
