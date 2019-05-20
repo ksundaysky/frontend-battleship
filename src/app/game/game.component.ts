@@ -4,7 +4,8 @@ import { Field } from './field';
 import * as $ from 'jquery';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import { interval } from 'rxjs';
+import { interval, Subscription, Observable, timer } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-game',
@@ -25,6 +26,10 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   loop: any;
   multiply = 10;
 
+  private subscription: Subscription;
+  timer$:Observable<number> = timer(0,1000);
+  private alive = true;
+
   constructor(private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -35,17 +40,22 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
     const id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
     this.getShips();
 
-    this.loop = interval(1000).subscribe(i => {
-      this.gameService.getTurn(id).subscribe(
-        data => {
-          this.shotUnabled = JSON.parse(data);
-        },
-        error => {
-          this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-        }
-      );
-    }
-    )
+    this.subscription = this.timer$.subscribe(everySecond =>{
+      console.log('minela sekunda');
+    });
+
+    // this.loop = interval(4000).subscribe(i => {
+    //   this.gameService.getTurn(id).subscribe(
+    //     data => {
+    //       console.log('sie pytam sie');
+    //       this.shotUnabled = JSON.parse(data);
+    //     },
+    //     error => {
+    //       this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+    //     }
+    //   );
+    // }
+    // );
 
   }
   openSnackBar(message: string, action: string) {
@@ -56,7 +66,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-    // this.loop.unsubsrcribe();
+    this.subscription.unsubscribe();
   }
 
 
