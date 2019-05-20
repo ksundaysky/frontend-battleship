@@ -56,7 +56,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-    this.loop.unsubsrcribe();
+    // this.loop.unsubsrcribe();
   }
 
 
@@ -72,10 +72,6 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
         GameComponent.highlightFields(value);
         this.clickedCells.push(value);
         this.currentMessage = '';
-      }
-      else {
-        this.openSnackBar('You cannot shoot here!', 'OK')
-
       }
     }
   }

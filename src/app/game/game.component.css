@@ -16,8 +16,8 @@ td.battleshipBoard.right.fired{
 td.battleshipBoard.ships{
   border-collapse: collapse;
   background-color: #848482;
-  background-image: url('../../assets/img/X.png');
-  background-size: contain;
+  /* background-image: url('../../assets/img/X.png'); */
+  /* background-size: contain; */
   
 }
 
