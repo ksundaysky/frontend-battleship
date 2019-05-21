@@ -27,13 +27,15 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   loop: any;
   multiply = 10;
   shotOutcome: ShotOutcome;
+  updateMyBoard: ShotOutcome;
   permission: boolean;
   gameReady: boolean;
+  counter: number;
 
   private subscriptionReady: Subscription;
   private subscriptionTurn: Subscription;
 
-  timerTurn$: Observable<number> = timer(0, 1000);
+  timerTurn$: Observable<number> = timer(0, 3000);
   timerReady$: Observable<number> = timer(0, 3000);
 
   private alive = true;
@@ -109,12 +111,33 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   askForTurn() {
+   
     this.subscriptionReady.unsubscribe();
     this.subscriptionTurn = this.timerTurn$.subscribe(i => {
       this.gameService.getTurn(this.gameId).subscribe(
         data => {
-          console.log('sie pytam sie');
-          this.shotUnabled = JSON.parse(data);
+         // console.log('sie pytam sie');
+          this.updateMyBoard = JSON.parse(data);
+         console.log(this.updateMyBoard);
+          this.shotUnabled = this.updateMyBoard.playerTurn;
+          console.log(this.shotUnabled);
+          if(this.shotUnabled === true)
+          {
+            this.openSnackBar("Your turn",'CZEKEJ')
+          }
+         // console.log('shot unabled '+this.shotUnabled);
+          if(this.updateMyBoard.field != null){
+            console.log(this.shipCells);
+              if(this.shipCells.includes(this.updateMyBoard.field.id))
+              {
+                //iksik
+                this.shipHitX(this.updateMyBoard.field.id,'L');
+              }else{
+                //czerwone
+                this.shipMissedColor(this.updateMyBoard.field.id,'L');
+              }
+          }
+          this.counter=0;
         },
         error => {
           this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
@@ -122,6 +145,11 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
       );
     }
     );
+  }
+  shipHitX(id, ch) {
+    const fieldId = '#' + id + ch;
+    console.log('field id = ' + fieldId);
+    $(fieldId).addClass('cross');
   }
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
@@ -138,7 +166,8 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onClick(event) {
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue;
-    if (this.shotUnabled == false) {
+    this.counter++;
+    if (this.shotUnabled == false || this.counter > 1) { // TODO do przemyślenia mechanizm blokowania!
       this.openSnackBar('Wait! its not your turn!', 'WAIT')
     } else {
       this.postShot(value.substring(0, value.length - 1));
@@ -158,7 +187,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
           this.shipHitColor(this.shotOutcome.field.id);
         }
         else {
-          this.shipMissedColor(this.shotOutcome.field.id);
+          this.shipMissedColor(this.shotOutcome.field.id , 'R');
         }
       },
       error => {
@@ -180,8 +209,8 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     $(fieldId).addClass('hit');
   }
 
-  shipMissedColor(id) {
-    const fieldId = '#' + id + 'R';
+  shipMissedColor(id, ch) {
+    const fieldId = '#' + id + ch;
     console.log('field id = ' + fieldId);
     $(fieldId).addClass('fired');
   }
@@ -191,10 +220,17 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
       data => {
         var shipLocations: Array<String> = JSON.parse(data);
         this.randomShipsColor(shipLocations);
+        this.addIdToList(shipLocations);
       },
       error => {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       }
     );
+  }
+
+  addIdToList(list){
+    for (let ships of list) {
+      this.shipCells.push(ships.id);
+    }
   }
 }
