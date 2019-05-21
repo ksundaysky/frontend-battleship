@@ -14,7 +14,7 @@ import { ShotOutcome } from './shotOutcome';
   styleUrls: ['./game.component.css']
 })
 
-export class GameComponent implements OnInit, OnDestroy, AfterContentInit {
+export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   levelsInBoard: number[];
