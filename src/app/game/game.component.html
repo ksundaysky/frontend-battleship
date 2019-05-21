@@ -12,7 +12,7 @@
     <div class="col-sm-2">
     </div>
     <div class="col-sm-5">
-      <table class="battleshipBoard">
+      <table class="battleshipBoard" *ngIf='false; else templateName'>
           <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard">
               <td *ngFor="let c of levelsInBoard ;" class="battleshipBoard battleCell right" (click)="onClick($event)"
                   [attr.id]="i*multiply+c+'R'" [attr.disabled]="buttonDisabled"> </td>
@@ -21,5 +21,7 @@
     </div>
   </div>
 </div>
-<h2>{{currentMessage}}</h2>
-{{errorMessage}}
+
+<ng-template #templateName>
+  <img src="/assets/img/loading.gif">
+</ng-template>
