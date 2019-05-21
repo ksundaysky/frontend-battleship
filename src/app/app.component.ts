@@ -5,7 +5,6 @@ import { TranslateService } from './services/translate/translate.service';
 export const serverUrl = 'https://battleship-wkbp-server.herokuapp.com';
 
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
