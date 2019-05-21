@@ -14,7 +14,7 @@ import { ShotOutcome } from './shotOutcome';
   styleUrls: ['./game.component.css']
 })
 
-export class GameComponent implements OnInit, OnDestroy, AfterContentInit {
+export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   levelsInBoard: number[];
@@ -28,13 +28,13 @@ export class GameComponent implements OnInit, OnDestroy, AfterContentInit {
   multiply = 10;
   shotOutcome: ShotOutcome;
   permission: boolean;
-  gameReady: boolean = true;
+  gameReady: boolean;
 
   private subscriptionReady: Subscription;
   private subscriptionTurn: Subscription;
 
   timerTurn$: Observable<number> = timer(0, 1000);
-  timerReady$: Observable<number> = timer(0, 1000);
+  timerReady$: Observable<number> = timer(0, 3000);
 
   private alive = true;
   gameId: number;
@@ -43,7 +43,28 @@ export class GameComponent implements OnInit, OnDestroy, AfterContentInit {
 
   ngOnInit() {
     this.levelsInBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.gameReady=false;
 
+    this.getShips();
+
+    this.subscriptionReady = this.timerReady$.subscribe(i => {
+      this.gameService.getReady(this.gameId).subscribe(
+        data => {
+          console.log('sie pytam sie czy redy gra ');
+          console.log(JSON.parse(JSON.stringify(data)));
+          this.gameReady = JSON.parse(data);
+          console.log('gameredy '+this.gameReady);
+          if(this.gameReady == true){
+               this.askForTurn();
+          }
+        },
+        error => {
+          // this.gameReady = false;
+        }
+      );
+    }
+    );
   }
 
   getPermission() {
@@ -63,26 +84,27 @@ export class GameComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   ngAfterViewInit(): void {
+  
+      // this.getShips();
 
-    if (this.permission) {
-
-      this.getShips();
-
-      this.subscriptionReady = this.timerReady$.subscribe(i => {
-        this.gameService.getReady(this.gameId).subscribe(
-          data => {
-            console.log('sie pytam sie czy redy gra ');
-            this.gameReady = true;
-            this.askForTurn();
-
-          },
-          error => {
-            this.gameReady = false;
-          }
-        );
-      }
-      );
-    }
+      // this.subscriptionReady = this.timerReady$.subscribe(i => {
+      //   this.gameService.getReady(this.gameId).subscribe(
+      //     data => {
+      //       console.log('sie pytam sie czy redy gra ');
+      //       console.log(JSON.parse(JSON.stringify(data)));
+      //       this.gameReady = JSON.parse(JSON.stringify(data));
+      //       console.log('gameredy '+this.gameReady);
+      //       if(this.gameReady == true){
+      //       this.askForTurn();
+      //       }
+      //     },
+      //     error => {
+      //       this.gameReady = false;
+      //     }
+      //   );
+      // }
+      // );
+  
 
   }
 

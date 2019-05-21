@@ -17,7 +17,7 @@
               <td>{{game.value.gameConfig.gameName}}</td>
               <td>{{game.value.gameConfig.dimension}}x{{game.value.gameConfig.dimension}}</td>
               <td>{{game.value.gameConfig.gameMode | translate}}</td>
-              <td><button id="{{game.key}}" (click)="joinGame($event)"  *ngIf='game.value.gameState==="IN_PREPARATION"'>{{ 'JOIN GAME' | translate }}</button></td>
+              <td><button id="{{game.key}}" (click)="joinGame($event)"  *ngIf='game.value.gameState==="WAITING_FOR_PLAYER"'>{{ 'JOIN GAME' | translate }}</button></td>
           </tr>
         </table>
     </div>
