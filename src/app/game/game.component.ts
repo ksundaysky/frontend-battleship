@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, DoCheck, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, DoCheck, OnDestroy, AfterContentInit } from '@angular/core';
 import { GameService } from './game.service';
 import { Field } from './field';
 import * as $ from 'jquery';
@@ -14,7 +14,7 @@ import { ShotOutcome } from './shotOutcome';
   styleUrls: ['./game.component.css']
 })
 
-export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
+export class GameComponent implements OnInit, OnDestroy,AfterContentInit {
 
 
   levelsInBoard: number[];
@@ -27,23 +27,89 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   loop: any;
   multiply = 10;
   shotOutcome: ShotOutcome;
+  permission: boolean;
+  gameReady:boolean=true;
 
-  private subscription: Subscription;
-  timer$:Observable<number> = timer(0,1000);
+  private subscriptionReady: Subscription;
+  private subscriptionTurn: Subscription;
+
+  timerTurn$: Observable<number> = timer(0, 1000);
+  timerReady$: Observable<number> = timer(0, 1000);
+
   private alive = true;
+  gameId: number;
 
-  constructor(private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) { }
+  constructor(private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.levelsInBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    
+    this.gameService.getPermission(this.gameId).subscribe(
+      data => {
+        console.log(JSON.parse(data));
+        this.permission = JSON.parse(JSON.stringify(data));
+        console.log("this.data " + data);
+      
+      },
+      error => {
+        console.log("this.error" + JSON.parse(JSON.stringify(error)))
+        console.log("Parse" + JSON.parse(error))
+        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+        console.log(JSON.stringify(this.errorMessage))
+        this.permission = false;
+      }
+    );
+    console.log("this.permission: " + this.permission)
   }
 
-  ngAfterViewInit(): void {
-    const id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.getShips();
-    
-    this.subscription = this.timer$.subscribe(i => {
-      this.gameService.getTurn(id).subscribe(
+  // getPermission() {
+  //   this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+  //   this.gameService.getPermission(this.gameId).subscribe(
+  //     data => {
+  //       console.log('mam permiszyn');
+  //       console.log("co to " + JSON.stringify(data));
+  //       this.permission = JSON.parse(JSON.stringify(data));
+  //     },
+  //     error => {
+  //       console.log('nie mam permiszyn');
+  //       console.log(JSON.stringify(error));
+  //       this.permission = JSON.parse(error);
+  //     }
+  //   );
+  // }
+
+  async ngAfterContentInit(): Promise<void> {
+    await this.ngOnInit;
+
+    console.log('dupa' +this.permission);
+    if(this.permission){
+
+      this.getShips();
+
+      this.subscriptionReady = this.timerReady$.subscribe(i => {
+        // this.gameService.getReady(this.gameId).subscribe(
+        //   data => {
+            console.log('sie pytam sie czy redy gra ');
+            this.gameReady = true;
+            this.askForTurn();
+      }
+      //     },
+      //     error => {
+      //       this.gameReady = false;
+      //     }
+      //   );
+      // }
+      );
+
+    }
+   
+  }
+
+  askForTurn() {
+    this.subscriptionReady.unsubscribe();
+    this.subscriptionTurn = this.timerTurn$.subscribe(i => {
+      this.gameService.getTurn(this.gameId).subscribe(
         data => {
           console.log('sie pytam sie');
           this.shotUnabled = JSON.parse(data);
@@ -54,7 +120,6 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
       );
     }
     );
-
   }
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
@@ -64,7 +129,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscriptionTurn.unsubscribe();
   }
 
 
@@ -80,18 +145,17 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
 
   postShot(value) {
     let field = new Field(value);
-    let id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
 
     console.log(JSON.parse(JSON.stringify(field)));
-    this.gameService.postShot(field, id).subscribe(
+    this.gameService.postShot(field, this.gameId).subscribe(
       data => {
         this.shotOutcome = JSON.parse(JSON.stringify(data));
-        console.log('shot outcome: '+this.shotOutcome);
+        console.log('shot outcome: ' + this.shotOutcome);
         console.log(this.shotOutcome.playerTurn);
-        if(this.shotOutcome.playerTurn===true){
+        if (this.shotOutcome.playerTurn === true) {
           this.shipHitColor(this.shotOutcome.field.id);
         }
-        else{
+        else {
           this.shipMissedColor(this.shotOutcome.field.id);
         }
       },
@@ -109,20 +173,19 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   shipHitColor(id) {
-      const fieldId = '#' + id + 'R';
-      console.log('field id = '+fieldId);
-      $(fieldId).addClass('hit');
+    const fieldId = '#' + id + 'R';
+    console.log('field id = ' + fieldId);
+    $(fieldId).addClass('hit');
   }
 
   shipMissedColor(id) {
     const fieldId = '#' + id + 'R';
-    console.log('field id = '+fieldId);
+    console.log('field id = ' + fieldId);
     $(fieldId).addClass('fired');
-}
+  }
 
   getShips() {
-    let id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.gameService.getShips(id).subscribe(
+    this.gameService.getShips(this.gameId).subscribe(
       data => {
         var shipLocations: Array<String> = JSON.parse(data);
         this.randomShipsColor(shipLocations);

@@ -15,8 +15,11 @@ export class GameService {
 
   private gameUrl = serverUrl + '/api/wkbp/get/game_config';
   private shotUrl = serverUrl + '/api/wkbp/post/game/shoot/';
-  private shipUrl = serverUrl + '/api/wkbp/get/game/';
+  private permissionUrl = serverUrl + '/api/wkbp/get/game/';
+  private shipUrl = serverUrl + '/api/wkbp/get/game/fleet/';
   private turnUrl = serverUrl + '/api/wkbp/get/game/is_my_turn/';
+  private readyUrl = serverUrl + '/api/wkbp/get/game/is_game_ready/';
+
 
   constructor(private http: HttpClient) { }
 
@@ -26,6 +29,14 @@ export class GameService {
 
   getTurn(id): Observable<string> {
     return this.http.get(this.turnUrl+id, { responseType: 'text' });
+  }
+
+  getReady(id): Observable<string> {
+    return this.http.get(this.readyUrl+id, { responseType: 'text' });
+  }
+
+  getPermission(id): Observable<string>{
+    return this.http.get(this.permissionUrl+id, { responseType: 'text' });
   }
 
   getShips(id): Observable<string> {
