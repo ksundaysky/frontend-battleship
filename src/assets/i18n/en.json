@@ -35,5 +35,9 @@
     "IN_PREPARATION": "In preparation",
     "WAITING": "Waiting",
     "FINISHED": "Finished",
-    "JOIN GAME": "Join game"
+    "JOIN GAME": "Join game",
+    "NICK": "Nick",
+    "GAMES PLAYED": "Games played",
+    "GAMES WON": "Games won",
+    "RATIO": "Winning ratio"
 }
