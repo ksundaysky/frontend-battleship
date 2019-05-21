@@ -1,6 +1,6 @@
 
-
-<div class="container center-div"  style="max-width:400px;">
+<br><br><br>
+<div class="container center-div">
   <div class="row">
     <div class="col">
         <table class="battleshipBoard">
@@ -11,13 +11,13 @@
         </table>
     </div>
     <br>
-    <div class="col" style="max-width:400px;">
+    <div class="col">
         <button id="random" (click)="getRandomShips()">{{ 'RANDOM' | translate}}</button>
         <button *ngIf="canIStart==true" (click)="goToTheGameRoom()" >{{ 'START GAME' | translate}}</button>
     </div>
   </div>
-  
 </div>
+
 
 
 

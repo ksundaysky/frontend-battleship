@@ -11,3 +11,7 @@ table, th , td {
   table tr:nth-child(even) {
     background-color: #ffffff;
   }
+
+  td.top{
+    background-color:rgb(199, 201, 204);
+  }

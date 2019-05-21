@@ -26,6 +26,18 @@
     "YES": "Tak",
     "NO": "Nie",
     "GAME TYPE": "Tryb gry",
-    "DEFAULT": "Domyślny",
-    "START GAME": "Wejdź do gry"
+    "STANDARD": "Standard",
+    "START GAME": "Wejdź do gry",
+    "DIMENSION": "Wymiary",
+    "GAME MODE": "Tryb gry",
+    "GAME STATE": "Stan gry",
+    "IN_PROGRESS": "W budowie",
+    "IN_PREPARATION": "Podczas konfiguracji",
+    "WAITING": "Oczekująca",
+    "FINISHED": "Zakończona",
+    "JOIN GAME": "Dołącz",
+    "NICK": "Nick",
+    "GAMES PLAYED": "Rozegrane gry",
+    "GAMES WON": "Wygrane gry",
+    "RATIO": "Procent wygranych"
 }

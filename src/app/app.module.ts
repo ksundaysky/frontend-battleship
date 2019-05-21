@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { CommonModule} from '@angular/common';
 
 
 import { httpInterceptorProviders } from './auth/auth-interceptor';
@@ -76,6 +77,7 @@ export function setupTranslateFactory(
     RandomshipsComponent
   ],
   imports: [
+    CommonModule,
     BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,

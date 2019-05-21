@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RandomShipsService } from './random-ships.service';
 import { Field } from '../game/field';
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 import * as $ from 'jquery';
+import { error } from 'util';
 
 
 @Component({
@@ -16,35 +17,42 @@ export class RandomshipsComponent implements OnInit {
   shipCells = [];
   errorMessage: string;
   canIStart: boolean;
-  
-  
-  constructor(private router:Router, private randomShipsService: RandomShipsService) { }
+
+
+  constructor(private router: Router, private randomShipsService: RandomShipsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.boardLength = [0,1,2,3,4,5,6,7,8,9];
+    let id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+
+    this.randomShipsService.getCreateGame(id).subscribe(
+      data => {
+      },
+      error => {
+        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+      }
+    );
+    this.boardLength = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   }
 
-  getRandomShips(){
+  getRandomShips() {
 
-    for(const filed of this.shipCells){
-      console.log(document.getElementById(filed+'L').classList.remove("ships"))
+    for (const filed of this.shipCells) {
+      document.getElementById(filed + 'L').classList.remove('ships');
     }
 
-    console.log("siemka");
-
     this.shipCells = [];
-    this.randomShipsService.getShips().subscribe(
-      data =>{
-        console.log(data);
+    let id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    this.randomShipsService.getShips(id).subscribe(
+      data => {
         var shipLocations: Array<Field> = JSON.parse(data);
-        for(const ship of shipLocations){
-        
-          if(ship.stateOfField.toString()=="OCCUPIED"){
+        for (const ship of shipLocations) {
+
+          if (ship.stateOfField.toString() == "OCCUPIED") {
             this.shipCells.push(ship.id);
           }
         }
         RandomshipsComponent.randomShipsColor(this.shipCells);
-        this.canIStart=true;
+        this.canIStart = true;
       },
       error => {
         console.log(error);
@@ -53,15 +61,17 @@ export class RandomshipsComponent implements OnInit {
     );
   }
 
-  static randomShipsColor(randomShips){
-    for(let ships of randomShips){
-          const id = '#'+ships+'L';
-          $(id).addClass('ships');
+  static randomShipsColor(randomShips) {
+    for (let ships of randomShips) {
+      const id = '#' + ships + 'L';
+      $(id).addClass('ships');
     }
   }
 
-  goToTheGameRoom(){
-    this.router.navigateByUrl("/game");
+  goToTheGameRoom() {
+    let id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
+    const gameEndpoint = 'game/' + id.toString();
+    this.router.navigateByUrl(gameEndpoint);
   }
 
 }

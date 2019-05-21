@@ -14,48 +14,27 @@ export class ConfigComponent implements OnInit {
 
   form:any = {};
   errorMessage: string;
-  constructor(private router:Router, private configService: ConfigService) { }
 
+  constructor(private router:Router, private configService: ConfigService) { }
 
   ngOnInit() {
   }
 
   onSubmit(f: NgForm) {
-    console.log(f.value.whoStarts);
     var boolValue = JSON.parse(f.value.whoStarts);
-    let config = new Config(f.value.name, f.value.dimension, boolValue, f.value.gameType);
-    console.log(config);
+    let config = new Config(f.value.name, f.value.dimension, boolValue, f.value.gameMode);
 
     this.configService.postConfig(config).subscribe(
       data => {
-        console.log(data);
+        const id = data;
+        const endpointPath = 'ships_placement/' + id;
+        this.router.navigateByUrl(endpointPath);
      },
       error => {
        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       }
     )
-    this.router.navigateByUrl("/randomships");
+    
   }
-  // onSubmit(){
-  //   console.log(this.form);
-
-  //   console.log(location.host)
-  //   // document.location.href = location.host+'/game';
-  //   // document.location.replace(location.host+'/game');
-
-  //   let config = new Config(this.form.dimension,this.form.whoStarts,this.form.gameType);
-
-  //   // this.configService.postConfig(config).subscribe(
-  //   //   data => {
-  //   //     console.log(data);
-  //   //  },
-  //   //  error => {
-  //   //    this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-  //   //  }
-  //   // )
-  
-  //   this.router.navigateByUrl("/game");
-  // }
-
 
 }

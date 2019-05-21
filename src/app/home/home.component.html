@@ -1,12 +1,52 @@
 <ng-template #loggedOut>
   Please login.
 </ng-template>
+<br><br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+        <table>
+          <tr>
+            <td class="top">{{ 'GAME STATE' | translate }}</td>
+            <td class="top">{{ 'GAME NAME' | translate }}</td>
+            <td class="top">{{ 'DIMENSION' | translate }}</td>
+            <td class="top">{{ 'GAME MODE' | translate }}</td>
+            <td class="top"></td>
+          </tr>
+          <tr *ngFor="let game of listOfAllGames | keyvalue">
+              <td>{{game.value.gameState | translate}}</td>
+              <td>{{game.value.gameConfig.gameName}}</td>
+              <td>{{game.value.gameConfig.dimension}}x{{game.value.gameConfig.dimension}}</td>
+              <td>{{game.value.gameConfig.gameMode | translate}}</td>
+              <td><button id="{{game.key}}" (click)="joinGame($event)"  *ngIf='game.value.gameState==="WAITING_FOR_PLAYER"'>{{ 'JOIN GAME' | translate }}</button></td>
+          </tr>
+        </table>
+    </div>
+    
+    <div class="col-sm-6" >
+        <table *ngIf='listOfAllPlayers.length>1; else noScoreboard'>
+            <tr>
+              <td class="top">{{ 'NICK' | translate }}</td>
+              <td class="top">{{ 'GAMES PLAYED' | translate }}</td>
+              <td class="top">{{ 'GAMES WON' | translate }}</td>
+              <td class="top">{{ 'RATIO' | translate }}</td>
+            </tr>
+            <tr *ngFor="let player of listOfAllPlayers | keyvalue" >
+                <td>{{player.value.login}}</td>
+                <td>{{player.value.gamesPlayed}}</td>
+                <td>{{player.value.gamesWon}}</td>
+                <td>{{player.value.gameRatio}}</td>
+            </tr>
+          </table>
+    </div>
+  </div>
+</div>
 
-<table>
-  <tr *ngFor="let game of allGames">
-      <td>{{game.name}}</td>
-      <td>{{game.dimension}}</td>
-      <td><button>JOIN GAME</button></td>
-  </tr>
-</table>
-
+<ng-template #noScoreboard>
+    <tr>
+        <td class="top">{{ 'NICK' | translate }}</td>
+        <td class="top">{{ 'GAMES PLAYED' | translate }}</td>
+        <td class="top">{{ 'GAMES WON' | translate }}</td>
+        <td class="top">{{ 'RATIO' | translate }}</td>
+      </tr>
+</ng-template>

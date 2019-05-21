@@ -16,25 +16,16 @@ export class UserComponent implements OnInit {
   {
     "name": "Gra2",
     "dimension": 2,
-    
+
   }
   ]
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-  //   this.userService.getGames().subscribe(
-  //     data => {
-  //       console.log(data);
-  //       this.games = JSON.parse(data);
-  //     },
-  //     error => {
-  //       this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-  //     }
-  //   );
- }
- joinGame(event){
-  const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue;
-  console.log(value);
- }
+  }
+  joinGame(event) {
+    const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue;
+    console.log(value);
+  }
 }

@@ -16,7 +16,7 @@ const routes: Routes = [
         component: HomeComponent
     },
     {
-        path: 'game',
+        path: 'game/:id',
         component: GameComponent
     },
     {
@@ -36,7 +36,7 @@ const routes: Routes = [
         component: RegisterComponent
     },
     {
-        path: 'randomships',
+        path: 'ships_placement/:id',
         component: RandomshipsComponent
     },
     {
