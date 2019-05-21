@@ -14,7 +14,7 @@ import { ShotOutcome } from './shotOutcome';
   styleUrls: ['./game.component.css']
 })
 
-export class GameComponent implements OnInit, OnDestroy,AfterContentInit {
+export class GameComponent implements OnInit, OnDestroy, AfterContentInit {
 
 
   levelsInBoard: number[];
@@ -28,7 +28,7 @@ export class GameComponent implements OnInit, OnDestroy,AfterContentInit {
   multiply = 10;
   shotOutcome: ShotOutcome;
   permission: boolean;
-  gameReady:boolean=true;
+  gameReady: boolean = true;
 
   private subscriptionReady: Subscription;
   private subscriptionTurn: Subscription;
@@ -39,71 +39,51 @@ export class GameComponent implements OnInit, OnDestroy,AfterContentInit {
   private alive = true;
   gameId: number;
 
-  constructor(private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) {}
+  constructor(private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.levelsInBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-    this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
-    
-    this.gameService.getPermission(this.gameId).subscribe(
-      data => {
-        console.log(JSON.parse(data));
-        this.permission = JSON.parse(JSON.stringify(data));
-        console.log("this.data " + data);
-      
-      },
-      error => {
-        console.log("this.error" + JSON.parse(JSON.stringify(error)))
-        console.log("Parse" + JSON.parse(error))
-        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-        console.log(JSON.stringify(this.errorMessage))
-        this.permission = false;
-      }
-    );
-    console.log("this.permission: " + this.permission)
+
   }
 
-  // getPermission() {
-  //   this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
-  //   this.gameService.getPermission(this.gameId).subscribe(
-  //     data => {
-  //       console.log('mam permiszyn');
-  //       console.log("co to " + JSON.stringify(data));
-  //       this.permission = JSON.parse(JSON.stringify(data));
-  //     },
-  //     error => {
-  //       console.log('nie mam permiszyn');
-  //       console.log(JSON.stringify(error));
-  //       this.permission = JSON.parse(error);
-  //     }
-  //   );
-  // }
+  getPermission() {
+    this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.gameService.getPermission(this.gameId).subscribe(
+      data => {
+        console.log('mam permiszyn');
+        console.log("co to " + JSON.stringify(data));
+        this.permission = JSON.parse(JSON.stringify(data));
+      },
+      error => {
+        console.log('nie mam permiszyn');
+        console.log(JSON.stringify(error));
+        this.permission = JSON.parse(error);
+      }
+    );
+  }
 
-  async ngAfterContentInit(): Promise<void> {
-    await this.ngOnInit;
+  ngAfterViewInit(): void {
 
-    console.log('dupa' +this.permission);
-    if(this.permission){
+    if (this.permission) {
 
       this.getShips();
 
       this.subscriptionReady = this.timerReady$.subscribe(i => {
-        // this.gameService.getReady(this.gameId).subscribe(
-        //   data => {
+        this.gameService.getReady(this.gameId).subscribe(
+          data => {
             console.log('sie pytam sie czy redy gra ');
             this.gameReady = true;
             this.askForTurn();
-      }
-      //     },
-      //     error => {
-      //       this.gameReady = false;
-      //     }
-      //   );
-      // }
-      );
 
+          },
+          error => {
+            this.gameReady = false;
+          }
+        );
+      }
+      );
     }
-   
+
   }
 
   askForTurn() {
