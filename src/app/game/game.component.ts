@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { interval, Subscription, Observable, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ShotOutcome } from './shotOutcome';
 
 @Component({
   selector: 'app-game',
@@ -25,6 +26,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   shotUnabled: boolean = false;
   loop: any;
   multiply = 10;
+  shotOutcome: ShotOutcome;
 
   private subscription: Subscription;
   timer$:Observable<number> = timer(0,1000);
@@ -39,23 +41,19 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     const id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
     this.getShips();
-
-    this.subscription = this.timer$.subscribe(everySecond =>{
-      console.log('minela sekunda');
-    });
-
-    // this.loop = interval(4000).subscribe(i => {
-    //   this.gameService.getTurn(id).subscribe(
-    //     data => {
-    //       console.log('sie pytam sie');
-    //       this.shotUnabled = JSON.parse(data);
-    //     },
-    //     error => {
-    //       this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
-    //     }
-    //   );
-    // }
-    // );
+    
+    this.subscription = this.timer$.subscribe(i => {
+      this.gameService.getTurn(id).subscribe(
+        data => {
+          console.log('sie pytam sie');
+          this.shotUnabled = JSON.parse(data);
+        },
+        error => {
+          this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+        }
+      );
+    }
+    );
 
   }
   openSnackBar(message: string, action: string) {
@@ -77,18 +75,7 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
       this.openSnackBar('Wait! its not your turn!', 'WAIT')
     } else {
       this.postShot(value.substring(0, value.length - 1));
-
-      if (!this.clickedCells.includes(value)) {
-        GameComponent.highlightFields(value);
-        this.clickedCells.push(value);
-        this.currentMessage = '';
-      }
     }
-  }
-
-  static highlightFields(values) {
-    const id = '#' + values.toString();
-    $(id).addClass('fired');
   }
 
   postShot(value) {
@@ -98,7 +85,15 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log(JSON.parse(JSON.stringify(field)));
     this.gameService.postShot(field, id).subscribe(
       data => {
-        this.info = JSON.parse(JSON.stringify(data));
+        this.shotOutcome = JSON.parse(JSON.stringify(data));
+        console.log('shot outcome: '+this.shotOutcome);
+        console.log(this.shotOutcome.playerTurn);
+        if(this.shotOutcome.playerTurn===true){
+          this.shipHitColor(this.shotOutcome.field.id);
+        }
+        else{
+          this.shipMissedColor(this.shotOutcome.field.id);
+        }
       },
       error => {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
@@ -112,6 +107,18 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
       $(id).addClass('ships');
     }
   }
+
+  shipHitColor(id) {
+      const fieldId = '#' + id + 'R';
+      console.log('field id = '+fieldId);
+      $(fieldId).addClass('hit');
+  }
+
+  shipMissedColor(id) {
+    const fieldId = '#' + id + 'R';
+    console.log('field id = '+fieldId);
+    $(fieldId).addClass('fired');
+}
 
   getShips() {
     let id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
