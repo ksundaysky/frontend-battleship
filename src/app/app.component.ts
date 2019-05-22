@@ -4,8 +4,11 @@ import { TranslateService } from './services/translate/translate.service';
 // export const wkbpJSON = require("../assets/json/wkbp.json");
 
 
-export const serverUrl = 'https://battleship-wkbp-server.herokuapp.com';
+// export const serverUrl = 'https://battleship-wkbp-server.herokuapp.com';
+export const serverUrl = 'http://localhost:8081';
 
+
+declare var require: any
 
 @Component({
   selector: 'app-root',

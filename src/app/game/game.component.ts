@@ -85,32 +85,6 @@ export class GameComponent implements OnInit, OnDestroy {
       }
     );
   }
-
-<<<<<<< HEAD
-=======
-  ngAfterViewInit(): void {
-      // this.getShips();
-
-      // this.subscriptionReady = this.timerReady$.subscribe(i => {
-      //   this.gameService.getReady(this.gameId).subscribe(
-      //     data => {
-      //       console.log('sie pytam sie czy redy gra ');
-      //       console.log(JSON.parse(JSON.stringify(data)));
-      //       this.gameReady = JSON.parse(JSON.stringify(data));
-      //       console.log('gameredy '+this.gameReady);
-      //       if(this.gameReady == true){
-      //       this.askForTurn();
-      //       }
-      //     },
-      //     error => {
-      //       this.gameReady = false;
-      //     }
-      //   );
-      // }
-      // );
-  }
->>>>>>> dev-messageWindow
-
   askForTurn() {
    
     this.subscriptionReady.unsubscribe();
@@ -150,15 +124,11 @@ export class GameComponent implements OnInit, OnDestroy {
     }
     );
   }
-<<<<<<< HEAD
   shipHitX(id, ch) {
     const fieldId = '#' + id + ch;
     console.log('field id = ' + fieldId);
     $(fieldId).addClass('cross');
   }
-=======
-
->>>>>>> dev-messageWindow
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000,
@@ -190,17 +160,15 @@ export class GameComponent implements OnInit, OnDestroy {
         this.shotOutcome = JSON.parse(JSON.stringify(data));
         console.log('shot outcome: ' + this.shotOutcome.playerWon);
         console.log(this.shotOutcome.playerTurn);
-<<<<<<< HEAD
         if(this.shotOutcome.playerWon === true){
           this.openSnackBar('Gerka skonczona  WYGRANA :)','ELOOOOOOO'); // redirect needed
           this.router.navigateByUrl('game/summary/'+this.gameId.toString());
         }
 
-=======
         var dateObj = Date.now();
         var formatted = new DatePipe("en-US").transform(dateObj, 'yyyy-MM-dd HH:mm:ss');
+        console.log('dupa'+this.shotOutcome);
         $('.textarea').append(formatted +  " " + this.shotOutcome.message + "\n");
->>>>>>> dev-messageWindow
         if (this.shotOutcome.playerTurn === true) {
           this.shipHitColor(this.shotOutcome.field.id);
         }
