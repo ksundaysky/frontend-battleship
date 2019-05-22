@@ -14,15 +14,6 @@ export class SummaryComponent implements OnInit {
 
   ngOnInit() {
     this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
-    // this.summaryService.getSummary(this.gameId).subscribe(
-    //   date=>{
-
-    //   },
-    //   error=>{
-
-    //   }
-    // );
-
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, DoCheck, OnDestroy, AfterContentInit 
 import { GameService } from './game.service';
 import { Field } from './field';
 import * as $ from 'jquery';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { interval, Subscription, Observable, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { ShotOutcome } from './shotOutcome';
   styleUrls: ['./game.component.css']
 })
 
-export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
+export class GameComponent implements OnInit, OnDestroy {
 
 
   levelsInBoard: number[];
@@ -41,7 +41,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   private alive = true;
   gameId: number;
 
-  constructor(private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) { }
+  constructor(private router: Router, private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.levelsInBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -62,7 +62,6 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
           }
         },
         error => {
-          // this.gameReady = false;
         }
       );
     }
@@ -85,30 +84,6 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-  ngAfterViewInit(): void {
-  
-      // this.getShips();
-
-      // this.subscriptionReady = this.timerReady$.subscribe(i => {
-      //   this.gameService.getReady(this.gameId).subscribe(
-      //     data => {
-      //       console.log('sie pytam sie czy redy gra ');
-      //       console.log(JSON.parse(JSON.stringify(data)));
-      //       this.gameReady = JSON.parse(JSON.stringify(data));
-      //       console.log('gameredy '+this.gameReady);
-      //       if(this.gameReady == true){
-      //       this.askForTurn();
-      //       }
-      //     },
-      //     error => {
-      //       this.gameReady = false;
-      //     }
-      //   );
-      // }
-      // );
-  
-
-  }
 
   askForTurn() {
    
@@ -123,12 +98,12 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
           console.log(this.shotUnabled);
           if(this.updateMyBoard.playerWon === true){
             this.openSnackBar('Gerka skonczona Przegrana :(','ELOOOOOOO'); // redirect needed
+            this.router.navigateByUrl('game/summary/'+this.gameId.toString());
           }
           if(this.shotUnabled === true)
           {
             this.openSnackBar("Your turn",'CZEKEJ')
           }
-         // console.log('shot unabled '+this.shotUnabled);
           if(this.updateMyBoard.field != null){
             console.log(this.shipCells);
               if(this.shipCells.includes(this.updateMyBoard.field.id))
@@ -165,8 +140,6 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subscriptionTurn.unsubscribe();
   }
 
-
-
   onClick(event) {
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue;
     this.counter++;
@@ -188,6 +161,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
         console.log(this.shotOutcome.playerTurn);
         if(this.shotOutcome.playerWon === true){
           this.openSnackBar('Gerka skonczona  WYGRANA :)','ELOOOOOOO'); // redirect needed
+          this.router.navigateByUrl('game/summary/'+this.gameId.toString());
         }
 
         if (this.shotOutcome.playerTurn === true) {
