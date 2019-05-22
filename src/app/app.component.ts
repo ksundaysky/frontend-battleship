@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from './auth/token-storage.service';
 import { TranslateService } from './services/translate/translate.service';
+// export const wkbpJSON = require("../assets/json/wkbp.json");
+
 
 export const serverUrl = 'http://localhost:8080';
 
@@ -16,6 +18,9 @@ export class AppComponent implements OnInit {
   private roles: string[];
   public authority: string;
   languages = ['pl','en'];
+  wkbpJSON = require("../assets/json/wkbp.json");
+  randomNumber: number;
+  
   
 
   constructor(private tokenStorage: TokenStorageService, private translate: TranslateService) {   }
@@ -28,7 +33,9 @@ export class AppComponent implements OnInit {
         return true;
       });
     }
-
+    console.log(this.wkbpJSON.acronym)
+    this.randomNumber =  Math.floor((Math.random() * 3));
+    console.log(this.randomNumber)
   }
 
   setLang(string) {

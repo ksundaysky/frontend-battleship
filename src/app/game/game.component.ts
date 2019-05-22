@@ -57,9 +57,6 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
           console.log('sie pytam sie czy redy gra ');
           console.log(JSON.parse(JSON.stringify(data)));
           this.gameReady = JSON.parse(data);
-          var dateObj = Date.now();
-          var formatted = new DatePipe("en-US").transform(dateObj, 'yyyy-MM-dd HH:mm:ss');
-          $('.textarea').append(formatted +  " " + data + "\n");
           console.log('gameredy '+this.gameReady);
           if(this.gameReady == true){
                this.askForTurn();
@@ -90,7 +87,6 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-  
       // this.getShips();
 
       // this.subscriptionReady = this.timerReady$.subscribe(i => {
@@ -110,8 +106,6 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
       //   );
       // }
       // );
-  
-
   }
 
   askForTurn() {
@@ -160,6 +154,9 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
         this.shotOutcome = JSON.parse(JSON.stringify(data));
         console.log('shot outcome: ' + this.shotOutcome);
         console.log(this.shotOutcome.playerTurn);
+        var dateObj = Date.now();
+        var formatted = new DatePipe("en-US").transform(dateObj, 'yyyy-MM-dd HH:mm:ss');
+        $('.textarea').append(formatted +  " " + this.shotOutcome.message + "\n");
         if (this.shotOutcome.playerTurn === true) {
           this.shipHitColor(this.shotOutcome.field.id);
         }

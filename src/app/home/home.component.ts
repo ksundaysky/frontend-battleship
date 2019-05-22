@@ -29,9 +29,7 @@ export class HomeComponent implements OnInit {
       authorities: this.token.getAuthorities()
     };
 
-    this.getListOfGames();
-
-  
+    this.getListOfGames();    
   }
 
   getListOfGames() {
