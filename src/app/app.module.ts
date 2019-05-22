@@ -56,6 +56,7 @@ import {
   MatTreeModule,
 } from '@angular/material';
 import { RandomshipsComponent } from './randomships/randomships.component';
+import { SummaryComponent } from './summary/summary.component';
 
 
 export function setupTranslateFactory(
@@ -74,7 +75,8 @@ export function setupTranslateFactory(
     GameComponent,
     TranslatePipe,
     ConfigComponent,
-    RandomshipsComponent
+    RandomshipsComponent,
+    SummaryComponent
   ],
   imports: [
     CommonModule,

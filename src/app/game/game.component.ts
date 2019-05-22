@@ -121,6 +121,9 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
          console.log(this.updateMyBoard);
           this.shotUnabled = this.updateMyBoard.playerTurn;
           console.log(this.shotUnabled);
+          if(this.updateMyBoard.playerWon === true){
+            this.openSnackBar('Gerka skonczona Przegrana :(','ELOOOOOOO'); // redirect needed
+          }
           if(this.shotUnabled === true)
           {
             this.openSnackBar("Your turn",'CZEKEJ')
@@ -181,8 +184,12 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     this.gameService.postShot(field, this.gameId).subscribe(
       data => {
         this.shotOutcome = JSON.parse(JSON.stringify(data));
-        console.log('shot outcome: ' + this.shotOutcome);
+        console.log('shot outcome: ' + this.shotOutcome.playerWon);
         console.log(this.shotOutcome.playerTurn);
+        if(this.shotOutcome.playerWon === true){
+          this.openSnackBar('Gerka skonczona  WYGRANA :)','ELOOOOOOO'); // redirect needed
+        }
+
         if (this.shotOutcome.playerTurn === true) {
           this.shipHitColor(this.shotOutcome.field.id);
         }
