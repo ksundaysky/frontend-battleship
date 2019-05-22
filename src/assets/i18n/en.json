@@ -1,8 +1,8 @@
 {
     "HOME": "Home",
     "LOGIN": "Login",
-    "USER BOARD": "User board",
-    "CONFIG": "Configuration",
+    "HIGHSCORES": "Highscores",
+    "CREATE GAME": "Create game",
     "GAME": "Game",
     "USERNAME": "Username",
     "USERNAME IS REQUIRED": "Username is required",
@@ -39,5 +39,6 @@
     "NICK": "Nick",
     "GAMES PLAYED": "Games played",
     "GAMES WON": "Games won",
-    "RATIO": "Winning ratio"
+    "RATIO": "Winning ratio",
+    "WAITING FOR OPPONENT": "Waiting for opponent"
 }

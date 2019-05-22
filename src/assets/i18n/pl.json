@@ -1,9 +1,9 @@
 {
     "HOME": "Strona Domowa",
     "LOGIN": "Logowanie",
-    "USER BOARD": "Panel użytkownika",
+    "HIGHSCORES": "Galeria Sław",
     "GAME": "Gra",
-    "CONFIG": "Konfiguracja",
+    "CREATE GAME": "Stwórz grę",
     "USERNAME": "Użytkownik",
     "USERNAME IS REQUIRED": "Użytkownik jest wymagany",
     "PASSWORD": "Hasło",
@@ -39,5 +39,6 @@
     "NICK": "Nick",
     "GAMES PLAYED": "Rozegrane gry",
     "GAMES WON": "Wygrane gry",
-    "RATIO": "Procent wygranych"
+    "RATIO": "Procent wygranych",
+    "WAITING FOR OPPONENT": "Oczekiwanie na przeciwnika"
 }

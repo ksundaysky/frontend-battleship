@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
     this.homeService.getAllGames().subscribe(
       data => {
         this.listOfAllGames = JSON.parse(data);
+        console.log(this.listOfAllGames);
       },
       error => {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
