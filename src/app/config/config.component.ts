@@ -23,6 +23,7 @@ export class ConfigComponent implements OnInit {
   onSubmit(f: NgForm) {
     var boolValue = JSON.parse(f.value.whoStarts);
     let config = new Config(f.value.name, f.value.dimension, boolValue, f.value.gameMode);
+    console.log(config)
 
     this.configService.postConfig(config).subscribe(
       data => {
