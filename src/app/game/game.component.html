@@ -14,19 +14,20 @@
       <table class="battleshipBoard" *ngIf='gameReady'>
         <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard">
           <td *ngFor="let c of levelsInBoard ;" class="battleshipBoard battleCell right" (click)="onClick($event)"
-            [attr.id]="i*multiply+c+'R'" [attr.disabled]="buttonDisabled"> </td>
+            [attr.id]="i*multiply+c+'R'" [attr.disabled]="buttonDisabled"></td>
         </tr>
       </table>
       <div *ngIf='!gameReady'>
-        <h1>{{ 'WAITING_FOR_OPPONENT' | translate}}</h1>
+        <h1>{{ 'WAITING FOR OPPONENT' | translate}}</h1>
         <img src="/assets/img/loading.gif">
-       <div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-5">
+        <textarea rows=5 cols=42 class="textarea" readonly></textarea>
     </div>
   </div>
 </div>
 
-<!-- <ng-template #denied>
-  <div class="row">
-    {{PERMISION_DENIED}} 
-  </div>
-</ng-template> -->
+

@@ -11,10 +11,10 @@
         <a class="nav-link" routerLink="home">{{ 'HOME' | translate }}</a>
       </li>
       <li class="nav-item" *ngIf="authority === 'user'">
-        <a class="nav-link" routerLink="user">{{ 'USER BOARD' | translate }}</a>
+        <a class="nav-link" routerLink="user">{{ 'HIGHSCORES' | translate }}</a>
       </li>
       <li class="nav-item" *ngIf="authority === 'user'">
-        <a class="nav-link" routerLink="config">{{ 'CONFIG' | translate }}</a>
+        <a class="nav-link" routerLink="config">{{ 'CREATE GAME' | translate }}</a>
       </li>
       <li class="nav-item" *ngIf="!authority">
         <a class="nav-link" routerLink="auth/login">{{ 'LOGIN' | translate }}</a>

@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material';
 import { interval, Subscription, Observable, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ShotOutcome } from './shotOutcome';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-game',
@@ -29,6 +30,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   shotOutcome: ShotOutcome;
   permission: boolean;
   gameReady: boolean;
+ 
 
   private subscriptionReady: Subscription;
   private subscriptionTurn: Subscription;
@@ -49,11 +51,15 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     this.getShips();
 
     this.subscriptionReady = this.timerReady$.subscribe(i => {
+      
       this.gameService.getReady(this.gameId).subscribe(
         data => {
           console.log('sie pytam sie czy redy gra ');
           console.log(JSON.parse(JSON.stringify(data)));
           this.gameReady = JSON.parse(data);
+          var dateObj = Date.now();
+          var formatted = new DatePipe("en-US").transform(dateObj, 'yyyy-MM-dd HH:mm:ss');
+          $('.textarea').append(formatted +  " " + data + "\n");
           console.log('gameredy '+this.gameReady);
           if(this.gameReady == true){
                this.askForTurn();
@@ -133,8 +139,6 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy(): void {
     this.subscriptionTurn.unsubscribe();
   }
-
-
 
   onClick(event) {
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue;
