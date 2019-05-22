@@ -129,6 +129,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     );
   }
+
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000,
@@ -138,6 +139,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     this.subscriptionTurn.unsubscribe();
+    this.openSnackBar("Przegrałeś mordo", "MORDO");
   }
 
   onClick(event) {

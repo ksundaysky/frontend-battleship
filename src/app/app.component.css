@@ -26,3 +26,9 @@ li.flag{
 .navbar{
     background-color: rgb(199, 201, 204);
 }
+
+.title{
+    margin-left: 8px;
+    font-size: 9px;
+    font-family: sans-serif;
+}

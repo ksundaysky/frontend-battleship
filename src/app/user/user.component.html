@@ -1,15 +1,28 @@
-<h4>Content from Server</h4>
-{{board}}
-{{errorMessage}}
+<br><br>
 <div class="container center-div" style="max-width:400px;">
-    <span>GIERKI GRACZA</span>
-    <table>
-        <tr *ngFor="let game of games">
-            <td>{{game.name}}</td>
-            <td>{{game.dimension}}</td>
-            <td><button [attr.id]="game.dimension" (click)="joinGame($event)">JOIN GAME</button></td>
-        </tr>
-    </table>
-    
+    <table *ngIf='listOfAllPlayers.length>1; else noScoreboard'>
+            <tr>
+              <td class="top">{{ 'NICK' | translate }}</td>
+              <td class="top">{{ 'GAMES PLAYED' | translate }}</td>
+              <td class="top">{{ 'GAMES WON' | translate }}</td>
+              <td class="top">{{ 'RATIO' | translate }}</td>
+            </tr>
+            <tr *ngFor="let player of listOfAllPlayers | keyvalue" >
+                <td>{{player.value.login}}</td>
+                <td>{{player.value.gamesPlayed}}</td>
+                <td>{{player.value.gamesWon}}</td>
+                <td>{{player.value.gameRatio}}</td>
+            </tr>
+    </table> 
 </div>
+
+
+<ng-template #noScoreboard>
+        <tr>
+            <td class="top">{{ 'NICK' | translate }}</td>
+            <td class="top">{{ 'GAMES PLAYED' | translate }}</td>
+            <td class="top">{{ 'GAMES WON' | translate }}</td>
+            <td class="top">{{ 'RATIO' | translate }}</td>
+          </tr>
+</ng-template>
 

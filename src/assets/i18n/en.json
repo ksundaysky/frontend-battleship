@@ -40,5 +40,6 @@
     "GAMES PLAYED": "Games played",
     "GAMES WON": "Games won",
     "RATIO": "Winning ratio",
-    "WAITING FOR OPPONENT": "Waiting for opponent"
+    "WAITING FOR OPPONENT": "Waiting for opponent",
+    "LOSE": "You lose!"
 }

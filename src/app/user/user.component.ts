@@ -9,23 +9,25 @@ import { UserService } from '../user/user.service';
 export class UserComponent implements OnInit {
   board: string;
   errorMessage: string;
-  games = [{
-    "name": "Gra",
-    "dimension": 1,
-  },
-  {
-    "name": "Gra2",
-    "dimension": 2,
-
-  }
-  ]
+  listOfAllPlayers = [''];
+  
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.getListOfPlayers();
   }
-  joinGame(event) {
-    const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue;
-    console.log(value);
-  }
+
+  getListOfPlayers() {
+    
+    // -> get/gameslist
+    this.userService.getAllPlayers().subscribe(
+     data => {
+       this.listOfAllPlayers = JSON.parse(data);
+     },
+     error => {
+       this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+     }
+   )
+ }
 }
