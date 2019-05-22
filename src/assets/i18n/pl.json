@@ -35,5 +35,9 @@
     "IN_PREPARATION": "Podczas konfiguracji",
     "WAITING": "Oczekująca",
     "FINISHED": "Zakończona",
-    "JOIN GAME": "Dołącz"
+    "JOIN GAME": "Dołącz",
+    "NICK": "Nick",
+    "GAMES PLAYED": "Rozegrane gry",
+    "GAMES WON": "Wygrane gry",
+    "RATIO": "Procent wygranych"
 }

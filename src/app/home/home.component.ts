@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit {
   info: any;
   errorMessage: String;
   listOfAllGames: String[];
+  listOfAllPlayers = [''];
+
 
   constructor(private token: TokenStorageService, private homeService: HomeService, private router: Router) { }
 
@@ -27,8 +29,7 @@ export class HomeComponent implements OnInit {
       authorities: this.token.getAuthorities()
     };
 
-    this.getListOfGames();
-
+    this.getListOfGames();  
   }
 
   getListOfGames() {
@@ -37,6 +38,19 @@ export class HomeComponent implements OnInit {
     this.homeService.getAllGames().subscribe(
       data => {
         this.listOfAllGames = JSON.parse(data);
+      },
+      error => {
+        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+      }
+    )
+  }
+
+  getListOfPlayers() {
+    
+     // -> get/gameslist
+     this.homeService.getAllPlayers().subscribe(
+      data => {
+        this.listOfAllPlayers = JSON.parse(data);
       },
       error => {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;

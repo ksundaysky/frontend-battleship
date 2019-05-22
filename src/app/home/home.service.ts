@@ -9,11 +9,15 @@ import {serverUrl} from '../app.component';
 export class HomeService {
 
   private allGames = serverUrl + '/api/wkbp/get/gameslist';
-
+  private allPlayers = serverUrl + '/api/wkbp/get/playerslist';
 
   constructor(private http: HttpClient) { }
 
   getAllGames(): Observable<string> {
     return this.http.get(this.allGames, { responseType: 'text' });
+  }
+
+  getAllPlayers(): Observable<string> {
+    return this.http.get(this.allPlayers, { responseType: 'text' });
   }
 }

@@ -9,21 +9,33 @@ td.battleshipBoard.right:hover{
   background-color:#006994;
 }
 
-td.battleshipBoard.right.fired{
+td.battleshipBoard.fired{
   border-collapse: collapse;
   background-color:#e03c31;
 }
 td.battleshipBoard.ships{
   border-collapse: collapse;
   background-color: #848482;
+  /* background-image: url('../../assets/img/X.png'); */
+  /* background-size: contain; */
+  
+}
+
+td.battleshipBoard.cross{
+  /* border-collapse: collapse;
+  background-color: #848482; */
   background-image: url('../../assets/img/X.png');
   background-size: contain;
-  
 }
 
 td.battleshipBoard.fired:hover{
   border-collapse: collapse;
   background-color: #990000;
+}
+
+td.battleshipBoard.hit{
+  border-collapse: collapse;
+  background-color: green;
 }
 table.battleshipBoard {
     margin: auto;

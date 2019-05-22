@@ -1,10 +1,12 @@
-import { Component, OnInit, AfterViewInit, DoCheck, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, DoCheck, OnDestroy, AfterContentInit } from '@angular/core';
 import { GameService } from './game.service';
 import { Field } from './field';
 import * as $ from 'jquery';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import { interval } from 'rxjs';
+import { interval, Subscription, Observable, timer } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ShotOutcome } from './shotOutcome';
 
 @Component({
   selector: 'app-game',
@@ -12,7 +14,7 @@ import { interval } from 'rxjs';
   styleUrls: ['./game.component.css']
 })
 
-export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
+export class GameComponent implements OnInit, OnDestroy {
 
 
   levelsInBoard: number[];
@@ -24,29 +26,108 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
   shotUnabled: boolean = false;
   loop: any;
   multiply = 10;
+  shotOutcome: ShotOutcome;
+  updateMyBoard: ShotOutcome;
+  permission: boolean;
+  gameReady: boolean;
+  counter: number;
 
-  constructor(private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) { }
+  private subscriptionReady: Subscription;
+  private subscriptionTurn: Subscription;
+
+  timerTurn$: Observable<number> = timer(0, 3000);
+  timerReady$: Observable<number> = timer(0, 3000);
+
+  private alive = true;
+  gameId: number;
+
+  constructor(private router: Router, private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.levelsInBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  }
+    this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.gameReady=false;
 
-  ngAfterViewInit(): void {
-    const id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
     this.getShips();
 
-    this.loop = interval(1000).subscribe(i => {
-      this.gameService.getTurn(id).subscribe(
+    this.subscriptionReady = this.timerReady$.subscribe(i => {
+      this.gameService.getReady(this.gameId).subscribe(
         data => {
-          this.shotUnabled = JSON.parse(data);
+          console.log('sie pytam sie czy redy gra ');
+          console.log(JSON.parse(JSON.stringify(data)));
+          this.gameReady = JSON.parse(data);
+          console.log('gameredy '+this.gameReady);
+          if(this.gameReady == true){
+               this.askForTurn();
+          }
+        },
+        error => {
+        }
+      );
+    }
+    );
+  }
+
+  getPermission() {
+    this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.gameService.getPermission(this.gameId).subscribe(
+      data => {
+        console.log('mam permiszyn');
+        console.log("co to " + JSON.stringify(data));
+        this.permission = JSON.parse(JSON.stringify(data));
+      },
+      error => {
+        console.log('nie mam permiszyn');
+        console.log(JSON.stringify(error));
+        this.permission = JSON.parse(error);
+      }
+    );
+  }
+
+
+  askForTurn() {
+   
+    this.subscriptionReady.unsubscribe();
+    this.subscriptionTurn = this.timerTurn$.subscribe(i => {
+      this.gameService.getTurn(this.gameId).subscribe(
+        data => {
+         // console.log('sie pytam sie');
+          this.updateMyBoard = JSON.parse(data);
+         console.log(this.updateMyBoard);
+          this.shotUnabled = this.updateMyBoard.playerTurn;
+          console.log(this.shotUnabled);
+          if(this.updateMyBoard.playerWon === true){
+            this.openSnackBar('Gerka skonczona Przegrana :(','ELOOOOOOO'); // redirect needed
+            this.router.navigateByUrl('game/summary/'+this.gameId.toString());
+          }
+          if(this.shotUnabled === true)
+          {
+            this.openSnackBar("Your turn",'CZEKEJ')
+          }
+          if(this.updateMyBoard.field != null){
+            console.log(this.shipCells);
+              if(this.shipCells.includes(this.updateMyBoard.field.id))
+              {
+                //iksik
+                this.shipHitX(this.updateMyBoard.field.id,'L');
+              }else{
+                //czerwone
+                this.shipMissedColor(this.updateMyBoard.field.id,'L');
+              }
+          }
+          this.counter=0;
         },
         error => {
           this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
         }
       );
     }
-    )
-
+    );
+  }
+  shipHitX(id, ch) {
+    const fieldId = '#' + id + ch;
+    console.log('field id = ' + fieldId);
+    $(fieldId).addClass('cross');
   }
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
@@ -56,43 +137,39 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-    this.loop.unsubsrcribe();
+    this.subscriptionTurn.unsubscribe();
   }
-
-
 
   onClick(event) {
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue;
-    if (this.shotUnabled == false) {
+    this.counter++;
+    if (this.shotUnabled == false || this.counter > 1) { // TODO do przemyślenia mechanizm blokowania!
       this.openSnackBar('Wait! its not your turn!', 'WAIT')
     } else {
       this.postShot(value.substring(0, value.length - 1));
-
-      if (!this.clickedCells.includes(value)) {
-        GameComponent.highlightFields(value);
-        this.clickedCells.push(value);
-        this.currentMessage = '';
-      }
-      else {
-        this.openSnackBar('You cannot shoot here!', 'OK')
-
-      }
     }
-  }
-
-  static highlightFields(values) {
-    const id = '#' + values.toString();
-    $(id).addClass('fired');
   }
 
   postShot(value) {
     let field = new Field(value);
-    let id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
 
     console.log(JSON.parse(JSON.stringify(field)));
-    this.gameService.postShot(field, id).subscribe(
+    this.gameService.postShot(field, this.gameId).subscribe(
       data => {
-        this.info = JSON.parse(JSON.stringify(data));
+        this.shotOutcome = JSON.parse(JSON.stringify(data));
+        console.log('shot outcome: ' + this.shotOutcome.playerWon);
+        console.log(this.shotOutcome.playerTurn);
+        if(this.shotOutcome.playerWon === true){
+          this.openSnackBar('Gerka skonczona  WYGRANA :)','ELOOOOOOO'); // redirect needed
+          this.router.navigateByUrl('game/summary/'+this.gameId.toString());
+        }
+
+        if (this.shotOutcome.playerTurn === true) {
+          this.shipHitColor(this.shotOutcome.field.id);
+        }
+        else {
+          this.shipMissedColor(this.shotOutcome.field.id , 'R');
+        }
       },
       error => {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
@@ -107,16 +184,34 @@ export class GameComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  shipHitColor(id) {
+    const fieldId = '#' + id + 'R';
+    console.log('field id = ' + fieldId);
+    $(fieldId).addClass('hit');
+  }
+
+  shipMissedColor(id, ch) {
+    const fieldId = '#' + id + ch;
+    console.log('field id = ' + fieldId);
+    $(fieldId).addClass('fired');
+  }
+
   getShips() {
-    let id = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.gameService.getShips(id).subscribe(
+    this.gameService.getShips(this.gameId).subscribe(
       data => {
         var shipLocations: Array<String> = JSON.parse(data);
         this.randomShipsColor(shipLocations);
+        this.addIdToList(shipLocations);
       },
       error => {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       }
     );
+  }
+
+  addIdToList(list){
+    for (let ships of list) {
+      this.shipCells.push(ships.id);
+    }
   }
 }

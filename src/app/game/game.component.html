@@ -1,25 +1,26 @@
-<br><br><br><br><br><br><br>
+<br><br><br>
 <div class="container">
   <div class="row">
     <div class="col-sm-5">
-        <table class="battleshipBoard">
-            <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard" id="myBoard">
-                <td *ngFor="let c of levelsInBoard ;" class="battleshipBoard battleCell" 
-                    [attr.id]="i*10+c+'L'" ></td>
-            </tr>
-        </table>
+      <table class="battleshipBoard">
+        <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard" id="myBoard">
+          <td *ngFor="let c of levelsInBoard ;" class="battleshipBoard battleCell" [attr.id]="i*multiply+c+'L'"></td>
+        </tr>
+      </table>
     </div>
     <div class="col-sm-2">
     </div>
     <div class="col-sm-5">
-      <table class="battleshipBoard">
-          <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard">
-              <td *ngFor="let c of levelsInBoard ;" class="battleshipBoard battleCell right" (click)="onClick($event)"
-                  [attr.id]="i*multiply+c+'R'" [attr.disabled]="buttonDisabled"> </td>
-          </tr>
+      <table class="battleshipBoard" *ngIf='gameReady'>
+        <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard">
+          <td *ngFor="let c of levelsInBoard ;" class="battleshipBoard battleCell right" (click)="onClick($event)"
+            [attr.id]="i*multiply+c+'R'" [attr.disabled]="buttonDisabled"> </td>
+        </tr>
       </table>
+      <div *ngIf='!gameReady'>
+        <h1>{{ 'WAITING_FOR_OPPONENT' | translate}}</h1>
+        <img src="/assets/img/loading.gif">
+       <div>
     </div>
   </div>
 </div>
-<h2>{{currentMessage}}</h2>
-{{errorMessage}}
