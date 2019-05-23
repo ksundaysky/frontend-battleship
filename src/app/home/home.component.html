@@ -3,14 +3,17 @@
 </ng-template>
 <br><br>
 <div  class="container center-div" style="max-width:850px;">
-        <table>
+        <table class="table table-hover">
+            <thead class="thead-dark">
           <tr>
-            <td class="top">{{ 'GAME STATE' | translate }}</td>
-            <td class="top">{{ 'GAME NAME' | translate }}</td>
-            <td class="top">{{ 'DIMENSION' | translate }}</td>
-            <td class="top">{{ 'GAME MODE' | translate }}</td>
-            <td class="top"></td>
+            <th class="top">{{ 'GAME STATE' | translate }}</th>
+            <th class="top">{{ 'GAME NAME' | translate }}</th>
+            <th class="top">{{ 'DIMENSION' | translate }}</th>
+            <th class="top">{{ 'GAME MODE' | translate }}</th>
+            <th class="top"></th>
           </tr>
+          </thead>
+          <tbody>
           <tr *ngFor="let game of listOfAllGames | keyvalue">
               <td>{{game.value.gameState | translate}}</td>
               <td>{{game.value.gameConfig.gameName}}</td>
@@ -18,6 +21,7 @@
               <td>{{game.value.gameConfig.gameMode | translate}}</td>
               <td><button id="{{game.key}}" (click)="joinGame($event)"  *ngIf='game.value.gameState==="WAITING_FOR_PLAYER"'>{{ 'JOIN GAME' | translate }}</button></td>
           </tr>
+        </tbody>
         </table>
 </div>
 

@@ -12,7 +12,8 @@ import { Summary } from './summary';
 export class SummaryComponent implements OnInit {
 
   gameId:number;
-  summary:Summary;
+  summaries:Summary;
+  gameName:string;
   constructor(private activatedRoute: ActivatedRoute, private summaryService: SummaryService) { }
 
   ngOnInit() {
@@ -20,8 +21,9 @@ export class SummaryComponent implements OnInit {
 
     this.summaryService.getSummary(this.gameId).subscribe(
       data=>{
-        this.summary = JSON.parse(data);
-        console.log(this.summary);
+        this.summaries = JSON.parse(data);
+        console.log(this.summaries);
+        this.gameName = this.summaries[0].gameName;
       },
       error=>{
         console.log('cos poszlo nie tak :(')

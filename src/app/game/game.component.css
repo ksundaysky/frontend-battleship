@@ -16,14 +16,9 @@ td.battleshipBoard.fired{
 td.battleshipBoard.ships{
   border-collapse: collapse;
   background-color: #848482;
-  /* background-image: url('../../assets/img/X.png'); */
-  /* background-size: contain; */
-  
 }
 
 td.battleshipBoard.cross{
-  /* border-collapse: collapse;
-  background-color: #848482; */
   background-image: url('../../assets/img/X.png');
   background-size: contain;
 }
@@ -55,8 +50,4 @@ table {
 .attacked {
   border-collapse: collapse;
   background: repeating-linear-gradient(45deg, #000000, #000000 10px, #FF0000 10px, #FF0000 20px); 
-}
-
-textarea{
-  border: 4px solid rgb(199, 201, 204);
 }

@@ -1,3 +1,37 @@
-<p>
-  summary works!
-</p>
+<br><br>
+
+
+<div class="container center-div" style="max-width:850px;">
+  <h1 >{{gameName}}</h1>
+<br><br>
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th class="top">{{ 'RESULT' | translate }}</th>
+        <th class="top">{{ 'USER' | translate }}</th>
+        <th class="top">{{ 'SHOTS' | translate }}</th>
+        <th class="top">{{ 'HITS' | translate }}</th>
+        <th class="top">{{ 'RATIOL' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let summary of summaries ">
+      <tr  *ngIf='summary.winner===true' class="table-success">
+        <td>{{ 'WINNER' | translate}}</td>
+        <td>{{summary.user}}</td>
+        <td>{{summary.shots}}</td>
+        <td>{{summary.hits}}</td>
+        <td>{{summary.ratio}}%</td>
+      </tr>
+      <tr  *ngIf='summary.winner===false' class="table-danger">
+          <td>{{ 'LOOSER' | translate}}</td>
+          <td>{{summary.user}}</td>
+          <td>{{summary.shots}}</td>
+          <td>{{summary.hits}}</td>
+          <td>{{summary.ratio}}%</td>
+        </tr>
+    </ng-container>
+    </tbody>
+  </table>
+</div>
