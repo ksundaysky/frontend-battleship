@@ -1,16 +1,19 @@
-<br><br><br>
+<br>
 <div class="container">
   <div class="row">
-    <div class="col-sm-5">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5" style="text-align:center;">
+      <h1>My board</h1>
       <table class="battleshipBoard">
         <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard" id="myBoard">
           <td *ngFor="let c of levelsInBoard ;" class="battleshipBoard battleCell" [attr.id]="i*multiply+c+'L'"></td>
         </tr>
       </table>
     </div>
-    <div class="col-sm-2">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-2">
+      {{turnMessage}}
     </div>
-    <div class="col-sm-5">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5" style="text-align:center;">
+        <h1>Opponent board</h1>
       <table class="battleshipBoard" *ngIf='gameReady'>
         <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard">
           <td *ngFor="let c of levelsInBoard ;" class="battleshipBoard battleCell right" (click)="onClick($event)"
@@ -18,16 +21,14 @@
         </tr>
       </table>
       <div *ngIf='!gameReady'>
+        <img src="/assets/img/loading.gif" class="center">
         <h1>{{ 'WAITING FOR OPPONENT' | translate}}</h1>
-        <img src="/assets/img/loading.gif">
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-5">
-        <textarea rows=5 cols=42 class="textarea" readonly></textarea>
+    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <textarea rows='6' class="textarea" readonly></textarea>
     </div>
   </div>
 </div>
-
-
