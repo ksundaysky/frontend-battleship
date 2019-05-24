@@ -1,5 +1,5 @@
 <br>
-<div class="container">
+<div *ngIf='permission' class="container">
   <div class="row">
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5" style="text-align:center;">
       <h1>My board</h1>
@@ -13,7 +13,7 @@
       {{turnMessage}}
     </div>
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5" style="text-align:center;">
-        <h1>Opponent board</h1>
+      <h1>Opponent board</h1>
       <table class="battleshipBoard" *ngIf='gameReady'>
         <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard">
           <td *ngFor="let c of levelsInBoard ;" class="battleshipBoard battleCell right" (click)="onClick($event)"
@@ -28,7 +28,20 @@
   </div>
   <div class="row">
     <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <textarea rows='6' class="textarea" readonly></textarea>
+      <textarea rows='6' class="textarea" readonly></textarea>
     </div>
   </div>
+</div>
+<div *ngIf='!permission' class="container center-div"  style="text-align:center;">
+  <div class="row">
+    <div class="col-12">
+      <h1 style="color: magenta">Permission denied!</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12" >
+      <img src="../../assets/img/denied.gif" style="height:70%; width:auto;">
+    </div>
+  </div>
+
 </div>
