@@ -6,3 +6,10 @@
 .container.center-div{
     max-width:400px;
 }
+
+h1{
+    margin: 20px;
+    font-size: 150%;
+    font-family: sans-serif;
+    color: #808080;
+  }

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { AuthLoginInfo } from '../auth/login-info';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,7 @@ export class LoginComponent implements OnInit {
   roles: string[] = [];
   private loginInfo: AuthLoginInfo;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
@@ -42,6 +44,8 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getAuthorities();
+        // TODO: TRANSLATE SNACKBAR
+        this.openSnackBar("ZALAOGOWANY", "MORDO");
         this.reloadPage();
       },
       error => {
@@ -53,6 +57,12 @@ export class LoginComponent implements OnInit {
   }
 
   reloadPage() {
-    window.location.reload();
+    window.location.replace("/home");
+  }
+
+  async openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 4000,
+    });
   }
 }

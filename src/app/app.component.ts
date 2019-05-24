@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from './auth/token-storage.service';
 import { TranslateService } from './services/translate/translate.service';
+import { Router } from '@angular/router';
 // export const wkbpJSON = require("../assets/json/wkbp.json");
 
 
-export const serverUrl = 'https://battleship-wkbp-server.herokuapp.com';
-// export const serverUrl = 'http://localhost:8081';
+//export const serverUrl = 'https://battleship-wkbp-server.herokuapp.com';
+ export const serverUrl = 'http://localhost:8080';
 
 
 declare var require: any
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit {
   
   
 
-  constructor(private tokenStorage: TokenStorageService, private translate: TranslateService) {   }
+  constructor(private tokenStorage: TokenStorageService, private translate: TranslateService, private router: Router) {   }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
@@ -54,6 +55,6 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.tokenStorage.signOut();
-    window.location.reload();
+    window.location.replace("/home");
   }
 }

@@ -142,17 +142,18 @@ export class GameComponent implements OnInit, OnDestroy {
     }
     );
   }
+  
   shipHitX(id, ch) {
     const fieldId = '#' + id + ch;
     console.log('field id = ' + fieldId);
     $(fieldId).addClass('cross');
   }
+
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
   }
-
 
   ngOnDestroy(): void {
     if (this.subscriptionTurn != null) {
