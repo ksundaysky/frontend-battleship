@@ -1,6 +1,6 @@
 
 <br><br><br>
-<div class="container center-div">
+<div *ngIf='permission' class="container center-div">
   <div class="row">
     <div class="col">
         <table class="battleshipBoard">
@@ -16,6 +16,10 @@
         <button *ngIf="canIStart==true" (click)="goToTheGameRoom()" >{{ 'START GAME' | translate}}</button>
     </div>
   </div>
+</div>
+
+<div *ngIf='!permission'>
+  <p> You dont have permision to this resource</p>
 </div>
 
 
