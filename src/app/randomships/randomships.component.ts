@@ -18,7 +18,7 @@ export class RandomshipsComponent implements OnInit {
   shipCells = [];
   errorMessage: string;
   canIStart: boolean;
-  permission:boolean = false;
+  permission: boolean = false;
 
 
   constructor(private router: Router, private randomShipsService: RandomShipsService, private activatedRoute: ActivatedRoute, private gameService: GameService) { }
@@ -29,16 +29,11 @@ export class RandomshipsComponent implements OnInit {
 
     this.randomShipsService.getCreateGame(id).subscribe(
       data => {
-
         this.permission = true;
-        console.log('permission '+this.permission);
-
       },
       error => {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
         this.permission = false;
-        console.log('permission '+this.permission);
-
       }
     );
     this.boardLength = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];

@@ -29,7 +29,7 @@ export class GameComponent implements OnInit, OnDestroy {
   multiply = 10;
   shotOutcome: ShotOutcome;
   updateMyBoard: ShotOutcome;
-  permission: boolean;
+  permission: boolean = false;
   gameReady: boolean;
   counter: number;
 
@@ -46,8 +46,19 @@ export class GameComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+
     this.levelsInBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+
+    this.gameService.getPermission(this.gameId).subscribe(
+      data=>{
+        this.permission = JSON.parse(data);
+      },
+      error=>{
+        this.permission = JSON.parse(error);
+      }
+    )
+
     this.gameReady = false;
 
     this.getShips();
