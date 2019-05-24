@@ -19,6 +19,8 @@ export class GameService {
   private shipUrl = serverUrl + '/api/wkbp/get/game/fleet/';
   private turnUrl = serverUrl + '/api/wkbp/get/game/is_my_turn/';
   private readyUrl = serverUrl + '/api/wkbp/get/game/is_game_ready/';
+  private endUrl = serverUrl + '/api/wkbp/get/game/end_of_game/';
+
 
 
   constructor(private http: HttpClient) { }
@@ -45,5 +47,8 @@ export class GameService {
 
   postShot(field:Field,gameId): Observable<string> {
     return this.http.post<string>(this.shotUrl+gameId,field, httpOptions);
+  }
+  getEndGame(gameId): Observable<string> {
+    return this.http.get(this.endUrl+gameId, { responseType: 'text' });
   }
 }

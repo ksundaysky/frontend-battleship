@@ -1,4 +1,40 @@
 <br>
+
+<div *ngIf='gameEnded' class="container center-div" style="max-width:850px;">
+    <h1 >{{gameName}}</h1>
+  <br><br>
+  
+    <table class="table table-responsive w-100 d-block d-md-table">
+      <thead class="thead-dark">
+        <tr>
+          <th class="top">{{ 'RESULT' | translate }}</th>
+          <th class="top">{{ 'USER' | translate }}</th>
+          <th class="top">{{ 'SHOTS' | translate }}</th>
+          <th class="top">{{ 'HITS' | translate }}</th>
+          <th class="top">{{ 'RATIOL' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let summary of summaries ">
+        <tr  *ngIf='summary.winner===true' class="table-success">
+          <td>{{ 'WINNER' | translate}}</td>
+          <td>{{summary.user}}</td>
+          <td>{{summary.shots}}</td>
+          <td>{{summary.hits}}</td>
+          <td>{{summary.ratio}}%</td>
+        </tr>
+        <tr  *ngIf='summary.winner===false' class="table-danger">
+            <td>{{ 'LOOSER' | translate}}</td>
+            <td>{{summary.user}}</td>
+            <td>{{summary.shots}}</td>
+            <td>{{summary.hits}}</td>
+            <td>{{summary.ratio}}%</td>
+          </tr>
+      </ng-container>
+      </tbody>
+    </table>
+    <br><br>
+  </div>
 <div *ngIf='permission' class="container">
   <div class="row">
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5" style="text-align:center;">

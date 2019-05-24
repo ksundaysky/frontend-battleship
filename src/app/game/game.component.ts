@@ -1,18 +1,21 @@
-import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation } from '@angular/core';
 import { GameService } from './game.service';
 import { Field } from './field';
 import * as $ from 'jquery';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { interval, Subscription, Observable, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ShotOutcome } from './shotOutcome';
 import { DatePipe } from '@angular/common';
+import { SummaryService } from '../summary/summary.service';
+import { Summary } from '../summary/summary';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  styleUrls: ['./game.component.css'],
+  // encapsulation: ViewEncapsulation.None 
 })
 
 export class GameComponent implements OnInit, OnDestroy {
@@ -42,8 +45,12 @@ export class GameComponent implements OnInit, OnDestroy {
   private alive = true;
   gameId: number;
   turnMessage: string;
+  gameEnded:boolean = false;
 
-  constructor(private router: Router, private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) { }
+  summaries:Summary;
+  gameName:string;
+
+  constructor(private router: Router, private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar, private summaryService: SummaryService) { }
 
   ngOnInit() {
 
@@ -119,7 +126,19 @@ export class GameComponent implements OnInit, OnDestroy {
           }
           if (this.updateMyBoard.playerWon === true) {
             this.openSnackBar('Gerka skonczona Przegrana :(', 'ELOOOOOOO'); // redirect needed
-            this.router.navigateByUrl('game/summary/' + this.gameId.toString());
+            // this.router.navigateByUrl('game/summary/' + this.gameId.toString());
+
+            this.summaryService.getSummary(this.gameId).subscribe(
+              data=>{
+                this.summaries = JSON.parse(data);
+                console.log(this.summaries);
+                this.gameName = this.summaries[0].gameName;
+              },
+              error=>{
+                console.log('cos poszlo nie tak :(')
+              }
+            );
+            this.gameEnded=true;
           }
           if (this.shotUnabled === true) {
             // this.openSnackBar("Your turn", 'CZEKEJ')
@@ -152,16 +171,26 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000,
-    });
+    const config = new MatSnackBarConfig();
+    config.panelClass= ['blue-snackbar'];
+    config.duration = 5000;
+
+    this.snackBar.open(message, "", config);
   }
 
   ngOnDestroy(): void {
     if (this.subscriptionTurn != null) {
       this.subscriptionTurn.unsubscribe();
     }
-    this.openSnackBar("Przegrałeś mordo", "MORDO");
+    this.gameService.getEndGame(this.gameId).subscribe(
+      data=>{
+          console.log(JSON.stringify(data));
+      },
+      error=>{
+        console.log(JSON.stringify(error));
+
+      }
+    )
   }
 
   onClick(event) {
@@ -188,7 +217,18 @@ export class GameComponent implements OnInit, OnDestroy {
 
         if (this.shotOutcome.playerWon === true) {
           this.openSnackBar('Gerka skonczona  WYGRANA :)', 'ELOOOOOOO'); // redirect needed
-          this.router.navigateByUrl('game/summary/' + this.gameId.toString());
+          // this.router.navigateByUrl('game/summary/' + this.gameId.toString());
+
+          this.summaryService.getSummary(this.gameId).subscribe(
+            data=>{
+              this.summaries = JSON.parse(data);
+              console.log(this.summaries);
+              this.gameName = this.summaries[0].gameName;
+            },
+            error=>{
+              console.log('cos poszlo nie tak :(')
+            }
+          );
         }
         if(this.shotOutcome.neighbourFieldsOfSunkenShip != null){
           for (let field of this.shotOutcome.neighbourFieldsOfSunkenShip) {

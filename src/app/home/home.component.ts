@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { HomeService } from './home.service';
 import { Router } from '@angular/router';
+import { Game } from './game';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
 
   info: any;
   errorMessage: String;
-  listOfAllGames: String[];
+  listOfAllGames: Array<Game>;
   listOfAllPlayers = [''];
 
 

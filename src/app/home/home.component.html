@@ -4,8 +4,8 @@
 <br><br>
 <div class="row">
   <div class="col-12">
-      <div class="container center-div" style="max-width:850px;">
-          <table class="table table-hover">
+      <div class="container center-div  table-responsvie" >
+          <table class="table table-responsive w-100 d-block d-md-table">
               <thead class="thead-dark">
             <tr>
               <th class="top">{{ 'GAME STATE' | translate }}</th>
@@ -18,10 +18,10 @@
             <tbody>
             <tr *ngFor="let game of listOfAllGames | keyvalue">
                 <td>{{game.value.gameState | translate}}</td>
-                <td>{{game.value.gameConfig.gameName}}</td>
-                <td>{{game.value.gameConfig.dimension}}x{{game.value.gameConfig.dimension}}</td>
-                <td>{{game.value.gameConfig.gameMode | translate}}</td>
-                <td><button id="{{game.key}}" (click)="joinGame($event)"  *ngIf='game.value.gameState==="WAITING_FOR_PLAYER"'>{{ 'JOIN GAME' | translate }}</button></td>
+                <td>{{game.value.gameName}}</td>
+                <td>{{game.value.dimension}}x{{game.value.dimension}}</td>
+                <td>{{game.value.gameMode | translate}}</td>
+                <td><button id="{{game.value.gameId}}" (click)="joinGame($event)"  *ngIf='game.value.gameState==="WAITING_FOR_PLAYER"'>{{ 'JOIN GAME' | translate }}</button></td>
             </tr>
           </tbody>
           </table>
