@@ -29,7 +29,7 @@ export class GameComponent implements OnInit, OnDestroy {
   multiply = 10;
   shotOutcome: ShotOutcome;
   updateMyBoard: ShotOutcome;
-  permission: boolean = false;
+  permission: boolean = true;
   gameReady: boolean;
   counter: number;
 
@@ -52,10 +52,12 @@ export class GameComponent implements OnInit, OnDestroy {
 
     this.gameService.getPermission(this.gameId).subscribe(
       data=>{
-        this.permission = JSON.parse(data);
+        this.permission = true;
+        // JSON.parse(data);
       },
       error=>{
-        this.permission = JSON.parse(error);
+        this.permission = false;
+        // JSON.parse(error);
       }
     )
 
