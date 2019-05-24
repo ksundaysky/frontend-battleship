@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterContentInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation } from '@angular/core';
 import { GameService } from './game.service';
 import { Field } from './field';
 import * as $ from 'jquery';
@@ -8,17 +8,20 @@ import { interval, Subscription, Observable, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ShotOutcome } from './shotOutcome';
 import { DatePipe } from '@angular/common';
+import { TranslateService } from '../services/translate/translate.service';
+
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css']
+  styleUrls: ['./game.component.css'],
 })
 
 export class GameComponent implements OnInit, OnDestroy {
 
 
   levelsInBoard: number[];
+  levelsInBoard1: number[];
   clickedCells = [''];
   shipCells = [];
   currentMessage: string;
@@ -43,11 +46,12 @@ export class GameComponent implements OnInit, OnDestroy {
   gameId: number;
   turnMessage: string;
 
-  constructor(private router: Router, private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar) { }
+  constructor(private router: Router, private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar, private translate: TranslateService) { }
 
   ngOnInit() {
 
     this.levelsInBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    this.levelsInBoard1 = [0];
     this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
 
     this.gameService.getPermission(this.gameId).subscribe(
@@ -116,12 +120,12 @@ export class GameComponent implements OnInit, OnDestroy {
             $('.textarea').append(formatted + " " + this.updateMyBoard.message + "\n");
           }
           if (this.updateMyBoard.playerWon === true) {
-            this.openSnackBar('Gerka skonczona Przegrana :(', 'ELOOOOOOO'); // redirect needed
+            this.openSnackBar(this.translatePopUp("LOST"),'lostPop'); // redirect needed
             this.router.navigateByUrl('game/summary/' + this.gameId.toString());
           }
           if (this.shotUnabled === true) {
             // this.openSnackBar("Your turn", 'CZEKEJ')
-            this.turnMessage = "TWOJA KOLEJ";
+            this.turnMessage = "YOUR TURN";
           }
           if (this.updateMyBoard.field != null) {
             console.log(this.shipCells);
@@ -149,9 +153,10 @@ export class GameComponent implements OnInit, OnDestroy {
     $(fieldId).addClass('cross');
   }
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
+  openSnackBar(message: string, color: string) {
+    this.snackBar.open(message, "", {
       duration: 2000,
+      panelClass: [color]
     });
   }
 
@@ -159,14 +164,18 @@ export class GameComponent implements OnInit, OnDestroy {
     if (this.subscriptionTurn != null) {
       this.subscriptionTurn.unsubscribe();
     }
-    this.openSnackBar("Przegrałeś mordo", "MORDO");
+    this.openSnackBar(this.translatePopUp("ENDGAME"),'endGamePop');
+  }
+
+  translatePopUp(toTranslate: string){
+    return this.translate.data[toTranslate] || toTranslate;
   }
 
   onClick(event) {
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue;
     this.counter++;
     if (this.shotUnabled == false || this.counter > 1) { // TODO do przemyślenia mechanizm blokowania!
-      this.openSnackBar('Wait! its not your turn!', 'WAIT')
+      this.openSnackBar(this.translatePopUp("NOT YOUR TURN"),'notTurnPop')
     } else {
       this.postShot(value.substring(0, value.length - 1));
     }
@@ -185,7 +194,7 @@ export class GameComponent implements OnInit, OnDestroy {
         console.log(this.shotOutcome);
 
         if (this.shotOutcome.playerWon === true) {
-          this.openSnackBar('Gerka skonczona  WYGRANA :)', 'ELOOOOOOO'); // redirect needed
+          this.openSnackBar(this.translatePopUp("WON"),'green'); // redirect needed
           this.router.navigateByUrl('game/summary/' + this.gameId.toString());
         }
         if(this.shotOutcome.neighbourFieldsOfSunkenShip != null){
@@ -195,9 +204,11 @@ export class GameComponent implements OnInit, OnDestroy {
           }
         }
         if (this.shotOutcome.playerTurn === true) {
+          this.openSnackBar(this.translatePopUp("HIT"),'hitPop');
           this.shipHitColor(this.shotOutcome.field.id);
         }
         else {
+          this.openSnackBar(this.translatePopUp("MISSED"),'missedPop');
           this.shipMissedColor(this.shotOutcome.field.id, 'R');
         }
       },

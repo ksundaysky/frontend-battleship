@@ -12,7 +12,7 @@
     "LOGIN FAILED": "Login failed",
     "NO ACCOUNT": "Don't have an account?",
     "SIGN UP": "Sign up" ,
-    "RANDOM": "Randomize ships",
+    "RANDOM": "Randomize fleet",
     "NAME": "Your name",
     "EMAIL": "E-mail",
     "NAME IS REQUIRED": "Name is required",
@@ -40,6 +40,17 @@
     "GAMES PLAYED": "Games played",
     "GAMES WON": "Games won",
     "RATIO": "Winning ratio",
-    "WAITING FOR OPPONENT": "Waiting for opponent",
-    "LOSE": "You lose!"
+    "WAITING_FOR_PLAYER": "Waiting for opponent",    
+    "LOST": "You lose!",
+    "WON": "You won!",
+    "NOT YOUR TURN": "Wait! its not your turn!",
+    "YOUR TURN": "Your turn",
+    "HIT": "You hit the ship!",
+    "MISSED": "Ehhh... You Missed!",
+    "PERMISION DIENED": "Permission denied",
+    "MY BOARD": "My Board",
+    "OPPONENT BOARD": "Opponent's Board",
+    "ENDGAME": "Game has ended",
+    "READY": "Ready",
+    "LOGOUT": "Logout"
 }

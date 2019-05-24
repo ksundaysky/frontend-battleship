@@ -71,3 +71,37 @@ textarea {
 
   width: 100%;
 }
+::ng-deep .missedPop {
+  background: red;
+  color: white;
+}
+::ng-deep .hitPop {
+  background: green;
+  color: white;
+}
+
+::ng-deep .lostPop {
+  background: black;
+  color: white;
+}
+
+::ng-deep .notTurnPop {
+  background: lightgray;
+  color: black;
+}
+
+::ng-deep .wonPop {
+  background: rgb(60,179,113);
+  color: grey;
+}
+::ng-deep .endGamePop {
+  background: rgb(255,218,185);
+  color: black;
+}
+
+.numbers {
+  margin-top:20px;
+  border-spacing: 20px;
+  border: 1px solid black;
+  padding: 5px;
+}
