@@ -25,8 +25,6 @@ export class RandomshipsComponent implements OnInit {
 
   ngOnInit() {
 
-
-
     let id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
 
     this.randomShipsService.getCreateGame(id).subscribe(
