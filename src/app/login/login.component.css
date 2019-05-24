@@ -12,4 +12,10 @@ h1{
     font-size: 150%;
     font-family: sans-serif;
     color: #808080;
-  }
+}
+
+::ng-deep .wonPop {
+    background: rgb(60,179,113);
+    color: black;
+}
+  

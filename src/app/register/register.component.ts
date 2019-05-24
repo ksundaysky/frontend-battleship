@@ -50,9 +50,10 @@ export class RegisterComponent implements OnInit {
     window.location.replace("auth/login");
   }
 
-  async openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 4000,
+  async openSnackBar(message: string, color: string) {
+    this.snackBar.open(message, "", {
+      duration: 2000,
+      panelClass: [color]
     });
   }
 

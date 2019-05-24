@@ -10,18 +10,20 @@ import { ShotOutcome } from './shotOutcome';
 import { DatePipe } from '@angular/common';
 import { SummaryService } from '../summary/summary.service';
 import { Summary } from '../summary/summary';
+import { TranslateService } from '../services/translate/translate.service';
+
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css'],
-  // encapsulation: ViewEncapsulation.None 
 })
 
 export class GameComponent implements OnInit, OnDestroy {
 
 
   levelsInBoard: number[];
+  levelsInBoard1: number[];
   clickedCells = [''];
   shipCells = [];
   currentMessage: string;
@@ -50,7 +52,7 @@ export class GameComponent implements OnInit, OnDestroy {
   summaries:Summary;
   gameName:string;
 
-  constructor(private router: Router, private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar, private summaryService: SummaryService) { }
+  constructor(private router: Router, private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar, private summaryService: SummaryService, private translate: TranslateService) { }
 
   ngOnInit() {
 
@@ -125,9 +127,9 @@ export class GameComponent implements OnInit, OnDestroy {
             $('.textarea').append(formatted + " " + this.updateMyBoard.message + "\n");
           }
           if (this.updateMyBoard.playerWon === true) {
-            this.openSnackBar('Gerka skonczona Przegrana :(', 'ELOOOOOOO'); // redirect needed
-            // this.router.navigateByUrl('game/summary/' + this.gameId.toString());
-
+           
+            this.openSnackBar(this.translatePopUp("LOST"),'lostPop'); // redirect needed
+            
             this.summaryService.getSummary(this.gameId).subscribe(
               data=>{
                 this.summaries = JSON.parse(data);
@@ -139,10 +141,11 @@ export class GameComponent implements OnInit, OnDestroy {
               }
             );
             this.gameEnded=true;
+            
           }
           if (this.shotUnabled === true) {
             // this.openSnackBar("Your turn", 'CZEKEJ')
-            this.turnMessage = "TWOJA KOLEJ";
+            this.turnMessage = "YOUR TURN";
           }
           if (this.updateMyBoard.field != null) {
             console.log(this.shipCells);
@@ -170,12 +173,11 @@ export class GameComponent implements OnInit, OnDestroy {
     $(fieldId).addClass('cross');
   }
 
-  openSnackBar(message: string, action: string) {
-    const config = new MatSnackBarConfig();
-    config.panelClass= ['blue-snackbar'];
-    config.duration = 5000;
-
-    this.snackBar.open(message, "", config);
+  openSnackBar(message: string, color: string) {
+    this.snackBar.open(message, "", {
+      duration: 2000,
+      panelClass: [color]
+    });
   }
 
   ngOnDestroy(): void {
@@ -191,13 +193,18 @@ export class GameComponent implements OnInit, OnDestroy {
 
       }
     )
+    this.openSnackBar(this.translatePopUp("ENDGAME"),'endGamePop');
   }
+
+      translatePopUp(toTranslate: string){
+        return this.translate.data[toTranslate] || toTranslate;
+      }
 
   onClick(event) {
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue;
     this.counter++;
     if (this.shotUnabled == false || this.counter > 1) { // TODO do przemyślenia mechanizm blokowania!
-      this.openSnackBar('Wait! its not your turn!', 'WAIT')
+      this.openSnackBar(this.translatePopUp("NOT YOUR TURN"),'notTurnPop')
     } else {
       this.postShot(value.substring(0, value.length - 1));
     }
@@ -216,8 +223,7 @@ export class GameComponent implements OnInit, OnDestroy {
         console.log(this.shotOutcome);
 
         if (this.shotOutcome.playerWon === true) {
-          this.openSnackBar('Gerka skonczona  WYGRANA :)', 'ELOOOOOOO'); // redirect needed
-          // this.router.navigateByUrl('game/summary/' + this.gameId.toString());
+          this.openSnackBar(this.translatePopUp("WON"),'green'); // redirect needed
 
           this.summaryService.getSummary(this.gameId).subscribe(
             data=>{
@@ -229,6 +235,7 @@ export class GameComponent implements OnInit, OnDestroy {
               console.log('cos poszlo nie tak :(')
             }
           );
+          this.gameEnded=true;
         }
         if(this.shotOutcome.neighbourFieldsOfSunkenShip != null){
           for (let field of this.shotOutcome.neighbourFieldsOfSunkenShip) {
@@ -237,9 +244,11 @@ export class GameComponent implements OnInit, OnDestroy {
           }
         }
         if (this.shotOutcome.playerTurn === true) {
+          this.openSnackBar(this.translatePopUp("HIT"),'hitPop');
           this.shipHitColor(this.shotOutcome.field.id);
         }
         else {
+          this.openSnackBar(this.translatePopUp("MISSED"),'missedPop');
           this.shipMissedColor(this.shotOutcome.field.id, 'R');
         }
       },

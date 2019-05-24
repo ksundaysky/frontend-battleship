@@ -12,3 +12,8 @@ inner-div{
     margin: 0 auto;
     width:80% ;
 }
+
+::ng-deep .wonPop {
+    background: rgb(60,179,113);
+    color: black;
+}
