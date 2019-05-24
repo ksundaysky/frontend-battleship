@@ -2,28 +2,33 @@
   Please login.
 </ng-template>
 <br><br>
-<div  class="container center-div" style="max-width:850px;">
-        <table class="table table-hover">
-            <thead class="thead-dark">
-          <tr>
-            <th class="top">{{ 'GAME STATE' | translate }}</th>
-            <th class="top">{{ 'GAME NAME' | translate }}</th>
-            <th class="top">{{ 'DIMENSION' | translate }}</th>
-            <th class="top">{{ 'GAME MODE' | translate }}</th>
-            <th class="top"></th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let game of listOfAllGames | keyvalue">
-              <td>{{game.value.gameState | translate}}</td>
-              <td>{{game.value.gameConfig.gameName}}</td>
-              <td>{{game.value.gameConfig.dimension}}x{{game.value.gameConfig.dimension}}</td>
-              <td>{{game.value.gameConfig.gameMode | translate}}</td>
-              <td><button id="{{game.key}}" (click)="joinGame($event)"  *ngIf='game.value.gameState==="WAITING_FOR_PLAYER"'>{{ 'JOIN GAME' | translate }}</button></td>
-          </tr>
-        </tbody>
-        </table>
+<div class="row">
+  <div class="col-12">
+      <div class="container center-div" style="max-width:850px;">
+          <table class="table table-hover">
+              <thead class="thead-dark">
+            <tr>
+              <th class="top">{{ 'GAME STATE' | translate }}</th>
+              <th class="top">{{ 'GAME NAME' | translate }}</th>
+              <th class="top">{{ 'DIMENSION' | translate }}</th>
+              <th class="top">{{ 'GAME MODE' | translate }}</th>
+              <th class="top"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let game of listOfAllGames | keyvalue">
+                <td>{{game.value.gameState | translate}}</td>
+                <td>{{game.value.gameConfig.gameName}}</td>
+                <td>{{game.value.gameConfig.dimension}}x{{game.value.gameConfig.dimension}}</td>
+                <td>{{game.value.gameConfig.gameMode | translate}}</td>
+                <td><button id="{{game.key}}" (click)="joinGame($event)"  *ngIf='game.value.gameState==="WAITING_FOR_PLAYER"'>{{ 'JOIN GAME' | translate }}</button></td>
+            </tr>
+          </tbody>
+          </table>
+  </div>
+  </div>
 </div>
+
 
 <ng-template #noScoreboard>
     <tr>
