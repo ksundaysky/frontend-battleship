@@ -9,6 +9,7 @@ import { GameComponent } from './game/game.component';
 import { ConfigComponent } from './config/config.component';
 import { RandomshipsComponent } from './randomships/randomships.component';
 import { SummaryComponent } from './summary/summary.component';
+import { HowtoplayComponent } from './howtoplay/howtoplay.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,10 @@ const routes: Routes = [
     {
         path: 'user',
         component: UserComponent
+    },
+    {
+        path: 'howtoplay',
+        component: HowtoplayComponent
     },
     {
         path: 'auth/login',

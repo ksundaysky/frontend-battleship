@@ -57,6 +57,7 @@ import {
 } from '@angular/material';
 import { RandomshipsComponent } from './randomships/randomships.component';
 import { SummaryComponent } from './summary/summary.component';
+import { HowtoplayComponent } from './howtoplay/howtoplay.component';
 
 
 export function setupTranslateFactory(
@@ -76,7 +77,8 @@ export function setupTranslateFactory(
     TranslatePipe,
     ConfigComponent,
     RandomshipsComponent,
-    SummaryComponent
+    SummaryComponent,
+    HowtoplayComponent
   ],
   imports: [
     CommonModule,
