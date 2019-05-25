@@ -142,16 +142,13 @@ export class GameComponent implements OnInit, OnDestroy {
             this.gameEnded = true;
           }
           if (this.shotUnabled === true) {
-            // this.openSnackBar("Your turn", 'CZEKEJ')
             this.turnMessage = 'YOUR TURN';
           }
           if (this.updateMyBoard.field != null) {
             console.log(this.shipCells);
             if (this.shipCells.includes(this.updateMyBoard.field.id)) {
-              //iksik
               this.shipHitX(this.updateMyBoard.field.id, 'L');
             } else {
-              //czerwone
               this.shipMissedColor(this.updateMyBoard.field.id, 'L');
             }
           }
@@ -164,7 +161,6 @@ export class GameComponent implements OnInit, OnDestroy {
     }
     );
   }
-  
   shipHitX(id, ch) {
     const fieldId = '#' + id + ch;
     console.log('field id = ' + fieldId);
@@ -172,7 +168,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   openSnackBar(message: string, color: string) {
-    this.snackBar.open(message, "", {
+    this.snackBar.open(message, '', {
       duration: 2000,
       panelClass: [color]
     });
@@ -201,7 +197,7 @@ export class GameComponent implements OnInit, OnDestroy {
   onClick(event) {
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue;
     this.counter++;
-    if (this.shotUnabled == false || this.counter > 1) { // TODO do przemyślenia mechanizm blokowania!
+    if (this.shotUnabled === false || this.counter > 1) { // TODO do przemyślenia mechanizm blokowania!
       this.openSnackBar(this.translatePopUp('NOT YOUR TURN'), 'notTurnPop');
     } else {
       this.postShot(value.substring(0, value.length - 1));
@@ -209,19 +205,18 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   postShot(value) {
-    let field = new Field(value);
-
+    const field = new Field(value);
     console.log(JSON.parse(JSON.stringify(field)));
     this.gameService.postShot(field, this.gameId).subscribe(
       data => {
         this.shotOutcome = JSON.parse(JSON.stringify(data));
         console.log('shot outcome: ' + this.shotOutcome.playerWon);
         console.log(this.shotOutcome.playerTurn);
-        console.log('lista filtóf '+ this.shotOutcome.neighbourFieldsOfSunkenShip);
+        console.log('lista filtóf ' + this.shotOutcome.neighbourFieldsOfSunkenShip);
         console.log(this.shotOutcome);
 
         if (this.shotOutcome.playerWon === true) {
-          this.openSnackBar(this.translatePopUp("WON"),'green'); // redirect needed
+          this.openSnackBar(this.translatePopUp('WON'), 'green'); // redirect needed
 
           this.summaryService.getSummary(this.gameId).subscribe(
             summaryData => {
@@ -230,23 +225,22 @@ export class GameComponent implements OnInit, OnDestroy {
               this.gameName = this.summaries[0].gameName;
             },
             error => {
-              console.log('cos poszlo nie tak :(')
+              console.log('cos poszlo nie tak :(');
             }
           );
-          this.gameEnded=true;
+          this.gameEnded = true;
         }
-        if(this.shotOutcome.neighbourFieldsOfSunkenShip != null){
-          for (let field of this.shotOutcome.neighbourFieldsOfSunkenShip) {
-            const id = '#' + field.id + 'R';
+        if (this.shotOutcome.neighbourFieldsOfSunkenShip != null) {
+          for (const neighbourField of this.shotOutcome.neighbourFieldsOfSunkenShip) {
+            const id = '#' + neighbourField.id + 'R';
             $(id).addClass('fired');
           }
         }
         if (this.shotOutcome.playerTurn === true) {
-          this.openSnackBar(this.translatePopUp("HIT"),'hitPop');
+          this.openSnackBar(this.translatePopUp('HIT'), 'hitPop');
           this.shipHitColor(this.shotOutcome.field.id);
-        }
-        else {
-          this.openSnackBar(this.translatePopUp("MISSED"),'missedPop');
+        } else {
+          this.openSnackBar(this.translatePopUp('MISSED'), 'missedPop');
           this.shipMissedColor(this.shotOutcome.field.id, 'R');
         }
       },
@@ -257,7 +251,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   randomShipsColor(randomShips) {
-    for (let ships of randomShips) {
+    for (const ships of randomShips) {
       const id = '#' + ships.id + 'L';
       $(id).addClass('ships');
     }
@@ -278,7 +272,7 @@ export class GameComponent implements OnInit, OnDestroy {
   getShips() {
     this.gameService.getShips(this.gameId).subscribe(
       data => {
-        var shipLocations: Array<String> = JSON.parse(data);
+        const shipLocations: Array<String> = JSON.parse(data);
         this.randomShipsColor(shipLocations);
         this.addIdToList(shipLocations);
       },
@@ -289,7 +283,7 @@ export class GameComponent implements OnInit, OnDestroy {
   }
 
   addIdToList(list) {
-    for (let ships of list) {
+    for (const ships of list) {
       this.shipCells.push(ships.id);
     }
   }
