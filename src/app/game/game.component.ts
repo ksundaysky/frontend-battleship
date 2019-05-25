@@ -29,12 +29,12 @@ export class GameComponent implements OnInit, OnDestroy {
   currentMessage: string;
   info: string;
   errorMessage: string;
-  shotUnabled: boolean = false;
+  shotUnabled = false;
   loop: any;
   multiply = 10;
   shotOutcome: ShotOutcome;
   updateMyBoard: ShotOutcome;
-  permission: boolean = true;
+  permission = true;
   gameReady: boolean;
   counter: number;
 
@@ -47,11 +47,12 @@ export class GameComponent implements OnInit, OnDestroy {
   private alive = true;
   gameId: number;
   turnMessage: string;
-  gameEnded:boolean = false;
+  gameEnded = false;
 
-  summaries:Summary;
-  gameName:string;
+  summaries: Summary;
+  gameName: string;
 
+  // tslint:disable-next-line:max-line-length
   constructor(private router: Router, private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar, private summaryService: SummaryService, private translate: TranslateService) { }
 
   ngOnInit() {
@@ -60,15 +61,15 @@ export class GameComponent implements OnInit, OnDestroy {
     this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
 
     this.gameService.getPermission(this.gameId).subscribe(
-      data=>{
+      data => {
         this.permission = true;
         // JSON.parse(data);
       },
-      error=>{
+      error => {
         this.permission = false;
         // JSON.parse(error);
       }
-    )
+    );
 
     this.gameReady = false;
 
@@ -82,7 +83,7 @@ export class GameComponent implements OnInit, OnDestroy {
           console.log(JSON.parse(JSON.stringify(data)));
           this.gameReady = JSON.parse(data);
           console.log('gameredy ' + this.gameReady);
-          if (this.gameReady == true) {
+          if (this.gameReady === true) {
             this.askForTurn();
           }
         },
@@ -98,7 +99,7 @@ export class GameComponent implements OnInit, OnDestroy {
     this.gameService.getPermission(this.gameId).subscribe(
       data => {
         console.log('mam permiszyn');
-        console.log("co to " + JSON.stringify(data));
+        console.log('co to' + JSON.stringify(data));
         this.permission = JSON.parse(JSON.stringify(data));
       },
       error => {
@@ -114,38 +115,35 @@ export class GameComponent implements OnInit, OnDestroy {
     this.subscriptionTurn = this.timerTurn$.subscribe(i => {
       this.gameService.getTurn(this.gameId).subscribe(
         data => {
-          this.turnMessage= "";
+          this.turnMessage = '';
           // console.log('sie pytam sie');
           this.updateMyBoard = JSON.parse(data);
           console.log(this.updateMyBoard);
           this.shotUnabled = this.updateMyBoard.playerTurn;
           console.log(this.shotUnabled);
-          var dateObj = Date.now();
-          var formatted = new DatePipe("en-US").transform(dateObj, 'yyyy-MM-dd HH:mm:ss');
+          const dateObj = Date.now();
+          const formatted = new DatePipe('en-US').transform(dateObj, 'yyyy-MM-dd HH:mm:ss');
           console.log('dupa' + this.updateMyBoard);
           if (this.updateMyBoard.message != null) {
-            $('.textarea').append(formatted + " " + this.updateMyBoard.message + "\n");
+            $('.textarea').append(formatted + ' ' + this.updateMyBoard.message + '\n');
           }
           if (this.updateMyBoard.playerWon === true) {
-           
-            this.openSnackBar(this.translatePopUp("LOST"),'lostPop'); // redirect needed
-            
+            this.openSnackBar(this.translatePopUp('LOST'), 'lostPop'); // redirect needed
             this.summaryService.getSummary(this.gameId).subscribe(
-              data=>{
-                this.summaries = JSON.parse(data);
+              summaryData => {
+                this.summaries = JSON.parse(summaryData);
                 console.log(this.summaries);
                 this.gameName = this.summaries[0].gameName;
               },
-              error=>{
-                console.log('cos poszlo nie tak :(')
+              error => {
+                console.log('cos poszlo nie tak :(');
               }
             );
-            this.gameEnded=true;
-            
+            this.gameEnded = true;
           }
           if (this.shotUnabled === true) {
             // this.openSnackBar("Your turn", 'CZEKEJ')
-            this.turnMessage = "YOUR TURN";
+            this.turnMessage = 'YOUR TURN';
           }
           if (this.updateMyBoard.field != null) {
             console.log(this.shipCells);
@@ -185,18 +183,18 @@ export class GameComponent implements OnInit, OnDestroy {
       this.subscriptionTurn.unsubscribe();
     }
     this.gameService.getEndGame(this.gameId).subscribe(
-      data=>{
+      data => {
           console.log(JSON.stringify(data));
       },
-      error=>{
+      error => {
         console.log(JSON.stringify(error));
 
       }
-    )
-    this.openSnackBar(this.translatePopUp("ENDGAME"),'endGamePop');
+    );
+    this.openSnackBar(this.translatePopUp('ENDGAME'), 'endGamePop');
   }
 
-      translatePopUp(toTranslate: string){
+      translatePopUp(toTranslate: string) {
         return this.translate.data[toTranslate] || toTranslate;
       }
 
@@ -204,7 +202,7 @@ export class GameComponent implements OnInit, OnDestroy {
     const value = (event.target || event.srcElement || event.currentTarget).attributes.id.nodeValue;
     this.counter++;
     if (this.shotUnabled == false || this.counter > 1) { // TODO do przemyślenia mechanizm blokowania!
-      this.openSnackBar(this.translatePopUp("NOT YOUR TURN"),'notTurnPop')
+      this.openSnackBar(this.translatePopUp('NOT YOUR TURN'), 'notTurnPop');
     } else {
       this.postShot(value.substring(0, value.length - 1));
     }
@@ -219,19 +217,19 @@ export class GameComponent implements OnInit, OnDestroy {
         this.shotOutcome = JSON.parse(JSON.stringify(data));
         console.log('shot outcome: ' + this.shotOutcome.playerWon);
         console.log(this.shotOutcome.playerTurn);
-        console.log('lista filtóf '+this.shotOutcome.neighbourFieldsOfSunkenShip);
+        console.log('lista filtóf '+ this.shotOutcome.neighbourFieldsOfSunkenShip);
         console.log(this.shotOutcome);
 
         if (this.shotOutcome.playerWon === true) {
           this.openSnackBar(this.translatePopUp("WON"),'green'); // redirect needed
 
           this.summaryService.getSummary(this.gameId).subscribe(
-            data=>{
-              this.summaries = JSON.parse(data);
+            summaryData => {
+              this.summaries = JSON.parse(summaryData);
               console.log(this.summaries);
               this.gameName = this.summaries[0].gameName;
             },
-            error=>{
+            error => {
               console.log('cos poszlo nie tak :(')
             }
           );

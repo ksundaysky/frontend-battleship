@@ -18,15 +18,12 @@ declare var require: any
 
 })
 
-
 export class AppComponent implements OnInit {
   private roles: string[];
   public authority: string;
   languages = ['pl','en'];
   wkbpJSON = require("../assets/json/wkbp.json");
   randomNumber: number;
-  
-  
 
   constructor(private tokenStorage: TokenStorageService, private translate: TranslateService, private router: Router) {   }
 
@@ -50,7 +47,7 @@ export class AppComponent implements OnInit {
       console.log("Wrong language specified");
       this.translate.use('en');
     }
-    
+
   }
 
   logout() {
