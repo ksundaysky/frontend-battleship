@@ -10,6 +10,7 @@ import { ConfigComponent } from './config/config.component';
 import { RandomshipsComponent } from './randomships/randomships.component';
 import { SummaryComponent } from './summary/summary.component';
 import { HowtoplayComponent } from './howtoplay/howtoplay.component';
+import { InstructionComponent } from './instruction/instruction.component';
 
 
 const routes: Routes = [
@@ -48,6 +49,10 @@ const routes: Routes = [
     {
         path: 'ships_placement/:id',
         component: RandomshipsComponent
+    },
+    {
+        path: 'instruction',
+        component: InstructionComponent
     },
     {
         path: '',

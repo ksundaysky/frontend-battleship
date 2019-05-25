@@ -1,9 +1,11 @@
+import { InstructionComponent } from './../instruction/instruction.component';
+import { HowtoplayComponent } from './../howtoplay/howtoplay.component';
 import { Component, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { GameService } from './game.service';
 import { Field } from './field';
 import * as $ from 'jquery';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig, MatBottomSheet } from '@angular/material';
 import { interval, Subscription, Observable, timer } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ShotOutcome } from './shotOutcome';
@@ -53,7 +55,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   isDisabled = false;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private router: Router, private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar, private summaryService: SummaryService, private translate: TranslateService) { }
+  constructor(private router: Router, private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar, private summaryService: SummaryService, private translate: TranslateService, private bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {
     this.levelsInBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -301,5 +303,9 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     for (const ships of list) {
       this.shipCells.push(ships.id);
     }
+  }
+
+  openBottomSheet(): void {
+    this.bottomSheet.open(InstructionComponent);
   }
 }

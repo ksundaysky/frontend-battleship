@@ -58,6 +58,7 @@ import {
 import { RandomshipsComponent } from './randomships/randomships.component';
 import { SummaryComponent } from './summary/summary.component';
 import { HowtoplayComponent } from './howtoplay/howtoplay.component';
+import { InstructionComponent } from './instruction/instruction.component';
 
 
 export function setupTranslateFactory(
@@ -78,7 +79,8 @@ export function setupTranslateFactory(
     ConfigComponent,
     RandomshipsComponent,
     SummaryComponent,
-    HowtoplayComponent
+    HowtoplayComponent,
+    InstructionComponent
   ],
   imports: [
     CommonModule,

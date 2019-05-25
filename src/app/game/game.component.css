@@ -21,6 +21,7 @@ td.battleshipBoard.ships{
 td.battleshipBoard.cross{
   background-image: url('../../assets/img/X.png');
   background-size: contain;
+  background-repeat: no-repeat;
 }
 
 td.battleshipBoard.fired:hover{

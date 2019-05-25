@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getAuthorities();
         // TODO: TRANSLATE SNACKBAR
-        this.openSnackBar("LOGIN", 'wonPop');
+        this.openSnackBar('LOGIN', 'wonPop');
         this.reloadPage();
       },
       error => {
@@ -57,11 +57,11 @@ export class LoginComponent implements OnInit {
   }
 
   reloadPage() {
-    window.location.replace("/home");
+    window.location.replace('/home');
   }
 
   async openSnackBar(message: string, color: string) {
-    this.snackBar.open(message, "", {
+    this.snackBar.open(message, '', {
       duration: 2000,
       panelClass: [color]
     });
