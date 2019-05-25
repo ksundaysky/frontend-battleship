@@ -59,6 +59,8 @@
     "SHOTS": "Shots",
     "HITS": "Hits",
     "RATIOL": "Shooting ratio",
+    "HELP": "Help",
+    "CAPITULATE": "Capitulate",
     "LOGIN AND REGISTER HEADER": "Signing up & Signing in",
     "LOGIN AND REGISTER BODY":"In order to play the game one needs to be created. We can either join game created by another user or make our own. But before such actions are made we need to be signed in. Making an account is fairly simple, head over to the Register section on the navigation bar at the top of site. Once in there will be register form waiting to be filled. If that was done properly, check in “I agree to terms and conditions” box, then click “Register” button. If everything was filled correctly you will be redirected to login form. Signing in will move us back to homepage, where all currently running games are listed",
     "HOMEPAGE HEADER": "Homepage",

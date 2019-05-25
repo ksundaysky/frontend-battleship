@@ -146,6 +146,9 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
             );
             this.gameEnded = true;
             this.isDisabled = true;
+            if (this.subscriptionTurn != null) {
+              this.subscriptionTurn.unsubscribe();
+            }
           }
           if (this.shotUnabled === true) {
             this.turnMessage = 'YOUR TURN';
@@ -238,6 +241,9 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
           );
           this.isDisabled = true;
           this.gameEnded = true;
+          if (this.subscriptionTurn != null) {
+            this.subscriptionTurn.unsubscribe();
+          }
         }
         if (this.shotOutcome.neighbourFieldsOfSunkenShip != null) {
           for (const neighbourField of this.shotOutcome.neighbourFieldsOfSunkenShip) {
@@ -265,7 +271,6 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     $('.container').addClass('disabled');
 
   }
-
 
   randomShipsColor(randomShips) {
     for (const ships of randomShips) {
@@ -297,6 +302,23 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       }
     );
+  }
+
+  capitulate() {
+    if (this.subscriptionTurn != null) {
+      this.subscriptionTurn.unsubscribe();
+    }
+    this.gameService.getEndGame(this.gameId).subscribe(
+      data => {
+          console.log(JSON.stringify(data));
+      },
+      error => {
+        console.log(JSON.stringify(error));
+
+      }
+    );
+    this.openSnackBar(this.translatePopUp('ENDGAME'), 'endGamePop');
+    this.router.navigateByUrl('home');
   }
 
   addIdToList(list) {

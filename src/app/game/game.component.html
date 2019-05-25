@@ -1,5 +1,4 @@
 <br>
-
 <div *ngIf='gameEnded' class="container center-div" style="max-width:850px;">
     <h1 >{{gameName}}</h1>
   <br><br>
@@ -45,9 +44,10 @@
         </tr>
       </table>
     </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-2">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-2" style="text-align: center">
       <h1>{{turnMessage | translate}}</h1>
-      <button (click)="openBottomSheet()">Pomoc</button>
+      <button  (click)="openBottomSheet()">{{'HELP' | translate}}</button>
+      <button  (click)="capitulate()">{{'CAPITULATE' | translate}}</button>
     </div>
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5" style="text-align:center;">
       <h1>{{'OPPONENT BOARD' | translate}}</h1>
