@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { GameService } from './game.service';
 import { Field } from './field';
 import * as $ from 'jquery';
@@ -19,8 +19,7 @@ import { TranslateService } from '../services/translate/translate.service';
   styleUrls: ['./game.component.css'],
 })
 
-export class GameComponent implements OnInit, OnDestroy {
-
+export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   levelsInBoard: number[];
   levelsInBoard1: number[];
@@ -51,12 +50,12 @@ export class GameComponent implements OnInit, OnDestroy {
 
   summaries: Summary;
   gameName: string;
+  isDisabled = false;
 
   // tslint:disable-next-line:max-line-length
   constructor(private router: Router, private gameService: GameService, private activatedRoute: ActivatedRoute, private snackBar: MatSnackBar, private summaryService: SummaryService, private translate: TranslateService) { }
 
   ngOnInit() {
-
     this.levelsInBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
 
@@ -94,6 +93,10 @@ export class GameComponent implements OnInit, OnDestroy {
     );
   }
 
+  ngAfterViewInit(): void {
+    // $( "#opponentsTable" ).addClass('disabled');
+  }
+
   getPermission() {
     this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
     this.gameService.getPermission(this.gameId).subscribe(
@@ -126,6 +129,9 @@ export class GameComponent implements OnInit, OnDestroy {
           console.log('dupa' + this.updateMyBoard);
           if (this.updateMyBoard.message != null) {
             $('.textarea').append(formatted + ' ' + this.updateMyBoard.message + '\n');
+            // $('.textarea').scrollTop = $('textarea').scrollHeight;
+            // const element = document.getElementById('textarea');
+            // element.scrollIntoView();
           }
           if (this.updateMyBoard.playerWon === true) {
             this.openSnackBar(this.translatePopUp('LOST'), 'lostPop'); // redirect needed
@@ -140,9 +146,12 @@ export class GameComponent implements OnInit, OnDestroy {
               }
             );
             this.gameEnded = true;
+            this.isDisabled = true;
           }
           if (this.shotUnabled === true) {
             this.turnMessage = 'YOUR TURN';
+          } else {
+            this.turnMessage = 'NOT YOUR TURN';
           }
           if (this.updateMyBoard.field != null) {
             console.log(this.shipCells);
@@ -228,6 +237,7 @@ export class GameComponent implements OnInit, OnDestroy {
               console.log('cos poszlo nie tak :(');
             }
           );
+          this.isDisabled = true;
           this.gameEnded = true;
         }
         if (this.shotOutcome.neighbourFieldsOfSunkenShip != null) {
@@ -249,6 +259,14 @@ export class GameComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  makeBoardDisabled() {
+    const toBeDisabled = document.getElementsByClassName('battleshipBoard');
+
+    $('.container').addClass('disabled');
+
+  }
+
 
   randomShipsColor(randomShips) {
     for (const ships of randomShips) {

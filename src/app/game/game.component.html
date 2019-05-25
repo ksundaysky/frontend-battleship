@@ -50,10 +50,10 @@
     </div>
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5" style="text-align:center;">
       <h1>{{'OPPONENT BOARD' | translate}}</h1>
-      <table class="battleshipBoard" *ngIf='gameReady'>
+      <table class="battleshipBoard" [ngClass]="{'disabled' : isDisabled}" id="opponent" *ngIf='gameReady'>
         <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard">
           <td *ngFor="let c of levelsInBoard;" class="battleshipBoard battleCell right" (click)="onClick($event)"
-            [attr.id]="i*multiply+c+'R'" [attr.disabled]="buttonDisabled"></td>
+            [attr.id]="i*multiply+c+'R'"></td>
         </tr>
       </table>
       <div *ngIf='!gameReady'>
@@ -64,7 +64,7 @@
   </div>
   <div class="row">
     <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-      <textarea rows='6' class="textarea" readonly></textarea>
+      <textarea rows='6' class="textarea" id="textarea" readonly></textarea>
     </div>
   </div>
 </div>
