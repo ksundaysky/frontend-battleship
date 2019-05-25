@@ -113,13 +113,11 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
   askForTurn() {
-
     this.subscriptionReady.unsubscribe();
     this.subscriptionTurn = this.timerTurn$.subscribe(i => {
       this.gameService.getTurn(this.gameId).subscribe(
         data => {
           this.turnMessage = '';
-          // console.log('sie pytam sie');
           this.updateMyBoard = JSON.parse(data);
           console.log(this.updateMyBoard);
           this.shotUnabled = this.updateMyBoard.playerTurn;
@@ -127,11 +125,10 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
           const dateObj = Date.now();
           const formatted = new DatePipe('en-US').transform(dateObj, 'yyyy-MM-dd HH:mm:ss');
           console.log('dupa' + this.updateMyBoard);
+          var textarea = document.getElementById('textarea');
+          textarea.scrollTop = textarea.scrollHeight;
           if (this.updateMyBoard.message != null) {
             $('.textarea').append(formatted + ' ' + this.updateMyBoard.message + '\n');
-            // $('.textarea').scrollTop = $('textarea').scrollHeight;
-            // const element = document.getElementById('textarea');
-            // element.scrollIntoView();
           }
           if (this.updateMyBoard.playerWon === true) {
             this.openSnackBar(this.translatePopUp('LOST'), 'lostPop'); // redirect needed
