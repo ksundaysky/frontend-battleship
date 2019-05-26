@@ -58,7 +58,7 @@
     "USER": "User",
     "SHOTS": "Shots",
     "HITS": "Hits",
-    "RATIOL": "Shooting ratio",
+    "WIN_RATIO": "Shooting ratio",
     "HELP": "Help",
     "CAPITULATE": "Capitulate",
     "LOGIN AND REGISTER HEADER": "Signing up & Signing in",
@@ -79,5 +79,7 @@
     "FLEET PLACEMENT BODY": "Before the actual games begins, each player randoms placement of his fleet on board. According to rules of placing the ships they can’t “touch” each other, which is worthy remembering throughout the game. Randomizing can be repeated until output is satisfying. When we are ready and fleet is placed on board click “Ready” button. Then we need to wait for our opponent to do the same. If both players are done and ready, game will be started automatically.",
     "GAME PLAY HEADER": "Gameplay",
     "GAME PLAY BODY": "Game is turn-base. Information about who has a turn currently is displayed in the middle of screen just above boards. While player has a turn he fires at chosen field. If shoot missed turns are switched and it’s time for our opponent to make his move. If shoot indeed hit a ship, then player receives another turn, he will continue to do so until he misses. Then again turn will be handled to the first player. This means that it is possible for a player that starts to sink whole enemy fleet without handling turn to his opponent (if one is lucky enough). Ship which is hit but still has remaining non-hit fields is treated as hit-but-not-sunken. One that has its all fields hit is treated as hit-and-sunken, which means that according to previous mentioned rules there are no ships on neighbour fields. Game will detect sunken ships and will mark all neighbouring fields with red colour. Shooting at field marked as red will handle turn to the opponent, but shooting at already hit or sunken ship will not. Once a player sunk all ships of enemy’s fleet he wins, and the game ends. Then both players are shown game summary containing game data and players statistics.",
-    "GREETING": "Developers team WKBP wishes you a pleasant gaming experience."
+    "GREETING": "Developers team WKBP wishes you a pleasant gaming experience.",
+    "REGULATIONS": "By registering, you consent to the processing of personal data for marketing and administrative purposes.",
+    "WAITING FOR OPPONENT": "Waiting for opponent"
 }

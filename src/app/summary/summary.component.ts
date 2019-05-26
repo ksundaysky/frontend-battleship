@@ -22,11 +22,10 @@ export class SummaryComponent implements OnInit {
     this.summaryService.getSummary(this.gameId).subscribe(
       data=>{
         this.summaries = JSON.parse(data);
-        console.log(this.summaries);
         this.gameName = this.summaries[0].gameName;
       },
       error=>{
-        console.log('cos poszlo nie tak :(')
+        console.log('error while fetching data');
       }
     );
   }
