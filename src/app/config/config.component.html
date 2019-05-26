@@ -3,7 +3,13 @@
     <mat-form-field class="config-form-width">
       <input matInput name="name" ngModel required #name="ngModel" placeholder="{{ 'GAME NAME' | translate }}">
     </mat-form-field>
-    <mat-slider class="config-form-width" min="10" max="15" step="1" [value]="10" name="dimension" ngModel required #dimension="ngModel"></mat-slider>
+    <!-- <mat-slider class="config-form-width" min="10" max="15" step="1" [value]="10" name="dimension" ngModel required #dimension="ngModel"></mat-slider> -->
+    <mat-form-field class="config-form-width">
+        <mat-label>{{ 'DIMENSION' | translate }}</mat-label>
+        <select matNativeControl required name="dimension" ngModel  #dimension="ngModel">
+            <option value="10">10X10</option>
+        </select>
+    </mat-form-field>
     <mat-form-field class="config-form-width">
         <mat-label>{{ 'AM I STARTING' | translate }}</mat-label>
         <select matNativeControl required name="whoStarts" ngModel  #whoStarts="ngModel">
@@ -17,6 +23,6 @@
             <option value="STANDARD">{{ 'STANDARD' | translate }}</option>
         </select>
     </mat-form-field>
-    <button *ngIf='dimension.value==10 && name.valid && whoStarts.valid && gameMode.valid' >{{ 'GAME' | translate }}</button>
+    <button *ngIf='dimension.value==10 && name.valid && whoStarts.valid && gameMode.valid' >{{ 'CREATE GAME' | translate }}</button>
   </form>
 </div>

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from './auth/token-storage.service';
 import { TranslateService } from './services/translate/translate.service';
+import { Router } from '@angular/router';
 
 export const serverUrl = 'https://battleship-wkbp-server.herokuapp.com';
 
+
+declare var require: any
 
 @Component({
   selector: 'app-root',
@@ -12,14 +15,14 @@ export const serverUrl = 'https://battleship-wkbp-server.herokuapp.com';
 
 })
 
-
 export class AppComponent implements OnInit {
   private roles: string[];
   public authority: string;
   languages = ['pl','en'];
-  
+  wkbpJSON = require("../assets/json/wkbp.json");
+  randomNumber: number;
 
-  constructor(private tokenStorage: TokenStorageService, private translate: TranslateService) {   }
+  constructor(private tokenStorage: TokenStorageService, private translate: TranslateService, private router: Router) {   }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
@@ -29,7 +32,9 @@ export class AppComponent implements OnInit {
         return true;
       });
     }
-
+    console.log(this.wkbpJSON.acronym)
+    this.randomNumber =  Math.floor((Math.random() * 3));
+    console.log(this.randomNumber)
   }
 
   setLang(string) {
@@ -39,11 +44,11 @@ export class AppComponent implements OnInit {
       console.log("Wrong language specified");
       this.translate.use('en');
     }
-    
+
   }
 
   logout() {
     this.tokenStorage.signOut();
-    window.location.reload();
+    window.location.replace("/home");
   }
 }
