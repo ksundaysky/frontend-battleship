@@ -25,7 +25,6 @@ export class SummaryComponent implements OnInit {
         this.gameName = this.summaries[0].gameName;
       },
       error=>{
-        console.log('error while fetching data');
       }
     );
   }

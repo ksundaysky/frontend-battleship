@@ -59,7 +59,6 @@ export class RandomshipsComponent implements OnInit {
         this.canIStart = true;
       },
       error => {
-        console.log(error);
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       }
     );

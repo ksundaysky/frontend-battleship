@@ -1,6 +1,6 @@
 import { InstructionComponent } from './../instruction/instruction.component';
 import { HowtoplayComponent } from './../howtoplay/howtoplay.component';
-import { Component, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { GameService } from './game.service';
 import { Field } from './field';
 import * as $ from 'jquery';
@@ -21,7 +21,7 @@ import { TranslateService } from '../services/translate/translate.service';
   styleUrls: ['./game.component.css'],
 })
 
-export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
+export class GameComponent implements OnInit, OnDestroy {
 
   levelsInBoard: number[];
   levelsInBoard1: number[];
@@ -64,11 +64,9 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     this.gameService.getPermission(this.gameId).subscribe(
       data => {
         this.permission = true;
-        // JSON.parse(data);
       },
       error => {
         this.permission = false;
-        // JSON.parse(error);
       }
     );
 
@@ -80,10 +78,7 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
 
       this.gameService.getReady(this.gameId).subscribe(
         data => {
-          console.log('sie pytam sie czy redy gra ');
-          console.log(JSON.parse(JSON.stringify(data)));
           this.gameReady = JSON.parse(data);
-          console.log('gameredy ' + this.gameReady);
           if (this.gameReady === true) {
             this.askForTurn();
           }
@@ -95,21 +90,13 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-  ngAfterViewInit(): void {
-    // $( "#opponentsTable" ).addClass('disabled');
-  }
-
   getPermission() {
     this.gameId = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
     this.gameService.getPermission(this.gameId).subscribe(
       data => {
-        console.log('mam permiszyn');
-        console.log('co to' + JSON.stringify(data));
         this.permission = JSON.parse(JSON.stringify(data));
       },
       error => {
-        console.log('nie mam permiszyn');
-        console.log(JSON.stringify(error));
         this.permission = JSON.parse(error);
       }
     );
@@ -121,12 +108,9 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
         data => {
           this.turnMessage = '';
           this.updateMyBoard = JSON.parse(data);
-          console.log(this.updateMyBoard);
           this.shotUnabled = this.updateMyBoard.playerTurn;
-          console.log(this.shotUnabled);
           const dateObj = Date.now();
           const formatted = new DatePipe('en-US').transform(dateObj, 'yyyy-MM-dd HH:mm:ss');
-          console.log('dupa' + this.updateMyBoard);
           var textarea = document.getElementById('textarea');
           textarea.scrollTop = textarea.scrollHeight;
           if (this.updateMyBoard.message != null) {
@@ -137,11 +121,9 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
             this.summaryService.getSummary(this.gameId).subscribe(
               summaryData => {
                 this.summaries = JSON.parse(summaryData);
-                console.log(this.summaries);
                 this.gameName = this.summaries[0].gameName;
               },
               error => {
-                console.log('cos poszlo nie tak :(');
               }
             );
             this.gameEnded = true;
@@ -156,7 +138,6 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
             this.turnMessage = 'NOT YOUR TURN';
           }
           if (this.updateMyBoard.field != null) {
-            console.log(this.shipCells);
             if (this.shipCells.includes(this.updateMyBoard.field.id)) {
               this.shipHitX(this.updateMyBoard.field.id, 'L');
             } else {
@@ -174,7 +155,6 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   shipHitX(id, ch) {
     const fieldId = '#' + id + ch;
-    console.log('field id = ' + fieldId);
     $(fieldId).addClass('cross');
   }
 
@@ -191,11 +171,8 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.gameService.getEndGame(this.gameId).subscribe(
       data => {
-          console.log(JSON.stringify(data));
       },
       error => {
-        console.log(JSON.stringify(error));
-
       }
     );
     this.openSnackBar(this.translatePopUp('ENDGAME'), 'endGamePop');
@@ -217,26 +194,19 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   postShot(value) {
     const field = new Field(value);
-    console.log(JSON.parse(JSON.stringify(field)));
     this.gameService.postShot(field, this.gameId).subscribe(
       data => {
         this.shotOutcome = JSON.parse(JSON.stringify(data));
-        console.log('shot outcome: ' + this.shotOutcome.playerWon);
-        console.log(this.shotOutcome.playerTurn);
-        console.log('lista filtóf ' + this.shotOutcome.neighbourFieldsOfSunkenShip);
-        console.log(this.shotOutcome);
-
+        
         if (this.shotOutcome.playerWon === true) {
           this.openSnackBar(this.translatePopUp('WON'), 'green'); // redirect needed
 
           this.summaryService.getSummary(this.gameId).subscribe(
             summaryData => {
               this.summaries = JSON.parse(summaryData);
-              console.log(this.summaries);
               this.gameName = this.summaries[0].gameName;
             },
             error => {
-              console.log('cos poszlo nie tak :(');
             }
           );
           this.isDisabled = true;
@@ -281,13 +251,11 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
 
   shipHitColor(id) {
     const fieldId = '#' + id + 'R';
-    console.log('field id = ' + fieldId);
     $(fieldId).addClass('hit');
   }
 
   shipMissedColor(id, ch) {
     const fieldId = '#' + id + ch;
-    console.log('field id = ' + fieldId);
     $(fieldId).addClass('fired');
   }
 
@@ -310,13 +278,11 @@ export class GameComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.gameService.getEndGame(this.gameId).subscribe(
       data => {
-          console.log(JSON.stringify(data));
       },
       error => {
-        console.log(JSON.stringify(error));
-
       }
     );
+    this.gameEnded=true;
     this.openSnackBar(this.translatePopUp('ENDGAME'), 'endGamePop');
     this.router.navigateByUrl('home');
   }

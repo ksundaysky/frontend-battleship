@@ -32,16 +32,13 @@ export class AppComponent implements OnInit {
         return true;
       });
     }
-    console.log(this.wkbpJSON.acronym)
     this.randomNumber =  Math.floor((Math.random() * 3));
-    console.log(this.randomNumber)
   }
 
   setLang(string) {
     if(this.languages.includes(string)){
       this.translate.use(string);
     }else{
-      console.log("Wrong language specified");
       this.translate.use('en');
     }
 

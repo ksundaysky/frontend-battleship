@@ -21,7 +21,6 @@ export class RegisterComponent implements OnInit {
   ngOnInit() { }
 
   onSubmit() {
-    console.log(this.form);
 
     this.signupInfo = new SignUpInfo(
       this.form.name,
@@ -31,7 +30,6 @@ export class RegisterComponent implements OnInit {
 
     this.authService.signUp(this.signupInfo).subscribe(
       data => {
-        console.log(data);
         this.isSignedUp = true;
         this.isSignUpFailed = false;
         //TODO TRANSLATE SNACKBAR
@@ -39,7 +37,6 @@ export class RegisterComponent implements OnInit {
         this.reloadPage();
       },
       error => {
-        console.log(error);
         this.errorMessage = error.error.message;
         this.isSignUpFailed = true;
       }
