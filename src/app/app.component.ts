@@ -3,7 +3,11 @@ import { TokenStorageService } from './auth/token-storage.service';
 import { TranslateService } from './services/translate/translate.service';
 import { Router } from '@angular/router';
 
-export const serverUrl = 'https://battleship-wkbp-server.herokuapp.com';
+// export const serverUrl = 'https://battleship-wkbp-server.herokuapp.com';
+// export const serverUrl = 'http://localhost:8081';
+export const serverUrl = 'https://battleships-tests.herokuapp.com';
+
+
 
 
 declare var require: any
