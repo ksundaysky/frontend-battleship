@@ -8,7 +8,6 @@ import { UserComponent } from './user/user.component';
 import { GameComponent } from './game/game.component';
 import { ConfigComponent } from './config/config.component';
 import { RandomshipsComponent } from './randomships/randomships.component';
-import { SummaryComponent } from './summary/summary.component';
 import { HowtoplayComponent } from './howtoplay/howtoplay.component';
 import { InstructionComponent } from './instruction/instruction.component';
 
@@ -21,10 +20,6 @@ const routes: Routes = [
     {
         path: 'game/:id',
         component: GameComponent
-    },
-    {
-        path: 'game/summary/:id',
-        component: SummaryComponent
     },
     {
         path: 'config',

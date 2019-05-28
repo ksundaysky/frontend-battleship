@@ -6,12 +6,11 @@ import { Field } from './field';
 import * as $ from 'jquery';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarConfig, MatBottomSheet } from '@angular/material';
-import { interval, Subscription, Observable, timer } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {Subscription, Observable, timer } from 'rxjs';
 import { ShotOutcome } from './shotOutcome';
 import { DatePipe } from '@angular/common';
-import { SummaryService } from '../summary/summary.service';
-import { Summary } from '../summary/summary';
+import { SummaryService } from './summary.service';
+import { Summary } from './summary';
 import { TranslateService } from '../services/translate/translate.service';
 
 
