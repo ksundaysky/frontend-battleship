@@ -1,26 +1,84 @@
-<br><br><br>
-<div class="container">
+<br>
+<div *ngIf='gameEnded' class="container center-div" style="max-width:850px;">
+    <h1 >{{gameName}}</h1>
+  <br><br>
+  
+    <table class="table table-responsive w-100 d-block d-md-table">
+      <thead class="thead-dark">
+        <tr>
+          <th class="top">{{ 'RESULT' | translate }}</th>
+          <th class="top">{{ 'USER' | translate }}</th>
+          <th class="top">{{ 'SHOTS' | translate }}</th>
+          <th class="top">{{ 'HITS' | translate }}</th>
+          <th class="top">{{ 'WIN_RATIO' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let summary of summaries ">
+        <tr  *ngIf='summary.winner===true' class="table-success">
+          <td>{{ 'WINNER' | translate}}</td>
+          <td>{{summary.user}}</td>
+          <td>{{summary.shots}}</td>
+          <td>{{summary.hits}}</td>
+          <td>{{summary.ratio}}%</td>
+        </tr>
+        <tr  *ngIf='summary.winner===false' class="table-danger">
+            <td>{{ 'LOOSER' | translate}}</td>
+            <td>{{summary.user}}</td>
+            <td>{{summary.shots}}</td>
+            <td>{{summary.hits}}</td>
+            <td>{{summary.ratio}}%</td>
+          </tr>
+      </ng-container>
+      </tbody>
+    </table>
+    <br><br>
+  </div>
+<div *ngIf='permission' class="container">
   <div class="row">
-    <div class="col-sm-5">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5" style="text-align:center;">
+      <h1>{{'MY BOARD' | translate}}</h1>
       <table class="battleshipBoard">
         <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard" id="myBoard">
           <td *ngFor="let c of levelsInBoard ;" class="battleshipBoard battleCell" [attr.id]="i*multiply+c+'L'"></td>
         </tr>
       </table>
     </div>
-    <div class="col-sm-2">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-2" style="text-align: center">
+      <h1>{{turnMessage | translate}}</h1>
+      <button  (click)="openBottomSheet()">{{'HELP' | translate}}</button>
+      <button  (click)="capitulate()">{{'CAPITULATE' | translate}}</button>
     </div>
-    <div class="col-sm-5">
-      <table class="battleshipBoard" *ngIf='gameReady'>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-5" style="text-align:center;">
+      <h1>{{'OPPONENT BOARD' | translate}}</h1>
+      <table class="battleshipBoard" [ngClass]="{'disabled' : isDisabled}" id="opponent" *ngIf='gameReady'>
         <tr *ngFor="let r of levelsInBoard;let i = index " class="battleshipBoard">
-          <td *ngFor="let c of levelsInBoard ;" class="battleshipBoard battleCell right" (click)="onClick($event)"
-            [attr.id]="i*multiply+c+'R'" [attr.disabled]="buttonDisabled"> </td>
+          <td *ngFor="let c of levelsInBoard;" class="battleshipBoard battleCell right" (click)="onClick($event)"
+            [attr.id]="i*multiply+c+'R'"></td>
         </tr>
       </table>
       <div *ngIf='!gameReady'>
-        <h1>{{ 'WAITING_FOR_OPPONENT' | translate}}</h1>
-        <img src="/assets/img/loading.gif">
-       <div>
+        <img src="/assets/img/loading.gif" class="center">
+        <h1>{{ 'WAITING FOR OPPONENT' | translate}}</h1>
+      </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <textarea rows='6' class="textarea" id="textarea" readonly></textarea>
+    </div>
+  </div>
+</div>
+<div *ngIf='!permission' class="container center-div"  style="text-align:center;">
+  <div class="row">
+    <div class="col-12">
+      <h1 style="color: magenta">{{'PERMISSION DIENED' | translate}}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12" >
+      <img src="../../assets/img/denied.gif" style="height:70%; width:auto;">
+    </div>
+  </div>
+
 </div>

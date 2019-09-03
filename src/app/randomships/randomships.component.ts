@@ -4,6 +4,7 @@ import { Field } from '../game/field';
 import { Router, ActivatedRoute } from '@angular/router'
 import * as $ from 'jquery';
 import { error } from 'util';
+import { GameService } from '../game/game.service';
 
 
 @Component({
@@ -17,18 +18,21 @@ export class RandomshipsComponent implements OnInit {
   shipCells = [];
   errorMessage: string;
   canIStart: boolean;
+  permission: boolean = true;
 
 
-  constructor(private router: Router, private randomShipsService: RandomShipsService, private activatedRoute: ActivatedRoute) { }
+  constructor(private router: Router, private randomShipsService: RandomShipsService, private activatedRoute: ActivatedRoute, private gameService: GameService) { }
 
   ngOnInit() {
+
     let id = parseInt(this.activatedRoute.snapshot.paramMap.get("id"));
 
     this.randomShipsService.getCreateGame(id).subscribe(
       data => {
+        this.permission = true;
       },
       error => {
-        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+        this.permission = false;
       }
     );
     this.boardLength = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -55,7 +59,6 @@ export class RandomshipsComponent implements OnInit {
         this.canIStart = true;
       },
       error => {
-        console.log(error);
         this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
       }
     );

@@ -8,7 +8,8 @@ import { UserComponent } from './user/user.component';
 import { GameComponent } from './game/game.component';
 import { ConfigComponent } from './config/config.component';
 import { RandomshipsComponent } from './randomships/randomships.component';
-import { SummaryComponent } from './summary/summary.component';
+import { HowtoplayComponent } from './howtoplay/howtoplay.component';
+import { InstructionComponent } from './instruction/instruction.component';
 
 
 const routes: Routes = [
@@ -21,16 +22,16 @@ const routes: Routes = [
         component: GameComponent
     },
     {
-        path: 'game/summary/:id',
-        component: SummaryComponent
-    },
-    {
         path: 'config',
         component: ConfigComponent
     },
     {
         path: 'user',
         component: UserComponent
+    },
+    {
+        path: 'howtoplay',
+        component: HowtoplayComponent
     },
     {
         path: 'auth/login',
@@ -43,6 +44,10 @@ const routes: Routes = [
     {
         path: 'ships_placement/:id',
         component: RandomshipsComponent
+    },
+    {
+        path: 'instruction',
+        component: InstructionComponent
     },
     {
         path: '',

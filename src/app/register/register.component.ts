@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../auth/auth.service';
 import { SignUpInfo } from '../auth/signup-info';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-register',
@@ -15,12 +16,11 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private snackBar: MatSnackBar) { }
 
   ngOnInit() { }
 
   onSubmit() {
-    console.log(this.form);
 
     this.signupInfo = new SignUpInfo(
       this.form.name,
@@ -30,15 +30,28 @@ export class RegisterComponent implements OnInit {
 
     this.authService.signUp(this.signupInfo).subscribe(
       data => {
-        console.log(data);
         this.isSignedUp = true;
         this.isSignUpFailed = false;
+        //TODO TRANSLATE SNACKBAR
+        this.openSnackBar("ZAREJESTROWANY", "MORDO");
+        this.reloadPage();
       },
       error => {
-        console.log(error);
         this.errorMessage = error.error.message;
         this.isSignUpFailed = true;
       }
     );
   }
+
+  reloadPage() {
+    window.location.replace("auth/login");
+  }
+
+  async openSnackBar(message: string, color: string) {
+    this.snackBar.open(message, "", {
+      duration: 2000,
+      panelClass: [color]
+    });
+  }
+
 }
